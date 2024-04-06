@@ -251,7 +251,7 @@ public class endpoint {
         while (i1.hasNext()) {
             GetUserProfileResponse.RunningEvent event = new GetUserProfileResponse.RunningEvent();
             Statement statement = i1.nextStatement();
-//            statements.add(statement);
+
             String statementString = statement.getObject().toString();
             System.out.println(statementString);
             Resource re = data.getResource(statementString);
@@ -259,15 +259,15 @@ public class endpoint {
             int conf = 0;
             while (i2.hasNext()) {
                 Statement statement2 = i2.nextStatement();
-//                statements.add(statement2);
+
                 String confStr = statement2.getString();
                 double confValue;
                 try {
-                    confValue = Double.parseDouble(confStr); // แปลง String เป็น double
+                    confValue = Double.parseDouble(confStr);
                 } catch (NumberFormatException e) {
                     continue;
                 }
-                int roundedConfValue = (int) Math.round(confValue); // แปลง double เป็น int โดยใช้ Math.round()
+                int roundedConfValue = (int) Math.round(confValue);
                 System.out.println("=> " + roundedConfValue);
                 if (roundedConfValue > conf) {
                     conf = roundedConfValue;
@@ -275,16 +275,7 @@ public class endpoint {
             }
             event.setRunningEventName(statementString);
             event.setConfidence(String.valueOf(conf));
-//            event.setDistrict("district");
-//            event.setRaceType("raceType");
-//            event.setTypeofEvent("typeofEvent");
-//            event.setPrice("price");
-//            event.setOrganization("organization");
-//            event.setActivityArea("activityArea");
-//            event.setStandard("standard");
-//            event.setLevel("level");
-//            event.setStartPeriod("startPeriod");
-//            event.setReward("reward");
+
 
             response.getRunningEvent().add(event);
             System.out.println(conf);
