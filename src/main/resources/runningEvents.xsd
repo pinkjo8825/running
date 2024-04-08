@@ -118,4 +118,33 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
+    <xs:element name="getAllEventsRequest">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="getAllEventsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="runningEvent" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element type="xs:string" name="runningEventName" />
+                            <xs:element type="xs:string" name="district" />
+                            <xs:element type="xs:string" name="raceType" />
+                            <xs:element type="xs:string" name="typeofEvent" />
+                            <xs:element type="xs:string" name="price" />
+                            <xs:element type="xs:string" name="organization" />
+                            <xs:element type="xs:string" name="activityArea" />
+                            <xs:element type="xs:string" name="standard" />
+                            <xs:element type="xs:string" name="level" />
+                            <xs:element type="xs:string" name="startPeriod" />
+                            <xs:element type="xs:string" name="reward" />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
 </xs:schema>
