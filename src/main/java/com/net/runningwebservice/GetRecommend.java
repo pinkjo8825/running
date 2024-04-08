@@ -138,7 +138,10 @@ public class GetRecommend {
                     conf = roundedConfValue;
                 }
             }
-            event.setRunningEventName(statementString);
+            String[] parts = statementString.split("#");
+            String extractedName = parts[1];
+
+            event.setRunningEventName(extractedName);
             event.setConfidence(String.valueOf(conf));
 //            event.setDistrict("district");
 //            event.setRaceType("raceType");

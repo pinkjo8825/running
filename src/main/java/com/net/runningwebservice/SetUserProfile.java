@@ -1,7 +1,5 @@
 package com.net.runningwebservice;
 
-
-
 import com.net.running_web_service.SetUserProfileRequest;
 import com.net.running_web_service.SetUserProfileResponse;
 import org.apache.jena.ontology.*;

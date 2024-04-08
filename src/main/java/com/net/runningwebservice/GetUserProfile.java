@@ -117,7 +117,10 @@ public class GetUserProfile {
                     conf = roundedConfValue;
                 }
             }
-            event.setRunningEventName(statementString);
+            String[] parts = statementString.split("#");
+            String extractedName = parts[1];
+
+            event.setRunningEventName(extractedName);
             event.setConfidence(String.valueOf(conf));
 
 

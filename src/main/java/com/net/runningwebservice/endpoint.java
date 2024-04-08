@@ -1,25 +1,10 @@
 package com.net.runningwebservice;
 
 import com.net.running_web_service.*;
-
-
-import org.apache.jena.ontology.*;
-import org.apache.jena.query.*;
-import org.apache.jena.rdf.model.*;
-import org.apache.jena.reasoner.Reasoner;
-import org.apache.jena.reasoner.rulesys.GenericRuleReasonerFactory;
-import org.apache.jena.util.PrintUtil;
-import org.apache.jena.vocabulary.RDF;
-import org.apache.jena.vocabulary.ReasonerVocabulary;
-import org.apache.jena.riot.RDFDataMgr;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
-
-import java.io.FileOutputStream;
-import java.io.IOException;
-
 
 @Endpoint
 public class endpoint {
