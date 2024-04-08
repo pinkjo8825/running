@@ -41,4 +41,9 @@ public class endpoint {
         return GetAllEvents.run(request);
     }
 
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "authRequest")
+    @ResponsePayload
+    public AuthResponse authRequest(@RequestPayload AuthRequest request) {
+        return Auth.run(request);
+    }
 }
