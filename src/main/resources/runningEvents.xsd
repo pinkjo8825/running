@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://net.com/running-web-service"
            targetNamespace="http://net.com/running-web-service" elementFormDefault="qualified">
+
     <xs:element name="setUserProfileRequest">
         <xs:complexType>
             <xs:sequence>
@@ -28,6 +29,7 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
     <xs:element name="getUserProfileRequest">
         <xs:complexType>
             <xs:sequence>
@@ -42,13 +44,24 @@
                     <xs:complexType>
                         <xs:sequence>
                             <xs:element type="xs:string" name="runningEventName" />
-                            <xs:element type="xs:string" name="confidence" />
+                            <xs:element type="xs:string" name="confidence" minOccurs="0"/>
+                            <xs:element type="xs:string" name="district" minOccurs="0"/>
+                            <xs:element type="xs:string" name="raceType" minOccurs="0"/>
+                            <xs:element type="xs:string" name="typeofEvent" minOccurs="0"/>
+                            <xs:element type="xs:string" name="price" minOccurs="0"/>
+                            <xs:element type="xs:string" name="organization" minOccurs="0"/>
+                            <xs:element type="xs:string" name="activityArea" minOccurs="0"/>
+                            <xs:element type="xs:string" name="standard" minOccurs="0"/>
+                            <xs:element type="xs:string" name="level" minOccurs="0"/>
+                            <xs:element type="xs:string" name="startPeriod" minOccurs="0"/>
+                            <xs:element type="xs:string" name="reward" minOccurs="0"/>
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
     <xs:element name="getRecommendEventRequest">
         <xs:complexType>
             <xs:sequence>
@@ -72,23 +85,24 @@
                     <xs:complexType>
                         <xs:sequence>
                             <xs:element type="xs:string" name="runningEventName" />
-                            <xs:element type="xs:string" name="confidence" />
-<!--                            <xs:element type="xs:string" name="District" />-->
-<!--                            <xs:element type="xs:string" name="RaceType" />-->
-<!--                            <xs:element type="xs:string" name="TypeofEvent" />-->
-<!--                            <xs:element type="xs:string" name="Price" />-->
-<!--                            <xs:element type="xs:string" name="Organization" />-->
-<!--                            <xs:element type="xs:string" name="ActivityArea" />-->
-<!--                            <xs:element type="xs:string" name="Standard" />-->
-<!--                            <xs:element type="xs:string" name="Level" />-->
-<!--                            <xs:element type="xs:string" name="StartPeriod" />-->
-<!--                            <xs:element type="xs:string" name="Reward" />-->
+                            <xs:element type="xs:string" name="confidence" minOccurs="0"/>
+                            <xs:element type="xs:string" name="district" minOccurs="0"/>
+                            <xs:element type="xs:string" name="raceType" minOccurs="0"/>
+                            <xs:element type="xs:string" name="typeofEvent" minOccurs="0"/>
+                            <xs:element type="xs:string" name="price" minOccurs="0"/>
+                            <xs:element type="xs:string" name="organization" minOccurs="0"/>
+                            <xs:element type="xs:string" name="activityArea" minOccurs="0"/>
+                            <xs:element type="xs:string" name="standard" minOccurs="0"/>
+                            <xs:element type="xs:string" name="level" minOccurs="0"/>
+                            <xs:element type="xs:string" name="startPeriod" minOccurs="0"/>
+                            <xs:element type="xs:string" name="reward" minOccurs="0"/>
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
     <xs:element name="getEventRequest">
         <xs:complexType>
             <xs:sequence>
@@ -112,6 +126,16 @@
                     <xs:complexType>
                         <xs:sequence>
                             <xs:element type="xs:string" name="runningEventName" />
+                            <xs:element type="xs:string" name="district" minOccurs="0"/>
+                            <xs:element type="xs:string" name="raceType" minOccurs="0"/>
+                            <xs:element type="xs:string" name="typeofEvent" minOccurs="0"/>
+                            <xs:element type="xs:string" name="price" minOccurs="0"/>
+                            <xs:element type="xs:string" name="organization" minOccurs="0"/>
+                            <xs:element type="xs:string" name="activityArea" minOccurs="0"/>
+                            <xs:element type="xs:string" name="standard" minOccurs="0"/>
+                            <xs:element type="xs:string" name="level" minOccurs="0"/>
+                            <xs:element type="xs:string" name="startPeriod" minOccurs="0"/>
+                            <xs:element type="xs:string" name="reward" minOccurs="0"/>
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
@@ -129,16 +153,16 @@
                     <xs:complexType>
                         <xs:sequence>
                             <xs:element type="xs:string" name="runningEventName" />
-                            <xs:element type="xs:string" name="district" />
-                            <xs:element type="xs:string" name="raceType" />
-                            <xs:element type="xs:string" name="typeofEvent" />
-                            <xs:element type="xs:string" name="price" />
-                            <xs:element type="xs:string" name="organization" />
-                            <xs:element type="xs:string" name="activityArea" />
-                            <xs:element type="xs:string" name="standard" />
-                            <xs:element type="xs:string" name="level" />
-                            <xs:element type="xs:string" name="startPeriod" />
-                            <xs:element type="xs:string" name="reward" />
+                            <xs:element type="xs:string" name="district" minOccurs="0"/>
+                            <xs:element type="xs:string" name="raceType" minOccurs="0"/>
+                            <xs:element type="xs:string" name="typeofEvent" minOccurs="0"/>
+                            <xs:element type="xs:string" name="price" minOccurs="0"/>
+                            <xs:element type="xs:string" name="organization" minOccurs="0"/>
+                            <xs:element type="xs:string" name="activityArea" minOccurs="0"/>
+                            <xs:element type="xs:string" name="standard" minOccurs="0"/>
+                            <xs:element type="xs:string" name="level" minOccurs="0"/>
+                            <xs:element type="xs:string" name="startPeriod" minOccurs="0"/>
+                            <xs:element type="xs:string" name="reward" minOccurs="0"/>
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
