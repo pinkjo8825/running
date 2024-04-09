@@ -6,6 +6,7 @@ import org.apache.jena.ontology.*;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.vocabulary.RDF;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -37,8 +38,9 @@ public class SetUserProfile {
         OntProperty userName = m.getDatatypeProperty(NS + "Username");
         OntProperty userNationality = m.getDatatypeProperty(NS + "UserNationality");
         OntProperty userSex = m.getDatatypeProperty(NS + "UserSex");
+        OntProperty password = m.getDatatypeProperty(NS + "Password");
 
-        System.out.println("Number of statements in OntModel: " + m.size());
+
 
         String userProfileName = request.getUsername();
         Resource userInstance = m.createResource(NS + userProfileName);
@@ -56,6 +58,7 @@ public class SetUserProfile {
         String levelReg = request.getLevel();
         String startPeriodReg = request.getStartPeriod();
         String rewardReg = request.getReward();
+        String plainPassword = request.getPassword();
 
         userInstance.addProperty(RDF.type, userClass);
         userInstance.addProperty(userName, userProfileName);
@@ -72,6 +75,14 @@ public class SetUserProfile {
         userInstance.addProperty(userLevelEvent, levelReg);
         userInstance.addProperty(userStartPeriod, startPeriodReg);
         userInstance.addProperty(userReward, rewardReg);
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String hashedPassword = encoder.encode(plainPassword);
+
+        userInstance.addProperty(password, hashedPassword);
+
+
+
 
         try (FileOutputStream out = new FileOutputStream(ontologyPath)) {
             m.write(out, "RDF/XML");

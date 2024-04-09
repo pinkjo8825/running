@@ -44,6 +44,7 @@ public class GetRecommend {
         OntProperty userStandardEvent = m.getDatatypeProperty(NS + "StandardEventInterest");
         OntProperty userName = m.getDatatypeProperty(NS + "Username");
 
+
         String userProfileName = "tempUserInf";
         Resource userInstance = m.createResource(NS + userProfileName);
 
