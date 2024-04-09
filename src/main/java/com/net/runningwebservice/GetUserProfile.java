@@ -43,8 +43,12 @@ public class GetUserProfile {
             String subject = claims.getBody().getSubject();
             if (subject.equals(username)) {
                 result = true;
+                response.setStatus("Success");
+            } else {
+                response.setStatus("Fail");
             }
         } catch (JwtException e) {
+            response.setStatus("Fail");
             System.out.println("JWT validation failed: " + e.getMessage());
         }
 

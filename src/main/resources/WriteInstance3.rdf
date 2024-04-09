@@ -29,6 +29,43 @@
       </owl:Restriction>
     </rdfs:subClassOf>
   </owl:Class>
+  <owl:Class>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#YouthUser"/>
+    </rdfs:subClassOf>
+    <owl:intersectionOf rdf:parseType="Collection">
+      <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#User"/>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <rdfs:Datatype>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdfs:Datatype>
+                <owl:withRestrictions rdf:parseType="Collection">
+                  <rdf:Description>
+                    <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
+                    >15</xsd:minInclusive>
+                  </rdf:Description>
+                </owl:withRestrictions>
+                <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+              </rdfs:Datatype>
+              <rdfs:Datatype>
+                <owl:withRestrictions rdf:parseType="Collection">
+                  <rdf:Description>
+                    <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
+                    >24</xsd:maxInclusive>
+                  </rdf:Description>
+                </owl:withRestrictions>
+                <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+              </rdfs:Datatype>
+            </owl:intersectionOf>
+          </rdfs:Datatype>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#UserAge"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
   <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#PhotographyTravelPlace">
     <rdfs:subClassOf>
       <owl:Class>
@@ -63,6 +100,43 @@
         </owl:intersectionOf>
       </owl:Class>
     </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#AdultUser"/>
+    </rdfs:subClassOf>
+    <owl:intersectionOf rdf:parseType="Collection">
+      <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#User"/>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <rdfs:Datatype>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdfs:Datatype>
+                <owl:withRestrictions rdf:parseType="Collection">
+                  <rdf:Description>
+                    <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
+                    >25</xsd:minInclusive>
+                  </rdf:Description>
+                </owl:withRestrictions>
+                <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+              </rdfs:Datatype>
+              <rdfs:Datatype>
+                <owl:withRestrictions rdf:parseType="Collection">
+                  <rdf:Description>
+                    <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
+                    >64</xsd:maxInclusive>
+                  </rdf:Description>
+                </owl:withRestrictions>
+                <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+              </rdfs:Datatype>
+            </owl:intersectionOf>
+          </rdfs:Datatype>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#UserAge"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </owl:intersectionOf>
   </owl:Class>
   <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Location">
     <owl:disjointWith>
@@ -102,33 +176,30 @@
     </rdfs:subClassOf>
   </owl:Class>
   <owl:Class>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
-    <owl:intersectionOf rdf:parseType="Collection">
-      <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
+    <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:hasValue>
-          <Activity rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Shopping">
-            <ActivityType>Shopping</ActivityType>
-            <ActivityName>Shopping</ActivityName>
-            <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-          </Activity>
-        </owl:hasValue>
+        <owl:hasValue>Rainy</owl:hasValue>
         <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
+          <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#WeatherForecast"/>
         </owl:onProperty>
       </owl:Restriction>
-    </owl:intersectionOf>
-  </owl:Class>
-  <owl:Class>
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#ShoppingTravelPlace"/>
     </rdfs:subClassOf>
     <owl:intersectionOf rdf:parseType="Collection">
-      <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
+      <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Weather"/>
       <owl:Restriction>
-        <owl:hasValue rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Shopping"/>
+        <owl:someValuesFrom>
+          <rdfs:Datatype>
+            <owl:withRestrictions rdf:parseType="Collection">
+              <rdf:Description>
+                <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
+                >50</xsd:minInclusive>
+              </rdf:Description>
+            </owl:withRestrictions>
+            <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+          </rdfs:Datatype>
+        </owl:someValuesFrom>
         <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
+          <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Precipitation"/>
         </owl:onProperty>
       </owl:Restriction>
     </owl:intersectionOf>
@@ -139,7 +210,13 @@
         <owl:intersectionOf rdf:parseType="Collection">
           <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
           <owl:Restriction>
-            <owl:hasValue rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Shopping"/>
+            <owl:hasValue>
+              <Activity rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Shopping">
+                <ActivityType>Shopping</ActivityType>
+                <ActivityName>Shopping</ActivityName>
+                <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+              </Activity>
+            </owl:hasValue>
             <owl:onProperty>
               <owl:ObjectProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
             </owl:onProperty>
@@ -161,6 +238,52 @@
         </owl:intersectionOf>
       </owl:Class>
     </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#SeniorUser"/>
+    </rdfs:subClassOf>
+    <owl:intersectionOf rdf:parseType="Collection">
+      <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#User"/>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <rdfs:Datatype>
+            <owl:withRestrictions rdf:parseType="Collection">
+              <rdf:Description>
+                <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
+                >65</xsd:minInclusive>
+              </rdf:Description>
+            </owl:withRestrictions>
+            <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+          </rdfs:Datatype>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#UserAge"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+  <owl:Class>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Weather"/>
+    <owl:intersectionOf rdf:parseType="Collection">
+      <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Weather"/>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <rdfs:Datatype>
+            <owl:withRestrictions rdf:parseType="Collection">
+              <rdf:Description>
+                <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
+                >50</xsd:minInclusive>
+              </rdf:Description>
+            </owl:withRestrictions>
+            <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+          </rdfs:Datatype>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Precipitation"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </owl:intersectionOf>
   </owl:Class>
   <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent">
     <owl:disjointWith>
@@ -199,67 +322,31 @@
     </rdfs:subClassOf>
   </owl:Class>
   <owl:Class>
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#AdultUser"/>
-    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
     <owl:intersectionOf rdf:parseType="Collection">
-      <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#User"/>
+      <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
       <owl:Restriction>
-        <owl:someValuesFrom>
-          <rdfs:Datatype>
-            <owl:intersectionOf rdf:parseType="Collection">
-              <rdfs:Datatype>
-                <owl:withRestrictions rdf:parseType="Collection">
-                  <rdf:Description>
-                    <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-                    >25</xsd:minInclusive>
-                  </rdf:Description>
-                </owl:withRestrictions>
-                <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
-              </rdfs:Datatype>
-              <rdfs:Datatype>
-                <owl:withRestrictions rdf:parseType="Collection">
-                  <rdf:Description>
-                    <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-                    >64</xsd:maxInclusive>
-                  </rdf:Description>
-                </owl:withRestrictions>
-                <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
-              </rdfs:Datatype>
-            </owl:intersectionOf>
-          </rdfs:Datatype>
-        </owl:someValuesFrom>
+        <owl:hasValue>
+          <Activity rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#WaterActivity">
+            <ActivityType>Water Activity</ActivityType>
+            <ActivityName>Water Activity</ActivityName>
+            <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+          </Activity>
+        </owl:hasValue>
         <owl:onProperty>
-          <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#UserAge"/>
+          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
         </owl:onProperty>
       </owl:Restriction>
     </owl:intersectionOf>
   </owl:Class>
   <owl:Class>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:hasValue>Rainy</owl:hasValue>
-        <owl:onProperty>
-          <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#WeatherForecast"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
     <owl:intersectionOf rdf:parseType="Collection">
-      <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Weather"/>
+      <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
       <owl:Restriction>
-        <owl:someValuesFrom>
-          <rdfs:Datatype>
-            <owl:withRestrictions rdf:parseType="Collection">
-              <rdf:Description>
-                <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-                >50</xsd:minInclusive>
-              </rdf:Description>
-            </owl:withRestrictions>
-            <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
-          </rdfs:Datatype>
-        </owl:someValuesFrom>
+        <owl:hasValue rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Shopping"/>
         <owl:onProperty>
-          <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Precipitation"/>
+          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
         </owl:onProperty>
       </owl:Restriction>
     </owl:intersectionOf>
@@ -280,34 +367,12 @@
   </owl:Class>
   <owl:Class>
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#SeniorUser"/>
+      <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#WaterActivityTravelPlace"/>
     </rdfs:subClassOf>
-    <owl:intersectionOf rdf:parseType="Collection">
-      <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#User"/>
-      <owl:Restriction>
-        <owl:someValuesFrom>
-          <rdfs:Datatype>
-            <owl:withRestrictions rdf:parseType="Collection">
-              <rdf:Description>
-                <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-                >65</xsd:minInclusive>
-              </rdf:Description>
-            </owl:withRestrictions>
-            <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
-          </rdfs:Datatype>
-        </owl:someValuesFrom>
-        <owl:onProperty>
-          <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#UserAge"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </owl:intersectionOf>
-  </owl:Class>
-  <owl:Class>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
     <owl:intersectionOf rdf:parseType="Collection">
       <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
       <owl:Restriction>
-        <owl:hasValue rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Photography"/>
+        <owl:hasValue rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#WaterActivity"/>
         <owl:onProperty>
           <owl:ObjectProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
         </owl:onProperty>
@@ -316,38 +381,16 @@
   </owl:Class>
   <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#CharityUser"/>
   <owl:Class>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Weather"/>
-    <owl:intersectionOf rdf:parseType="Collection">
-      <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Weather"/>
-      <owl:Restriction>
-        <owl:someValuesFrom>
-          <rdfs:Datatype>
-            <owl:withRestrictions rdf:parseType="Collection">
-              <rdf:Description>
-                <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-                >50</xsd:minInclusive>
-              </rdf:Description>
-            </owl:withRestrictions>
-            <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
-          </rdfs:Datatype>
-        </owl:someValuesFrom>
-        <owl:onProperty>
-          <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Precipitation"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </owl:intersectionOf>
-  </owl:Class>
-  <owl:Class>
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#WaterActivityTravelPlace"/>
+      <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#OutdoorTravelPlace"/>
     </rdfs:subClassOf>
     <owl:intersectionOf rdf:parseType="Collection">
       <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
       <owl:Restriction>
         <owl:hasValue>
-          <Activity rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#WaterActivity">
-            <ActivityType>Water Activity</ActivityType>
-            <ActivityName>Water Activity</ActivityName>
+          <Activity rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#OutdoorActivity">
+            <ActivityType>Outdoor Activity</ActivityType>
+            <ActivityName>Outdoor Activity</ActivityName>
             <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
           </Activity>
         </owl:hasValue>
@@ -357,57 +400,26 @@
       </owl:Restriction>
     </owl:intersectionOf>
   </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#FunUser"/>
   <owl:Class>
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#YouthUser"/>
-    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#ShoppingTravelPlace"/>
     <owl:intersectionOf rdf:parseType="Collection">
-      <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#User"/>
+      <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
       <owl:Restriction>
-        <owl:someValuesFrom>
-          <rdfs:Datatype>
-            <owl:intersectionOf rdf:parseType="Collection">
-              <rdfs:Datatype>
-                <owl:withRestrictions rdf:parseType="Collection">
-                  <rdf:Description>
-                    <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-                    >15</xsd:minInclusive>
-                  </rdf:Description>
-                </owl:withRestrictions>
-                <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
-              </rdfs:Datatype>
-              <rdfs:Datatype>
-                <owl:withRestrictions rdf:parseType="Collection">
-                  <rdf:Description>
-                    <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-                    >24</xsd:maxInclusive>
-                  </rdf:Description>
-                </owl:withRestrictions>
-                <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
-              </rdfs:Datatype>
-            </owl:intersectionOf>
-          </rdfs:Datatype>
-        </owl:someValuesFrom>
+        <owl:hasValue rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Shopping"/>
         <owl:onProperty>
-          <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#UserAge"/>
+          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
         </owl:onProperty>
       </owl:Restriction>
     </owl:intersectionOf>
   </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#FunUser"/>
   <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#OutdoorTravelPlace">
     <rdfs:subClassOf>
       <owl:Class>
         <owl:intersectionOf rdf:parseType="Collection">
           <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
           <owl:Restriction>
-            <owl:hasValue>
-              <Activity rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#OutdoorActivity">
-                <ActivityType>Outdoor Activity</ActivityType>
-                <ActivityName>Outdoor Activity</ActivityName>
-                <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-              </Activity>
-            </owl:hasValue>
+            <owl:hasValue rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#OutdoorActivity"/>
             <owl:onProperty>
               <owl:ObjectProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
             </owl:onProperty>
@@ -428,30 +440,6 @@
         </owl:intersectionOf>
       </owl:Class>
     </owl:equivalentClass>
-  </owl:Class>
-  <owl:Class>
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Rainy"/>
-    </rdfs:subClassOf>
-    <owl:intersectionOf rdf:parseType="Collection">
-      <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Weather"/>
-      <owl:Restriction>
-        <owl:someValuesFrom>
-          <rdfs:Datatype>
-            <owl:withRestrictions rdf:parseType="Collection">
-              <rdf:Description>
-                <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-                >50</xsd:minInclusive>
-              </rdf:Description>
-            </owl:withRestrictions>
-            <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
-          </rdfs:Datatype>
-        </owl:someValuesFrom>
-        <owl:onProperty>
-          <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Precipitation"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </owl:intersectionOf>
   </owl:Class>
   <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#CompetitiveUser"/>
   <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#User">
@@ -595,6 +583,41 @@
       </owl:Class>
     </owl:equivalentClass>
   </owl:Class>
+  <owl:Class>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#ChildrenUser"/>
+    <owl:intersectionOf rdf:parseType="Collection">
+      <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#User"/>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <rdfs:Datatype>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdfs:Datatype>
+                <owl:withRestrictions rdf:parseType="Collection">
+                  <rdf:Description>
+                    <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
+                    >0</xsd:minInclusive>
+                  </rdf:Description>
+                </owl:withRestrictions>
+                <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+              </rdfs:Datatype>
+              <rdfs:Datatype>
+                <owl:withRestrictions rdf:parseType="Collection">
+                  <rdf:Description>
+                    <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
+                    >14</xsd:maxInclusive>
+                  </rdf:Description>
+                </owl:withRestrictions>
+                <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+              </rdfs:Datatype>
+            </owl:intersectionOf>
+          </rdfs:Datatype>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#UserAge"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
   <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue">
     <rdfs:subClassOf>
       <owl:Restriction>
@@ -604,6 +627,30 @@
         </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Rainy"/>
+    </rdfs:subClassOf>
+    <owl:intersectionOf rdf:parseType="Collection">
+      <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Weather"/>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <rdfs:Datatype>
+            <owl:withRestrictions rdf:parseType="Collection">
+              <rdf:Description>
+                <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
+                >50</xsd:minInclusive>
+              </rdf:Description>
+            </owl:withRestrictions>
+            <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+          </rdfs:Datatype>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Precipitation"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </owl:intersectionOf>
   </owl:Class>
   <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Rainy">
     <rdfs:subClassOf>
@@ -663,48 +710,13 @@
     </owl:equivalentClass>
   </owl:Class>
   <owl:Class>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#PhotographyTravelPlace"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
     <owl:intersectionOf rdf:parseType="Collection">
       <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
       <owl:Restriction>
         <owl:hasValue rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Photography"/>
         <owl:onProperty>
           <owl:ObjectProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </owl:intersectionOf>
-  </owl:Class>
-  <owl:Class>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#ChildrenUser"/>
-    <owl:intersectionOf rdf:parseType="Collection">
-      <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#User"/>
-      <owl:Restriction>
-        <owl:someValuesFrom>
-          <rdfs:Datatype>
-            <owl:intersectionOf rdf:parseType="Collection">
-              <rdfs:Datatype>
-                <owl:withRestrictions rdf:parseType="Collection">
-                  <rdf:Description>
-                    <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-                    >0</xsd:minInclusive>
-                  </rdf:Description>
-                </owl:withRestrictions>
-                <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
-              </rdfs:Datatype>
-              <rdfs:Datatype>
-                <owl:withRestrictions rdf:parseType="Collection">
-                  <rdf:Description>
-                    <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-                    >14</xsd:maxInclusive>
-                  </rdf:Description>
-                </owl:withRestrictions>
-                <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
-              </rdfs:Datatype>
-            </owl:intersectionOf>
-          </rdfs:Datatype>
-        </owl:someValuesFrom>
-        <owl:onProperty>
-          <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#UserAge"/>
         </owl:onProperty>
       </owl:Restriction>
     </owl:intersectionOf>
@@ -857,32 +869,20 @@
       </owl:Class>
     </owl:equivalentClass>
   </owl:Class>
+  <owl:Class>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#PhotographyTravelPlace"/>
+    <owl:intersectionOf rdf:parseType="Collection">
+      <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Photography"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
   <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Cloudy">
     <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Weather"/>
-  </owl:Class>
-  <owl:Class>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#OutdoorTravelPlace"/>
-    <owl:intersectionOf rdf:parseType="Collection">
-      <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
-      <owl:Restriction>
-        <owl:hasValue rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#OutdoorActivity"/>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </owl:intersectionOf>
-  </owl:Class>
-  <owl:Class>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
-    <owl:intersectionOf rdf:parseType="Collection">
-      <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
-      <owl:Restriction>
-        <owl:hasValue rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#WaterActivity"/>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </owl:intersectionOf>
   </owl:Class>
   <owl:Class rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#WaterActivityTravelPlace">
     <rdfs:subClassOf>
@@ -1030,14 +1030,6 @@
     <rdfs:domain rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#User"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#isNear">
-    <rdfs:range>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:range>
     <rdfs:domain rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
     <rdfs:domain>
       <owl:Restriction>
@@ -1047,16 +1039,6 @@
         </owl:onProperty>
       </owl:Restriction>
     </rdfs:domain>
-    <rdfs:range>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:range>
-    <rdfs:range rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
-    <rdfs:range rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
     <rdfs:domain>
       <owl:Restriction>
         <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
@@ -1065,8 +1047,26 @@
         </owl:onProperty>
       </owl:Restriction>
     </rdfs:domain>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
+    <rdfs:range>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:range>
     <rdfs:domain rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    <rdfs:range>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:range>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasTravelPlace">
@@ -1756,19 +1756,15 @@
     </rdfs:subPropertyOf>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasLocation">
-    <rdfs:range>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasTravelPlace"/>
-      </owl:Restriction>
-    </rdfs:range>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Location"/>
     <rdfs:range>
       <owl:Restriction>
         <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
         <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
       </owl:Restriction>
     </rdfs:range>
-    <rdfs:range rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Location"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
     <rdfs:domain>
       <owl:Restriction>
         <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
@@ -1777,9 +1773,13 @@
         </owl:onProperty>
       </owl:Restriction>
     </rdfs:domain>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
     <rdfs:domain rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
+    <rdfs:range>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Weather"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasWeather"/>
+      </owl:Restriction>
+    </rdfs:range>
     <rdfs:domain>
       <owl:Restriction>
         <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
@@ -1788,45 +1788,12 @@
     </rdfs:domain>
     <rdfs:range>
       <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Weather"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasWeather"/>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasTravelPlace"/>
       </owl:Restriction>
     </rdfs:range>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRunningEventHistory">
-    <rdfs:domain>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRaceTypeInterest"/>
-      </owl:Restriction>
-    </rdfs:domain>
-    <rdfs:domain>
-      <owl:Class>
-        <owl:unionOf rdf:parseType="Collection">
-          <owl:Restriction>
-            <owl:hasValue>Female</owl:hasValue>
-            <owl:onProperty>
-              <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#UserSex"/>
-            </owl:onProperty>
-          </owl:Restriction>
-          <owl:Restriction>
-            <owl:hasValue>Male</owl:hasValue>
-            <owl:onProperty>
-              <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#UserSex"/>
-            </owl:onProperty>
-          </owl:Restriction>
-        </owl:unionOf>
-      </owl:Class>
-    </rdfs:domain>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
-    <rdfs:range rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
-    <rdfs:range>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Organization"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isOrganizedBy"/>
-      </owl:Restriction>
-    </rdfs:range>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#User"/>
     <rdfs:domain>
       <owl:Restriction>
         <owl:someValuesFrom>
@@ -1858,6 +1825,51 @@
         </owl:onProperty>
       </owl:Restriction>
     </rdfs:domain>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#User"/>
+    <rdfs:domain>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRaceTypeInterest"/>
+      </owl:Restriction>
+    </rdfs:domain>
+    <rdfs:range>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRaceType"/>
+      </owl:Restriction>
+    </rdfs:range>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <owl:Restriction>
+            <owl:hasValue>Female</owl:hasValue>
+            <owl:onProperty>
+              <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#UserSex"/>
+            </owl:onProperty>
+          </owl:Restriction>
+          <owl:Restriction>
+            <owl:hasValue>Male</owl:hasValue>
+            <owl:onProperty>
+              <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#UserSex"/>
+            </owl:onProperty>
+          </owl:Restriction>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:range>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Organization"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isOrganizedBy"/>
+      </owl:Restriction>
+    </rdfs:range>
+    <rdfs:range>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
+      </owl:Restriction>
+    </rdfs:range>
     <rdfs:domain>
       <owl:Restriction>
         <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
@@ -1866,18 +1878,6 @@
         </owl:onProperty>
       </owl:Restriction>
     </rdfs:domain>
-    <rdfs:range>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
-      </owl:Restriction>
-    </rdfs:range>
-    <rdfs:range>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRaceType"/>
-      </owl:Restriction>
-    </rdfs:range>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity">
     <rdfs:range rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
@@ -3557,6 +3557,44 @@
   <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Restaurant">
     <TravelPlaceType>Restaurant</TravelPlaceType>
   </owl:NamedIndividual>
+  <rdf:Description rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#PhuketWalkingStreetMarket">
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
+      </owl:Restriction>
+    </rdf:type>
+    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
+    <OpenTime rdf:datatype="http://www.w3.org/2001/XMLSchema#time"
+    >16:00:00</OpenTime>
+    <CloseTime rdf:datatype="http://www.w3.org/2001/XMLSchema#time"
+    >22:00:00</CloseTime>
+    <SubDistrict>Talat Yai</SubDistrict>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <TravelPlaceName>Phuket Walking Street Market</TravelPlaceName>
+    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
+    <CloseDay>Tuesday</CloseDay>
+    <District>MueangPhuketDistrict</District>
+    <CloseDay>Thursday</CloseDay>
+    <OpenDay>Sunday</OpenDay>
+    <CloseDay>Monday</CloseDay>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
+      </owl:Restriction>
+    </rdf:type>
+    <CloseDay>Wednesday</CloseDay>
+    <CloseDay>Saturday</CloseDay>
+    <CloseDay>Friday</CloseDay>
+    <Province>Phuket</Province>
+    <TravelPlaceType>StreetMarket</TravelPlaceType>
+  </rdf:Description>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#FunEvent"/>
+  <owl:AnnotationProperty rdf:about="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Monday">
+    <Weekday>Monday</Weekday>
+  </owl:NamedIndividual>
   <swrl:Imp>
     <swrl:head>
       <swrl:AtomList>
@@ -3681,61 +3719,6 @@
     <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
     >true</swrla:isRuleEnabled>
   </swrl:Imp>
-  <TravelPlace rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#PhuketWalkingStreetMarket">
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
-      </owl:Restriction>
-    </rdf:type>
-    <OpenTime rdf:datatype="http://www.w3.org/2001/XMLSchema#time"
-    >16:00:00</OpenTime>
-    <CloseTime rdf:datatype="http://www.w3.org/2001/XMLSchema#time"
-    >22:00:00</CloseTime>
-    <SubDistrict>Talat Yai</SubDistrict>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <TravelPlaceName>Phuket Walking Street Market</TravelPlaceName>
-    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
-    <CloseDay>Tuesday</CloseDay>
-    <District>MueangPhuketDistrict</District>
-    <CloseDay>Thursday</CloseDay>
-    <OpenDay>Sunday</OpenDay>
-    <CloseDay>Monday</CloseDay>
-    <CloseDay>Wednesday</CloseDay>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
-      </owl:Restriction>
-    </rdf:type>
-    <CloseDay>Saturday</CloseDay>
-    <CloseDay>Friday</CloseDay>
-    <Province>Phuket</Province>
-    <TravelPlaceType>StreetMarket</TravelPlaceType>
-  </TravelPlace>
-  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#FunEvent"/>
-  <owl:AnnotationProperty rdf:about="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
-  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Monday">
-    <Weekday>Monday</Weekday>
-  </owl:NamedIndividual>
-  <owl:Restriction>
-    <rdfs:subClassOf>
-      <owl:Class>
-        <owl:unionOf rdf:parseType="Collection">
-          <owl:Restriction>
-            <owl:hasValue>Female</owl:hasValue>
-            <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#UserSex"/>
-          </owl:Restriction>
-          <owl:Restriction>
-            <owl:hasValue>Male</owl:hasValue>
-            <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#UserSex"/>
-          </owl:Restriction>
-        </owl:unionOf>
-      </owl:Class>
-    </rdfs:subClassOf>
-    <owl:hasValue>Male</owl:hasValue>
-    <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#UserSex"/>
-  </owl:Restriction>
   <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Saturday"/>
   <User rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#exampleUserTest1">
     <EventPriceInterest>Average</EventPriceInterest>
@@ -3850,6 +3833,12 @@
         <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
       </owl:Restriction>
     </rdf:type>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRaceType"/>
+      </owl:Restriction>
+    </rdf:type>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
     <isOrganizedBy>
       <rdf:Description rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#PhuketNightRun">
@@ -3864,27 +3853,27 @@
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
       </rdf:Description>
     </isOrganizedBy>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRaceType"/>
-      </owl:Restriction>
-    </rdf:type>
     <TypeOfEvent>CompetitiveEvent</TypeOfEvent>
     <RunningEventName>Phuket Night Run 2019</RunningEventName>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Organization"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isOrganizedBy"/>
+      </owl:Restriction>
+    </rdf:type>
     <hasEventVenue>
       <rdf:Description rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#LimeLightAvenue">
         <VenueName>Lime Light Avenue</VenueName>
-        <rdf:type>
-          <owl:Restriction>
-            <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
-            <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
-          </owl:Restriction>
-        </rdf:type>
         <TravelPlaceType>ShoppingMall</TravelPlaceType>
         <OpenTime rdf:datatype="http://www.w3.org/2001/XMLSchema#time"
         >10:30:00</OpenTime>
         <OpenDay>Wednesday</OpenDay>
+        <rdf:type>
+          <owl:Restriction>
+            <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
+            <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
+          </owl:Restriction>
+        </rdf:type>
         <OpenDay>Friday</OpenDay>
         <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
         <OpenDay>Tuesday</OpenDay>
@@ -3895,30 +3884,29 @@
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
         <rdf:type>
           <owl:Restriction>
-            <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
-            <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
+            <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
+            <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
           </owl:Restriction>
         </rdf:type>
         <SubDistrict>Talat Yai</SubDistrict>
         <isNear>
-          <rdf:Description rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#GoldenDragonMonument">
+          <TravelPlace rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#GoldenDragonMonument">
             <SubDistrict>Talat Yai</SubDistrict>
             <hasActivity rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Photography"/>
             <OpenDay>Sunday</OpenDay>
+            <OpenDay>Tuesday</OpenDay>
+            <District>MueangPhuketDistrict</District>
+            <OpenDay>Saturday</OpenDay>
+            <TravelPlaceName>Golden Dragon Monument</TravelPlaceName>
+            <OpenTime rdf:datatype="http://www.w3.org/2001/XMLSchema#time"
+            >00:00:00</OpenTime>
+            <Province>Phuket</Province>
             <rdf:type>
               <owl:Restriction>
                 <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
                 <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
               </owl:Restriction>
             </rdf:type>
-            <OpenDay>Tuesday</OpenDay>
-            <District>MueangPhuketDistrict</District>
-            <OpenDay>Saturday</OpenDay>
-            <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
-            <TravelPlaceName>Golden Dragon Monument</TravelPlaceName>
-            <OpenTime rdf:datatype="http://www.w3.org/2001/XMLSchema#time"
-            >00:00:00</OpenTime>
-            <Province>Phuket</Province>
             <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
             <OpenDay>Wednesday</OpenDay>
             <rdf:type>
@@ -3934,7 +3922,7 @@
             >23:59:59</CloseTime>
             <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
             <TravelPlaceType>Point of Interest</TravelPlaceType>
-          </rdf:Description>
+          </TravelPlace>
         </isNear>
         <Province>Phuket</Province>
         <CloseTime rdf:datatype="http://www.w3.org/2001/XMLSchema#time"
@@ -3943,12 +3931,6 @@
         <OpenDay>Saturday</OpenDay>
       </rdf:Description>
     </hasEventVenue>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Organization"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isOrganizedBy"/>
-      </owl:Restriction>
-    </rdf:type>
     <Weekday>Saturday</Weekday>
     <LevelOfEvent>InternationalEvent</LevelOfEvent>
     <Date rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
@@ -3958,14 +3940,14 @@
   <RunningEventVenue rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#ThalangDistrict">
     <rdf:type>
       <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasTravelPlace"/>
       </owl:Restriction>
     </rdf:type>
     <rdf:type>
       <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Weather"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasWeather"/>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
       </owl:Restriction>
     </rdf:type>
     <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
@@ -3974,20 +3956,20 @@
     <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Location"/>
     <rdf:type>
       <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
-      </owl:Restriction>
-    </rdf:type>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasTravelPlace"/>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
       </owl:Restriction>
     </rdf:type>
     <rdf:type>
       <owl:Restriction>
         <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
         <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
+      </owl:Restriction>
+    </rdf:type>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Weather"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasWeather"/>
       </owl:Restriction>
     </rdf:type>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -4006,24 +3988,18 @@
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
       </rdf:Description>
     </isOrganizedBy>
-    <Year rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-    >2018</Year>
     <Date rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
     >05</Date>
-    <LevelOfEvent>InternationalEvent</LevelOfEvent>
-    <StandardOfEvent>StandardEvent</StandardOfEvent>
+    <Year rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
+    >2018</Year>
     <rdf:type>
       <owl:Restriction>
         <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Organization"/>
         <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isOrganizedBy"/>
       </owl:Restriction>
     </rdf:type>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRaceType"/>
-      </owl:Restriction>
-    </rdf:type>
+    <LevelOfEvent>InternationalEvent</LevelOfEvent>
+    <StandardOfEvent>StandardEvent</StandardOfEvent>
     <hasRaceType>
       <RaceType rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#PhuketHalfMarathon2018HalfMarathon">
         <StartPeriod>Morning</StartPeriod>
@@ -4044,30 +4020,23 @@
     </hasRaceType>
     <rdf:type>
       <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRaceType"/>
       </owl:Restriction>
     </rdf:type>
     <Month>August</Month>
     <hasEventVenue>
-      <rdf:Description rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#SaphanHinVenue">
+      <RunningEventVenue rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#SaphanHinVenue">
         <rdf:type>
           <owl:Restriction>
             <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
             <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
           </owl:Restriction>
         </rdf:type>
-        <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
-        <rdf:type>
-          <owl:Restriction>
-            <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
-            <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
-          </owl:Restriction>
-        </rdf:type>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
         <District>Mueang Phuket District</District>
         <isEventVenueOf>
-          <rdf:Description rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Phukethon2019">
+          <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Phukethon2019">
             <RunningEventName>Phukethon 2019</RunningEventName>
             <LevelOfEvent>InternationalEvent</LevelOfEvent>
             <hasRaceType>
@@ -4092,12 +4061,6 @@
             </hasRaceType>
             <Date rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
             >10</Date>
-            <rdf:type>
-              <owl:Restriction>
-                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
-                <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
-              </owl:Restriction>
-            </rdf:type>
             <Weekday>Saturday</Weekday>
             <hasRaceType>
               <RaceType rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#PKThon2019FunRun">
@@ -4125,13 +4088,6 @@
                 >16:00:00</StartTime>
               </RaceType>
             </hasRaceType>
-            <rdf:type>
-              <owl:Restriction>
-                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
-                <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRaceType"/>
-              </owl:Restriction>
-            </rdf:type>
-            <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
             <Weekday>Sunday</Weekday>
             <Date rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
             >09</Date>
@@ -4172,6 +4128,12 @@
                 <AgeCategory>Male 50-59</AgeCategory>
               </RaceType>
             </hasRaceType>
+            <rdf:type>
+              <owl:Restriction>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Organization"/>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isOrganizedBy"/>
+              </owl:Restriction>
+            </rdf:type>
             <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
             <hasRaceType>
               <MiniMarathon rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#PKThon2019MiniMarathon">
@@ -4196,53 +4158,59 @@
             <hasEventVenue rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#SaphanHinVenue"/>
             <rdf:type>
               <owl:Restriction>
-                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Organization"/>
-                <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isOrganizedBy"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRaceType"/>
+              </owl:Restriction>
+            </rdf:type>
+            <rdf:type>
+              <owl:Restriction>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
               </owl:Restriction>
             </rdf:type>
             <hasEventVenue>
               <TravelPlace rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#SaphanHinStadium">
-                <SubDistrict>Wichit</SubDistrict>
                 <rdf:type>
                   <owl:Restriction>
                     <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
                     <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
                   </owl:Restriction>
                 </rdf:type>
+                <SubDistrict>Wichit</SubDistrict>
                 <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
-                <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-                <isEventVenueOf rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Phukethon2019"/>
                 <rdf:type>
                   <owl:Restriction>
                     <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
                     <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
                   </owl:Restriction>
                 </rdf:type>
+                <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+                <isEventVenueOf rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Phukethon2019"/>
                 <VenueName>Saphan Hin Venue</VenueName>
                 <District>Mueang Phuket District</District>
                 <isNear>
                   <rdf:Description rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#SaphanHinPark">
-                    <rdf:type>
-                      <owl:Restriction>
-                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
-                        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
-                      </owl:Restriction>
-                    </rdf:type>
                     <CloseTime rdf:datatype="http://www.w3.org/2001/XMLSchema#time"
                     >23:59:59</CloseTime>
                     <OpenDay>Tuesday</OpenDay>
                     <OpenDay>Friday</OpenDay>
                     <TravelPlaceName>Saphan Hin Park</TravelPlaceName>
                     <OpenDay>Saturday</OpenDay>
+                    <rdf:type>
+                      <owl:Restriction>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
+                      </owl:Restriction>
+                    </rdf:type>
                     <isNear rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#SaphanHinStadium"/>
+                    <OpenDay>Monday</OpenDay>
+                    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
                     <rdf:type>
                       <owl:Restriction>
                         <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
                         <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
                       </owl:Restriction>
                     </rdf:type>
-                    <OpenDay>Monday</OpenDay>
-                    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
                     <OpenDay>Thursday</OpenDay>
                     <hasActivity rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Photography"/>
                     <District>MueangPhuketDistrict</District>
@@ -4281,14 +4249,20 @@
               </rdf:Description>
             </isOrganizedBy>
             <Month>November</Month>
-          </rdf:Description>
+          </owl:NamedIndividual>
         </isEventVenueOf>
         <Province>Phuket</Province>
         <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
         <isNear rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#SaphanHinPark"/>
+        <rdf:type>
+          <owl:Restriction>
+            <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
+            <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
+          </owl:Restriction>
+        </rdf:type>
         <VenueName>Saphan Hin Venue</VenueName>
         <SubDistrict>Wichit</SubDistrict>
-      </rdf:Description>
+      </RunningEventVenue>
     </hasEventVenue>
     <hasEventVenue rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#SaphanHinStadium"/>
     <TypeOfEvent>CompetitiveEvent</TypeOfEvent>
@@ -4306,24 +4280,24 @@
     </hasRaceType>
     <Weekday>Sunday</Weekday>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
+      </owl:Restriction>
+    </rdf:type>
     <RunningEventName>Phuket Half Marathon 2018</RunningEventName>
   </rdf:Description>
   <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#June"/>
-  <rdf:Description rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#TalatYai">
+  <RunningEventVenue rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#TalatYai">
     <rdf:type>
       <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
-      </owl:Restriction>
-    </rdf:type>
-    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasTravelPlace"/>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
       </owl:Restriction>
     </rdf:type>
     <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Location"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
     <rdf:type>
       <owl:Restriction>
         <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
@@ -4336,17 +4310,22 @@
         <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasWeather"/>
       </owl:Restriction>
     </rdf:type>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
     <rdf:type>
       <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
+      </owl:Restriction>
+    </rdf:type>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasTravelPlace"/>
       </owl:Restriction>
     </rdf:type>
     <LocationName>Talat Yai</LocationName>
     <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
     <SubDistrict>Talat Yai</SubDistrict>
-  </rdf:Description>
+  </RunningEventVenue>
   <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#January"/>
   <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#February"/>
   <rdf:Description rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#SaphanHin">
@@ -4427,6 +4406,24 @@
     <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Location"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </rdf:Description>
+  <owl:Restriction>
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <owl:Restriction>
+            <owl:hasValue>Female</owl:hasValue>
+            <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#UserSex"/>
+          </owl:Restriction>
+          <owl:Restriction>
+            <owl:hasValue>Male</owl:hasValue>
+            <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#UserSex"/>
+          </owl:Restriction>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:hasValue>Female</owl:hasValue>
+    <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#UserSex"/>
+  </owl:Restriction>
   <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Running">
     <SportName>Running</SportName>
   </owl:NamedIndividual>
@@ -4436,8 +4433,8 @@
   </owl:NamedIndividual>
   <RunningEventVenue rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#PhuketIndyMarket">
     <SubDistrict>Talat Yai</SubDistrict>
-    <TravelPlaceType>StreetMarket</TravelPlaceType>
     <CloseDay>Saturday</CloseDay>
+    <TravelPlaceType>StreetMarket</TravelPlaceType>
     <CloseDay>Sunday</CloseDay>
     <OpenDay>Wednesday</OpenDay>
     <CloseDay>Monday</CloseDay>
@@ -4448,13 +4445,13 @@
     <OpenTime rdf:datatype="http://www.w3.org/2001/XMLSchema#time"
     >16:00:00</OpenTime>
     <CloseDay>Tuesday</CloseDay>
-    <Province>Phuket</Province>
     <rdf:type>
       <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
       </owl:Restriction>
     </rdf:type>
+    <Province>Phuket</Province>
     <OpenDay>Thursday</OpenDay>
     <CloseTime rdf:datatype="http://www.w3.org/2001/XMLSchema#time"
     >22:00:00</CloseTime>
@@ -4462,8 +4459,8 @@
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
     <rdf:type>
       <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
       </owl:Restriction>
     </rdf:type>
   </RunningEventVenue>
@@ -4487,25 +4484,31 @@
     <TravelPlaceType>Accommodation</TravelPlaceType>
   </owl:NamedIndividual>
   <rdf:Description rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Phuket">
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
+      </owl:Restriction>
+    </rdf:type>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Weather"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasWeather"/>
+      </owl:Restriction>
+    </rdf:type>
     <LocationName>Phuket</LocationName>
+    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
     <rdf:type>
       <owl:Restriction>
         <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
         <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
       </owl:Restriction>
     </rdf:type>
-    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
     <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Location"/>
     <rdf:type>
       <owl:Restriction>
         <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
         <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
-      </owl:Restriction>
-    </rdf:type>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
       </owl:Restriction>
     </rdf:type>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -4515,12 +4518,6 @@
       <owl:Restriction>
         <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
         <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasTravelPlace"/>
-      </owl:Restriction>
-    </rdf:type>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Weather"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasWeather"/>
       </owl:Restriction>
     </rdf:type>
   </rdf:Description>
@@ -4621,8 +4618,8 @@
     >10:30:00</OpenTime>
     <rdf:type>
       <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
       </owl:Restriction>
     </rdf:type>
     <OpenDay>Tuesday</OpenDay>
@@ -4633,17 +4630,17 @@
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
     <Province>Phuket</Province>
     <TravelPlaceName>Central Floresta Phuket</TravelPlaceName>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
-      </owl:Restriction>
-    </rdf:type>
     <OpenDay>Sunday</OpenDay>
     <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
     <OpenDay>Saturday</OpenDay>
     <OpenDay>Wednesday</OpenDay>
     <District>MueangPhuketDistrict</District>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
+      </owl:Restriction>
+    </rdf:type>
     <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
     <OpenDay>Thursday</OpenDay>
   </rdf:Description>
@@ -4702,6 +4699,564 @@
     <StandardEventInterest>StandardEvent</StandardEventInterest>
     <StartPeriodInterest>Morning</StartPeriodInterest>
   </User>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Afternoon"/>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Island">
+    <TravelPlaceType>Island</TravelPlaceType>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#LocalEvent"/>
+  <User rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#exampleUserJ">
+    <UserNationality>Thai</UserNationality>
+    <hasRaceTypeInterest>Fun run</hasRaceTypeInterest>
+    <ActivityAreaInterest>Natural</ActivityAreaInterest>
+    <hasOrganizationInterest>Siriroj Hospital</hasOrganizationInterest>
+    <RewardInterest>Prize</RewardInterest>
+    <EventPriceInterest>Average</EventPriceInterest>
+    <TypeOfEventInterest>charity Event</TypeOfEventInterest>
+    <UserAge>30</UserAge>
+    <Username>exampleUserJ</Username>
+    <LevelEventInterest>International Event</LevelEventInterest>
+    <StandardEventInterest>Standard</StandardEventInterest>
+    <UserSex>Male</UserSex>
+    <StartPeriodInterest>Morning</StartPeriodInterest>
+    <LocationInterest>Thalang District</LocationInterest>
+  </User>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Cherngtalay">
+    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
+    <SubDistrict>Cherngtalay</SubDistrict>
+    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
+      </owl:Restriction>
+    </rdf:type>
+    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Location"/>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
+      </owl:Restriction>
+    </rdf:type>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Weather"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasWeather"/>
+      </owl:Restriction>
+    </rdf:type>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
+      </owl:Restriction>
+    </rdf:type>
+    <LocationName>Cherngtalay</LocationName>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasTravelPlace"/>
+      </owl:Restriction>
+    </rdf:type>
+  </owl:NamedIndividual>
+  <rdf:Description rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Rawai">
+    <LocationName>Rawai</LocationName>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Weather"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasWeather"/>
+      </owl:Restriction>
+    </rdf:type>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasTravelPlace"/>
+      </owl:Restriction>
+    </rdf:type>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
+      </owl:Restriction>
+    </rdf:type>
+    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Location"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <RaceType rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Prize">
+    <Reward>Prize</Reward>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </RaceType>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Museum">
+    <TravelPlaceType>Museum</TravelPlaceType>
+  </owl:NamedIndividual>
+  <rdf:Description rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Phukethon2020">
+    <StandardOfEvent>StandardEvent</StandardOfEvent>
+    <Weekday>Saturday</Weekday>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Organization"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isOrganizedBy"/>
+      </owl:Restriction>
+    </rdf:type>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRaceType"/>
+      </owl:Restriction>
+    </rdf:type>
+    <Month>November</Month>
+    <Year rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
+    >2020</Year>
+    <Weekday>Sunday</Weekday>
+    <hasEventVenue rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#SaphanHinStadium"/>
+    <RunningEventName>Phukethon 2020</RunningEventName>
+    <Date rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
+    >14</Date>
+    <hasRaceType>
+      <Marathon rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Pkthon2020Marathon">
+        <RaceDay rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
+        >2020-11-15</RaceDay>
+        <CutOffTime>6.30 Hours</CutOffTime>
+        <RunningEventPrice rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
+        >1200</RunningEventPrice>
+        <Price>Average</Price>
+        <StartPeriod>Morning</StartPeriod>
+        <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
+        <Reward>FinisherShirt</Reward>
+        <Reward>Medal</Reward>
+        <ActivityArea>Natural</ActivityArea>
+        <Reward>Certificate</Reward>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+        <StartTime rdf:datatype="http://www.w3.org/2001/XMLSchema#time"
+        >03:00:00</StartTime>
+        <RaceTypeName>Marathon</RaceTypeName>
+      </Marathon>
+    </hasRaceType>
+    <LevelOfEvent>InternationalEvent</LevelOfEvent>
+    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
+    <hasRaceType>
+      <FunRun rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Pkthon2020FunRun">
+        <RunningEventPrice rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
+        >400</RunningEventPrice>
+        <RaceTypeName>Fun Run</RaceTypeName>
+        <Reward>FinisherShirt</Reward>
+        <Price>Average</Price>
+        <Reward>Medal</Reward>
+        <ActivityArea>Natural</ActivityArea>
+        <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
+        <StartTime rdf:datatype="http://www.w3.org/2001/XMLSchema#time"
+        >05:00:00</StartTime>
+        <StartPeriod>Morning</StartPeriod>
+        <RaceDay rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
+        >2020-11-14</RaceDay>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+        <CutOffTime>1 hour</CutOffTime>
+      </FunRun>
+    </hasRaceType>
+    <hasEventVenue rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#SaphanHinVenue"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <hasRaceType>
+      <HalfMarathon rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Pkthon2020HalfMarathon">
+        <RaceTypeName>Half Marathon</RaceTypeName>
+        <RunningEventPrice rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
+        >950</RunningEventPrice>
+        <Reward>Medal</Reward>
+        <StartPeriod>Morning</StartPeriod>
+        <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
+        <Reward>Certificate</Reward>
+        <ActivityArea>Natural</ActivityArea>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+        <StartTime rdf:datatype="http://www.w3.org/2001/XMLSchema#time"
+        >04:45:00</StartTime>
+        <Price>Premium</Price>
+        <Reward>FinisherShirt</Reward>
+        <RaceDay rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
+        >2020-11-15</RaceDay>
+        <CutOffTime>3.30 hours</CutOffTime>
+      </HalfMarathon>
+    </hasRaceType>
+    <isOrganizedBy rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#MoveAsia"/>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
+      </owl:Restriction>
+    </rdf:type>
+    <TypeOfEvent>CompetitiveEvent</TypeOfEvent>
+    <Date rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
+    >15</Date>
+    <hasRaceType>
+      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Pkthon2020MiniMarathon">
+        <StartTime rdf:datatype="http://www.w3.org/2001/XMLSchema#time"
+        >05:30:00</StartTime>
+        <RunningEventPrice rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
+        >550</RunningEventPrice>
+        <StartPeriod>Morning</StartPeriod>
+        <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#MiniMarathon"/>
+        <RaceTypeName>Mini Marathon</RaceTypeName>
+        <Reward>Certificate</Reward>
+        <Price>Average</Price>
+        <Reward>Medal</Reward>
+        <ActivityArea>City</ActivityArea>
+        <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
+        <CutOffTime>2 hours</CutOffTime>
+        <Reward>FinisherShirt</Reward>
+        <RaceDay rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
+        >2020-11-14</RaceDay>
+      </owl:NamedIndividual>
+    </hasRaceType>
+  </rdf:Description>
+  <RunningEvent rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#BangkokAirwaysPhuketMarathon2017">
+    <RunningEventName>Bangkok Airways Phuket Marathon 2017</RunningEventName>
+    <hasEventVenue>
+      <rdf:Description rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#PhuketTown">
+        <VenueName>Phuket Town</VenueName>
+        <SubDistrict>Talat Yai</SubDistrict>
+        <Province>Phuket</Province>
+        <District>Mueang Phuket District</District>
+        <rdf:type>
+          <owl:Restriction>
+            <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
+            <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
+          </owl:Restriction>
+        </rdf:type>
+        <rdf:type>
+          <owl:Restriction>
+            <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
+            <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
+          </owl:Restriction>
+        </rdf:type>
+        <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+      </rdf:Description>
+    </hasEventVenue>
+    <StandardOfEvent>StandardEvent</StandardOfEvent>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Organization"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isOrganizedBy"/>
+      </owl:Restriction>
+    </rdf:type>
+    <TypeOfEvent>CompetitiveEvent</TypeOfEvent>
+    <hasRaceType>
+      <RaceType rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#BangkokAirwaysPhuketMarathon2017MiniMarathon">
+        <StartPeriod>Morning</StartPeriod>
+        <Reward>Medal</Reward>
+        <Reward>FinisherShirt</Reward>
+        <RaceTypeName>Mini Marathon</RaceTypeName>
+        <Price>Average</Price>
+        <ActivityArea>City</ActivityArea>
+        <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#MiniMarathon"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+      </RaceType>
+    </hasRaceType>
+    <LevelOfEvent>InternationalEvent</LevelOfEvent>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <hasRaceType>
+      <RaceType rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#BangkokAirwaysPhuketMarathon2017Marathon">
+        <StartPeriod>Morning</StartPeriod>
+        <Reward>Medal</Reward>
+        <Reward>FinisherShirt</Reward>
+        <RaceTypeName>Marathon</RaceTypeName>
+        <Price>Average</Price>
+        <ActivityArea>City</ActivityArea>
+        <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Marathon"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+      </RaceType>
+    </hasRaceType>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
+      </owl:Restriction>
+    </rdf:type>
+    <isOrganizedBy rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#BangkokAirways"/>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRaceType"/>
+      </owl:Restriction>
+    </rdf:type>
+    <hasRaceType>
+      <RaceType rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#BangkokAirwaysPhuketMarathon2017HalfMarathon">
+        <StartPeriod>Morning</StartPeriod>
+        <Reward>Medal</Reward>
+        <Reward>FinisherShirt</Reward>
+        <RaceTypeName>Half Marathon</RaceTypeName>
+        <Price>Average</Price>
+        <ActivityArea>City</ActivityArea>
+        <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#HalfMarathon"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+      </RaceType>
+    </hasRaceType>
+  </RunningEvent>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Spa">
+    <TravelPlaceType>Spa</TravelPlaceType>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#InternationalEvent"/>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#May"/>
+  <User rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#exampleUserF">
+    <ActivityAreaInterest>Natural</ActivityAreaInterest>
+    <Username>exampleUserF</Username>
+    <TypeOfEventInterest>CompetitiveEvent</TypeOfEventInterest>
+    <hasOrganizationInterest>Rawai Municipality</hasOrganizationInterest>
+    <LevelEventInterest>LocalEvent</LevelEventInterest>
+    <UserNationality>thai</UserNationality>
+    <EventPriceInterest>Average</EventPriceInterest>
+    <LocationInterest>Mueang Phuket District</LocationInterest>
+    <StandardEventInterest>StandardEvent</StandardEventInterest>
+    <RewardInterest>Trophy</RewardInterest>
+    <UserAge>12</UserAge>
+    <hasRaceTypeInterest>Fun run</hasRaceTypeInterest>
+    <StartPeriodInterest>Afternoon</StartPeriodInterest>
+    <UserSex>male</UserSex>
+  </User>
+  <owl:Restriction>
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <owl:Restriction>
+            <owl:hasValue>Female</owl:hasValue>
+            <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#UserSex"/>
+          </owl:Restriction>
+          <owl:Restriction>
+            <owl:hasValue>Male</owl:hasValue>
+            <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#UserSex"/>
+          </owl:Restriction>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:hasValue>Male</owl:hasValue>
+    <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#UserSex"/>
+  </owl:Restriction>
+  <rdf:Description rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#KathuWaterfall">
+    <Province>Phuket</Province>
+    <OpenTime rdf:datatype="http://www.w3.org/2001/XMLSchema#time"
+    >00:00:00</OpenTime>
+    <SubDistrict>Kathu</SubDistrict>
+    <OpenDay>Sunday</OpenDay>
+    <TravelPlaceType>Nature and Park</TravelPlaceType>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
+      </owl:Restriction>
+    </rdf:type>
+    <OpenDay>Friday</OpenDay>
+    <OpenDay>Thursday</OpenDay>
+    <hasActivity rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#WaterActivity"/>
+    <OpenDay>Tuesday</OpenDay>
+    <District>KathuDistrict</District>
+    <OpenDay>Wednesday</OpenDay>
+    <OpenDay>Monday</OpenDay>
+    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
+    <OpenDay>Saturday</OpenDay>
+    <CloseTime rdf:datatype="http://www.w3.org/2001/XMLSchema#time"
+    >23:59:59</CloseTime>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
+      </owl:Restriction>
+    </rdf:type>
+    <hasActivity rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Photography"/>
+    <TravelPlaceName>Kathu Waterfall</TravelPlaceName>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
+  </rdf:Description>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#NonStandardEvent"/>
+  <RaceType rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Economy">
+    <Price>Economy</Price>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </RaceType>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Friday"/>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Tuesday">
+    <Weekday>Tuesday</Weekday>
+  </owl:NamedIndividual>
+  <rdf:Description rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Patong">
+    <LocationName>Patong</LocationName>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Weather"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasWeather"/>
+      </owl:Restriction>
+    </rdf:type>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasTravelPlace"/>
+      </owl:Restriction>
+    </rdf:type>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
+      </owl:Restriction>
+    </rdf:type>
+    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Location"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#CharityEvent"/>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Phukethon2019DateTime"/>
+  <User rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#exampleUserN">
+    <TypeOfEventInterest>CharityEvent</TypeOfEventInterest>
+    <LevelEventInterest>InternationalEvent</LevelEventInterest>
+    <StartPeriodInterest>Afternoon</StartPeriodInterest>
+    <Username>exampleUserN</Username>
+    <hasRaceTypeInterest>Mini Marathon</hasRaceTypeInterest>
+    <UserAge>3</UserAge>
+    <LocationInterest>Kathu District</LocationInterest>
+    <UserNationality>japan</UserNationality>
+    <StandardEventInterest>StandardEvent</StandardEventInterest>
+    <ActivityAreaInterest>Natural</ActivityAreaInterest>
+    <hasOrganizationInterest>Red Cross Phuket</hasOrganizationInterest>
+    <RewardInterest>Medal</RewardInterest>
+    <EventPriceInterest>Premium</EventPriceInterest>
+    <UserSex>male</UserSex>
+  </User>
+  <swrl:Imp>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+        <rdf:first>
+          <swrl:IndividualPropertyAtom>
+            <swrl:argument2 rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#re"/>
+            <swrl:argument1 rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#re"/>
+            <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRecommend"/>
+          </swrl:IndividualPropertyAtom>
+        </rdf:first>
+      </swrl:AtomList>
+    </swrl:head>
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:rest>
+          <swrl:AtomList>
+            <rdf:rest>
+              <swrl:AtomList>
+                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                <rdf:first>
+                  <swrl:DatavaluedPropertyAtom>
+                    <swrl:argument2>InternationalEvent</swrl:argument2>
+                    <swrl:argument1 rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#racetype"/>
+                    <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#LevelOfEvent"/>
+                  </swrl:DatavaluedPropertyAtom>
+                </rdf:first>
+              </swrl:AtomList>
+            </rdf:rest>
+            <rdf:first>
+              <swrl:IndividualPropertyAtom>
+                <swrl:argument2 rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#racetype"/>
+                <swrl:argument1 rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#re"/>
+                <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRaceType"/>
+              </swrl:IndividualPropertyAtom>
+            </rdf:first>
+          </swrl:AtomList>
+        </rdf:rest>
+        <rdf:first>
+          <swrl:ClassAtom>
+            <swrl:argument1 rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#re"/>
+            <swrl:classPredicate rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
+          </swrl:ClassAtom>
+        </rdf:first>
+      </swrl:AtomList>
+    </swrl:body>
+    <rdfs:label>S3</rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
+    >true</swrla:isRuleEnabled>
+  </swrl:Imp>
+  <User rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#exampleUserLDR">
+    <StartPeriodInterest>Morning</StartPeriodInterest>
+    <EventPriceInterest>Average</EventPriceInterest>
+    <hasRaceTypeInterest>Mini Marathon</hasRaceTypeInterest>
+    <hasOrganizationInterest>Siriroj Hospital</hasOrganizationInterest>
+    <Username>exampleUserLDR</Username>
+    <UserSex>f</UserSex>
+    <UserAge>12</UserAge>
+    <TypeOfEventInterest>CompetitiveEvent</TypeOfEventInterest>
+    <ActivityAreaInterest>Natural</ActivityAreaInterest>
+    <StandardEventInterest>StandardEvent</StandardEventInterest>
+    <LevelEventInterest>InternationalEvent</LevelEventInterest>
+    <UserNationality>thai</UserNationality>
+    <RewardInterest>Prize</RewardInterest>
+    <LocationInterest>Kathu District</LocationInterest>
+  </User>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Beach">
+    <TravelPlaceType>Beach</TravelPlaceType>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#August"/>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#PopularEvent"/>
+  <rdf:Description rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#ChillvaMarket">
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
+      </owl:Restriction>
+    </rdf:type>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <CloseDay>Sunday</CloseDay>
+    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
+    <OpenDay>Wednesday</OpenDay>
+    <Province>Phuket</Province>
+    <OpenDay>Monday</OpenDay>
+    <OpenDay>Friday</OpenDay>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
+      </owl:Restriction>
+    </rdf:type>
+    <OpenDay>Thursday</OpenDay>
+    <TravelPlaceName>Chillva Market</TravelPlaceName>
+    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
+    <CloseTime rdf:datatype="http://www.w3.org/2001/XMLSchema#time"
+    >23:00:00</CloseTime>
+    <District>MueangPhuketDistrict</District>
+    <OpenDay>Tuesday</OpenDay>
+    <OpenTime rdf:datatype="http://www.w3.org/2001/XMLSchema#time"
+    >17:00:00</OpenTime>
+    <OpenDay>Saturday</OpenDay>
+    <TravelPlaceType>StreetMarket</TravelPlaceType>
+    <SubDistrict>Ratsada</SubDistrict>
+  </rdf:Description>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Evening"/>
+  <rdf:Description rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#KathuDistrict">
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
+      </owl:Restriction>
+    </rdf:type>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasTravelPlace"/>
+      </owl:Restriction>
+    </rdf:type>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Weather"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasWeather"/>
+      </owl:Restriction>
+    </rdf:type>
+    <LocationName>Kathu District</LocationName>
+    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Location"/>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
+      </owl:Restriction>
+    </rdf:type>
+    <District>Kathu District</District>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
+      </owl:Restriction>
+    </rdf:type>
+    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
+  </rdf:Description>
   <swrl:Imp>
     <swrl:head>
       <swrl:AtomList>
@@ -4764,506 +5319,19 @@
     <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
     >true</swrla:isRuleEnabled>
   </swrl:Imp>
-  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Afternoon"/>
-  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Island">
-    <TravelPlaceType>Island</TravelPlaceType>
-  </owl:NamedIndividual>
-  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#LocalEvent"/>
-  <User rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#exampleUserJ">
-    <UserNationality>Thai</UserNationality>
-    <hasRaceTypeInterest>Fun run</hasRaceTypeInterest>
-    <ActivityAreaInterest>Natural</ActivityAreaInterest>
-    <hasOrganizationInterest>Siriroj Hospital</hasOrganizationInterest>
-    <RewardInterest>Prize</RewardInterest>
-    <EventPriceInterest>Average</EventPriceInterest>
-    <TypeOfEventInterest>charity Event</TypeOfEventInterest>
-    <UserAge>30</UserAge>
-    <Username>exampleUserJ</Username>
-    <LevelEventInterest>International Event</LevelEventInterest>
-    <StandardEventInterest>Standard</StandardEventInterest>
-    <UserSex>Male</UserSex>
-    <StartPeriodInterest>Morning</StartPeriodInterest>
-    <LocationInterest>Thalang District</LocationInterest>
-  </User>
-  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Cherngtalay">
-    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
-    <SubDistrict>Cherngtalay</SubDistrict>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasTravelPlace"/>
-      </owl:Restriction>
-    </rdf:type>
-    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
-    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Location"/>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
-      </owl:Restriction>
-    </rdf:type>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Weather"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasWeather"/>
-      </owl:Restriction>
-    </rdf:type>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
-      </owl:Restriction>
-    </rdf:type>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
-      </owl:Restriction>
-    </rdf:type>
-    <LocationName>Cherngtalay</LocationName>
-  </owl:NamedIndividual>
-  <rdf:Description rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Rawai">
-    <LocationName>Rawai</LocationName>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Weather"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasWeather"/>
-      </owl:Restriction>
-    </rdf:type>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasTravelPlace"/>
-      </owl:Restriction>
-    </rdf:type>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
-      </owl:Restriction>
-    </rdf:type>
-    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Location"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </rdf:Description>
-  <RaceType rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Prize">
-    <Reward>Prize</Reward>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </RaceType>
-  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Museum">
-    <TravelPlaceType>Museum</TravelPlaceType>
-  </owl:NamedIndividual>
-  <rdf:Description rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Phukethon2020">
-    <StandardOfEvent>StandardEvent</StandardOfEvent>
-    <Weekday>Saturday</Weekday>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
-      </owl:Restriction>
-    </rdf:type>
-    <Month>November</Month>
-    <Year rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-    >2020</Year>
-    <Weekday>Sunday</Weekday>
-    <hasEventVenue rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#SaphanHinStadium"/>
-    <RunningEventName>Phukethon 2020</RunningEventName>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Organization"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isOrganizedBy"/>
-      </owl:Restriction>
-    </rdf:type>
-    <Date rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-    >14</Date>
-    <hasRaceType>
-      <Marathon rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Pkthon2020Marathon">
-        <RaceDay rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
-        >2020-11-15</RaceDay>
-        <CutOffTime>6.30 Hours</CutOffTime>
-        <RunningEventPrice rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-        >1200</RunningEventPrice>
-        <Price>Average</Price>
-        <StartPeriod>Morning</StartPeriod>
-        <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
-        <Reward>FinisherShirt</Reward>
-        <Reward>Medal</Reward>
-        <ActivityArea>Natural</ActivityArea>
-        <Reward>Certificate</Reward>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-        <StartTime rdf:datatype="http://www.w3.org/2001/XMLSchema#time"
-        >03:00:00</StartTime>
-        <RaceTypeName>Marathon</RaceTypeName>
-      </Marathon>
-    </hasRaceType>
-    <LevelOfEvent>InternationalEvent</LevelOfEvent>
-    <hasRaceType>
-      <FunRun rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Pkthon2020FunRun">
-        <RunningEventPrice rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-        >400</RunningEventPrice>
-        <RaceTypeName>Fun Run</RaceTypeName>
-        <Reward>FinisherShirt</Reward>
-        <Price>Average</Price>
-        <Reward>Medal</Reward>
-        <ActivityArea>Natural</ActivityArea>
-        <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
-        <StartTime rdf:datatype="http://www.w3.org/2001/XMLSchema#time"
-        >05:00:00</StartTime>
-        <StartPeriod>Morning</StartPeriod>
-        <RaceDay rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
-        >2020-11-14</RaceDay>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-        <CutOffTime>1 hour</CutOffTime>
-      </FunRun>
-    </hasRaceType>
-    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRaceType"/>
-      </owl:Restriction>
-    </rdf:type>
-    <hasEventVenue rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#SaphanHinVenue"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <hasRaceType>
-      <HalfMarathon rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Pkthon2020HalfMarathon">
-        <RaceTypeName>Half Marathon</RaceTypeName>
-        <RunningEventPrice rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-        >950</RunningEventPrice>
-        <Reward>Medal</Reward>
-        <StartPeriod>Morning</StartPeriod>
-        <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
-        <Reward>Certificate</Reward>
-        <ActivityArea>Natural</ActivityArea>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-        <StartTime rdf:datatype="http://www.w3.org/2001/XMLSchema#time"
-        >04:45:00</StartTime>
-        <Price>Premium</Price>
-        <Reward>FinisherShirt</Reward>
-        <RaceDay rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
-        >2020-11-15</RaceDay>
-        <CutOffTime>3.30 hours</CutOffTime>
-      </HalfMarathon>
-    </hasRaceType>
-    <isOrganizedBy rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#MoveAsia"/>
-    <TypeOfEvent>CompetitiveEvent</TypeOfEvent>
-    <Date rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-    >15</Date>
-    <hasRaceType>
-      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Pkthon2020MiniMarathon">
-        <StartTime rdf:datatype="http://www.w3.org/2001/XMLSchema#time"
-        >05:30:00</StartTime>
-        <RunningEventPrice rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-        >550</RunningEventPrice>
-        <StartPeriod>Morning</StartPeriod>
-        <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#MiniMarathon"/>
-        <RaceTypeName>Mini Marathon</RaceTypeName>
-        <Reward>Certificate</Reward>
-        <Price>Average</Price>
-        <Reward>Medal</Reward>
-        <ActivityArea>City</ActivityArea>
-        <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
-        <CutOffTime>2 hours</CutOffTime>
-        <Reward>FinisherShirt</Reward>
-        <RaceDay rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
-        >2020-11-14</RaceDay>
-      </owl:NamedIndividual>
-    </hasRaceType>
-  </rdf:Description>
-  <RunningEvent rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#BangkokAirwaysPhuketMarathon2017">
-    <RunningEventName>Bangkok Airways Phuket Marathon 2017</RunningEventName>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRaceType"/>
-      </owl:Restriction>
-    </rdf:type>
-    <hasEventVenue>
-      <rdf:Description rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#PhuketTown">
-        <VenueName>Phuket Town</VenueName>
-        <SubDistrict>Talat Yai</SubDistrict>
-        <Province>Phuket</Province>
-        <District>Mueang Phuket District</District>
-        <rdf:type>
-          <owl:Restriction>
-            <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
-            <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
-          </owl:Restriction>
-        </rdf:type>
-        <rdf:type>
-          <owl:Restriction>
-            <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
-            <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
-          </owl:Restriction>
-        </rdf:type>
-        <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
-        <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </rdf:Description>
-    </hasEventVenue>
-    <StandardOfEvent>StandardEvent</StandardOfEvent>
-    <TypeOfEvent>CompetitiveEvent</TypeOfEvent>
-    <hasRaceType>
-      <RaceType rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#BangkokAirwaysPhuketMarathon2017MiniMarathon">
-        <StartPeriod>Morning</StartPeriod>
-        <Reward>Medal</Reward>
-        <Reward>FinisherShirt</Reward>
-        <RaceTypeName>Mini Marathon</RaceTypeName>
-        <Price>Average</Price>
-        <ActivityArea>City</ActivityArea>
-        <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#MiniMarathon"/>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </RaceType>
-    </hasRaceType>
-    <LevelOfEvent>InternationalEvent</LevelOfEvent>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Organization"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isOrganizedBy"/>
-      </owl:Restriction>
-    </rdf:type>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
-      </owl:Restriction>
-    </rdf:type>
-    <hasRaceType>
-      <RaceType rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#BangkokAirwaysPhuketMarathon2017Marathon">
-        <StartPeriod>Morning</StartPeriod>
-        <Reward>Medal</Reward>
-        <Reward>FinisherShirt</Reward>
-        <RaceTypeName>Marathon</RaceTypeName>
-        <Price>Average</Price>
-        <ActivityArea>City</ActivityArea>
-        <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Marathon"/>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </RaceType>
-    </hasRaceType>
-    <isOrganizedBy rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#BangkokAirways"/>
-    <hasRaceType>
-      <RaceType rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#BangkokAirwaysPhuketMarathon2017HalfMarathon">
-        <StartPeriod>Morning</StartPeriod>
-        <Reward>Medal</Reward>
-        <Reward>FinisherShirt</Reward>
-        <RaceTypeName>Half Marathon</RaceTypeName>
-        <Price>Average</Price>
-        <ActivityArea>City</ActivityArea>
-        <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#HalfMarathon"/>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </RaceType>
-    </hasRaceType>
-  </RunningEvent>
-  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Spa">
-    <TravelPlaceType>Spa</TravelPlaceType>
-  </owl:NamedIndividual>
-  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#InternationalEvent"/>
-  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#May"/>
-  <User rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#exampleUserF">
-    <ActivityAreaInterest>Natural</ActivityAreaInterest>
-    <Username>exampleUserF</Username>
-    <TypeOfEventInterest>CompetitiveEvent</TypeOfEventInterest>
-    <hasOrganizationInterest>Rawai Municipality</hasOrganizationInterest>
-    <LevelEventInterest>LocalEvent</LevelEventInterest>
-    <UserNationality>thai</UserNationality>
-    <EventPriceInterest>Average</EventPriceInterest>
-    <LocationInterest>Mueang Phuket District</LocationInterest>
-    <StandardEventInterest>StandardEvent</StandardEventInterest>
-    <RewardInterest>Trophy</RewardInterest>
-    <UserAge>12</UserAge>
-    <hasRaceTypeInterest>Fun run</hasRaceTypeInterest>
-    <StartPeriodInterest>Afternoon</StartPeriodInterest>
-    <UserSex>male</UserSex>
-  </User>
-  <TravelPlace rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#KathuWaterfall">
-    <Province>Phuket</Province>
-    <OpenTime rdf:datatype="http://www.w3.org/2001/XMLSchema#time"
-    >00:00:00</OpenTime>
-    <SubDistrict>Kathu</SubDistrict>
-    <OpenDay>Sunday</OpenDay>
-    <TravelPlaceType>Nature and Park</TravelPlaceType>
-    <OpenDay>Friday</OpenDay>
-    <OpenDay>Thursday</OpenDay>
-    <hasActivity rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#WaterActivity"/>
-    <OpenDay>Tuesday</OpenDay>
-    <District>KathuDistrict</District>
-    <OpenDay>Wednesday</OpenDay>
-    <OpenDay>Monday</OpenDay>
-    <OpenDay>Saturday</OpenDay>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
-      </owl:Restriction>
-    </rdf:type>
-    <CloseTime rdf:datatype="http://www.w3.org/2001/XMLSchema#time"
-    >23:59:59</CloseTime>
-    <hasActivity rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Photography"/>
-    <TravelPlaceName>Kathu Waterfall</TravelPlaceName>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
-      </owl:Restriction>
-    </rdf:type>
-  </TravelPlace>
-  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#NonStandardEvent"/>
-  <RaceType rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Economy">
-    <Price>Economy</Price>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </RaceType>
-  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Friday"/>
-  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Tuesday">
-    <Weekday>Tuesday</Weekday>
-  </owl:NamedIndividual>
-  <rdf:Description rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Patong">
-    <LocationName>Patong</LocationName>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Weather"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasWeather"/>
-      </owl:Restriction>
-    </rdf:type>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasTravelPlace"/>
-      </owl:Restriction>
-    </rdf:type>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
-      </owl:Restriction>
-    </rdf:type>
-    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Location"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </rdf:Description>
-  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#CharityEvent"/>
-  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Phukethon2019DateTime"/>
-  <User rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#exampleUserN">
-    <TypeOfEventInterest>CharityEvent</TypeOfEventInterest>
-    <LevelEventInterest>InternationalEvent</LevelEventInterest>
-    <StartPeriodInterest>Afternoon</StartPeriodInterest>
-    <Username>exampleUserN</Username>
-    <hasRaceTypeInterest>Mini Marathon</hasRaceTypeInterest>
-    <UserAge>3</UserAge>
-    <LocationInterest>Kathu District</LocationInterest>
-    <UserNationality>japan</UserNationality>
-    <StandardEventInterest>StandardEvent</StandardEventInterest>
-    <ActivityAreaInterest>Natural</ActivityAreaInterest>
-    <hasOrganizationInterest>Red Cross Phuket</hasOrganizationInterest>
-    <RewardInterest>Medal</RewardInterest>
-    <EventPriceInterest>Premium</EventPriceInterest>
-    <UserSex>male</UserSex>
-  </User>
-  <User rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#exampleUserLDR">
-    <StartPeriodInterest>Morning</StartPeriodInterest>
-    <EventPriceInterest>Average</EventPriceInterest>
-    <hasRaceTypeInterest>Mini Marathon</hasRaceTypeInterest>
-    <hasOrganizationInterest>Siriroj Hospital</hasOrganizationInterest>
-    <Username>exampleUserLDR</Username>
-    <UserSex>f</UserSex>
-    <UserAge>12</UserAge>
-    <TypeOfEventInterest>CompetitiveEvent</TypeOfEventInterest>
-    <ActivityAreaInterest>Natural</ActivityAreaInterest>
-    <StandardEventInterest>StandardEvent</StandardEventInterest>
-    <LevelEventInterest>InternationalEvent</LevelEventInterest>
-    <UserNationality>thai</UserNationality>
-    <RewardInterest>Prize</RewardInterest>
-    <LocationInterest>Kathu District</LocationInterest>
-  </User>
-  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Beach">
-    <TravelPlaceType>Beach</TravelPlaceType>
-  </owl:NamedIndividual>
-  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#August"/>
-  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#PopularEvent"/>
-  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#ChillvaMarket">
-    <CloseDay>Sunday</CloseDay>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
-      </owl:Restriction>
-    </rdf:type>
-    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
-    <OpenDay>Wednesday</OpenDay>
-    <Province>Phuket</Province>
-    <OpenDay>Monday</OpenDay>
-    <OpenDay>Friday</OpenDay>
-    <OpenDay>Thursday</OpenDay>
-    <TravelPlaceName>Chillva Market</TravelPlaceName>
-    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
-      </owl:Restriction>
-    </rdf:type>
-    <CloseTime rdf:datatype="http://www.w3.org/2001/XMLSchema#time"
-    >23:00:00</CloseTime>
-    <District>MueangPhuketDistrict</District>
-    <OpenDay>Tuesday</OpenDay>
-    <OpenTime rdf:datatype="http://www.w3.org/2001/XMLSchema#time"
-    >17:00:00</OpenTime>
-    <OpenDay>Saturday</OpenDay>
-    <TravelPlaceType>StreetMarket</TravelPlaceType>
-    <SubDistrict>Ratsada</SubDistrict>
-  </owl:NamedIndividual>
-  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Evening"/>
-  <rdf:Description rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#KathuDistrict">
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
-      </owl:Restriction>
-    </rdf:type>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
-      </owl:Restriction>
-    </rdf:type>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasTravelPlace"/>
-      </owl:Restriction>
-    </rdf:type>
-    <LocationName>Kathu District</LocationName>
-    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Location"/>
-    <District>Kathu District</District>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
-      </owl:Restriction>
-    </rdf:type>
-    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Weather"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasWeather"/>
-      </owl:Restriction>
-    </rdf:type>
-    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
-  </rdf:Description>
   <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#CentralFestivalPhuket">
     <OpenDay>Wednesday</OpenDay>
     <TravelPlaceType>ShoppingMall</TravelPlaceType>
     <OpenDay>Tuesday</OpenDay>
     <OpenDay>Thursday</OpenDay>
     <TravelPlaceName>Central Festival Phuket</TravelPlaceName>
-    <OpenDay>Monday</OpenDay>
     <rdf:type>
       <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
       </owl:Restriction>
     </rdf:type>
+    <OpenDay>Monday</OpenDay>
     <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
     <Province>Phuket</Province>
     <OpenTime rdf:datatype="http://www.w3.org/2001/XMLSchema#time"
@@ -5275,13 +5343,13 @@
     <OpenDay>Saturday</OpenDay>
     <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
     <OpenDay>Sunday</OpenDay>
-    <District>MueangPhuketDistrict</District>
     <rdf:type>
       <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
       </owl:Restriction>
     </rdf:type>
+    <District>MueangPhuketDistrict</District>
     <SubDistrict>Wichit</SubDistrict>
   </owl:NamedIndividual>
   <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Thursday">
@@ -5350,83 +5418,20 @@
     <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#User"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </rdf:Description>
-  <swrl:Imp>
-    <swrl:head>
-      <swrl:AtomList>
-        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-        <rdf:first>
-          <swrl:IndividualPropertyAtom>
-            <swrl:argument2 rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#re"/>
-            <swrl:argument1 rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#re"/>
-            <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRecommend"/>
-          </swrl:IndividualPropertyAtom>
-        </rdf:first>
-      </swrl:AtomList>
-    </swrl:head>
-    <swrl:body>
-      <swrl:AtomList>
-        <rdf:rest>
-          <swrl:AtomList>
-            <rdf:rest>
-              <swrl:AtomList>
-                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-                <rdf:first>
-                  <swrl:DatavaluedPropertyAtom>
-                    <swrl:argument2>InternationalEvent</swrl:argument2>
-                    <swrl:argument1 rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#racetype"/>
-                    <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#LevelOfEvent"/>
-                  </swrl:DatavaluedPropertyAtom>
-                </rdf:first>
-              </swrl:AtomList>
-            </rdf:rest>
-            <rdf:first>
-              <swrl:IndividualPropertyAtom>
-                <swrl:argument2 rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#racetype"/>
-                <swrl:argument1 rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#re"/>
-                <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRaceType"/>
-              </swrl:IndividualPropertyAtom>
-            </rdf:first>
-          </swrl:AtomList>
-        </rdf:rest>
-        <rdf:first>
-          <swrl:ClassAtom>
-            <swrl:argument1 rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#re"/>
-            <swrl:classPredicate rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
-          </swrl:ClassAtom>
-        </rdf:first>
-      </swrl:AtomList>
-    </swrl:body>
-    <rdfs:label>S3</rdfs:label>
-    <rdfs:comment></rdfs:comment>
-    <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
-    >true</swrla:isRuleEnabled>
-  </swrl:Imp>
   <rdf:Description rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Wichit">
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
-      </owl:Restriction>
-    </rdf:type>
-    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
-    <LocationName>Wichit</LocationName>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
-      </owl:Restriction>
-    </rdf:type>
-    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Location"/>
     <rdf:type>
       <owl:Restriction>
         <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Weather"/>
         <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasWeather"/>
       </owl:Restriction>
     </rdf:type>
+    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
+    <LocationName>Wichit</LocationName>
+    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Location"/>
     <rdf:type>
       <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasTravelPlace"/>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
       </owl:Restriction>
     </rdf:type>
     <rdf:type>
@@ -5436,8 +5441,20 @@
       </owl:Restriction>
     </rdf:type>
     <SubDistrict>Wichit</SubDistrict>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
+      </owl:Restriction>
+    </rdf:type>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
     <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasTravelPlace"/>
+      </owl:Restriction>
+    </rdf:type>
   </rdf:Description>
   <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#April"/>
   <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Average"/>
@@ -5495,7 +5512,20 @@
     <Reward>Finisher Shirt</Reward>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </RaceType>
-  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunforHealthCharity2018">
+  <rdf:Description rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunforHealthCharity2018">
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Organization"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isOrganizedBy"/>
+      </owl:Restriction>
+    </rdf:type>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRaceType"/>
+      </owl:Restriction>
+    </rdf:type>
     <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
     <hasEventVenue>
       <rdf:Description rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#SirirojHospitalPhuket">
@@ -5521,12 +5551,6 @@
       </rdf:Description>
     </hasEventVenue>
     <StandardOfEvent>No</StandardOfEvent>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Organization"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isOrganizedBy"/>
-      </owl:Restriction>
-    </rdf:type>
     <RunningEventName>Run for health Run for charity Mini Marathon 2018</RunningEventName>
     <TypeOfEvent>CharityEvent</TypeOfEvent>
     <isOrganizedBy>
@@ -5573,45 +5597,15 @@
         <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
       </owl:Restriction>
     </rdf:type>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRaceType"/>
-      </owl:Restriction>
-    </rdf:type>
-  </owl:NamedIndividual>
-  <owl:Restriction>
-    <rdfs:subClassOf>
-      <owl:Class>
-        <owl:unionOf rdf:parseType="Collection">
-          <owl:Restriction>
-            <owl:hasValue>Female</owl:hasValue>
-            <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#UserSex"/>
-          </owl:Restriction>
-          <owl:Restriction>
-            <owl:hasValue>Male</owl:hasValue>
-            <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#UserSex"/>
-          </owl:Restriction>
-        </owl:unionOf>
-      </owl:Class>
-    </rdfs:subClassOf>
-    <owl:hasValue>Female</owl:hasValue>
-    <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#UserSex"/>
-  </owl:Restriction>
+  </rdf:Description>
   <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#September"/>
   <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#MueangPhuketDistrict">
     <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
     <LocationName>Mueang Phuket District</LocationName>
     <rdf:type>
       <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Weather"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasWeather"/>
-      </owl:Restriction>
-    </rdf:type>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
       </owl:Restriction>
     </rdf:type>
     <rdf:type>
@@ -5620,15 +5614,21 @@
         <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
       </owl:Restriction>
     </rdf:type>
+    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
     <rdf:type>
       <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
       </owl:Restriction>
     </rdf:type>
-    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
     <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Location"/>
     <District>Mueang Phuket District</District>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Weather"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasWeather"/>
+      </owl:Restriction>
+    </rdf:type>
     <rdf:type>
       <owl:Restriction>
         <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
@@ -5643,7 +5643,7 @@
     <TravelPlaceType>Cape</TravelPlaceType>
   </owl:NamedIndividual>
   <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#November"/>
-  <rdf:Description rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#LayanBeach">
+  <TravelPlace rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#LayanBeach">
     <OpenDay>Tuesday</OpenDay>
     <OpenDay>Sunday</OpenDay>
     <TravelPlaceName>Bang Tao Beach</TravelPlaceName>
@@ -5653,13 +5653,6 @@
     <CloseTime rdf:datatype="http://www.w3.org/2001/XMLSchema#time"
     >23:59:59</CloseTime>
     <District>ThalangDistrict</District>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
-      </owl:Restriction>
-    </rdf:type>
-    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
     <OpenDay>Wednesday</OpenDay>
     <hasActivity rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#WaterActivity"/>
     <hasActivity rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#OutdoorActivity"/>
@@ -5668,6 +5661,12 @@
         <District>Thalang District</District>
         <Province>Phuket</Province>
         <SubDistrict>Cherngtalay</SubDistrict>
+        <rdf:type>
+          <owl:Restriction>
+            <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
+            <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
+          </owl:Restriction>
+        </rdf:type>
         <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
         <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#TravelPlace"/>
         <rdf:type>
@@ -5684,17 +5683,23 @@
             <hasActivity rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#WaterActivity"/>
             <CloseTime rdf:datatype="http://www.w3.org/2001/XMLSchema#time"
             >23:59:59</CloseTime>
+            <rdf:type>
+              <owl:Restriction>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
+              </owl:Restriction>
+            </rdf:type>
             <hasActivity rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#OutdoorActivity"/>
             <OpenDay>Wednesday</OpenDay>
             <OpenDay>Thursday</OpenDay>
             <owl:sameAs rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#LayanBeach"/>
+            <TravelPlaceName>Layan Beach</TravelPlaceName>
             <rdf:type>
               <owl:Restriction>
                 <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
                 <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
               </owl:Restriction>
             </rdf:type>
-            <TravelPlaceName>Layan Beach</TravelPlaceName>
             <TravelPlaceType>Beach</TravelPlaceType>
             <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
             <OpenDay>Sunday</OpenDay>
@@ -5705,12 +5710,6 @@
             <OpenDay>Friday</OpenDay>
             <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
             <OpenDay>Saturday</OpenDay>
-            <rdf:type>
-              <owl:Restriction>
-                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
-                <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
-              </owl:Restriction>
-            </rdf:type>
             <OpenDay>Tuesday</OpenDay>
             <OpenTime rdf:datatype="http://www.w3.org/2001/XMLSchema#time"
             >00:00:00</OpenTime>
@@ -5719,12 +5718,6 @@
             <Province>Phuket</Province>
           </rdf:Description>
         </isNear>
-        <rdf:type>
-          <owl:Restriction>
-            <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
-            <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
-          </owl:Restriction>
-        </rdf:type>
       </owl:NamedIndividual>
     </isNear>
     <hasActivity rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Photography"/>
@@ -5735,15 +5728,21 @@
     <TravelPlaceName>Layan Beach</TravelPlaceName>
     <TravelPlaceType>Beach</TravelPlaceType>
     <OpenDay>Friday</OpenDay>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Activity"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasActivity"/>
+      </owl:Restriction>
+    </rdf:type>
     <rdf:type>
       <owl:Restriction>
         <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
         <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isEventVenueOf"/>
       </owl:Restriction>
     </rdf:type>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
     <OpenDay>Saturday</OpenDay>
-  </rdf:Description>
+  </TravelPlace>
   <rdf:Description rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#LagunaPhuketMarathon2018">
     <LevelOfEvent>InternationalEvent</LevelOfEvent>
     <hasRaceType>
@@ -5764,6 +5763,12 @@
         <CutOffTime>-</CutOffTime>
       </Marathon>
     </hasRaceType>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Organization"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isOrganizedBy"/>
+      </owl:Restriction>
+    </rdf:type>
     <Weekday>Saturday</Weekday>
     <isOrganizedBy>
       <rdf:Description rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#LagunaPhuket">
@@ -5772,6 +5777,12 @@
           <rdf:Description rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#LagunaPhuketTriathlon2019">
             <isOrganizedBy rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#LagunaPhuket"/>
             <Weekday>Saturday</Weekday>
+            <rdf:type>
+              <owl:Restriction>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRaceType"/>
+              </owl:Restriction>
+            </rdf:type>
             <LevelOfEvent>InternationalEvent</LevelOfEvent>
             <hasRecommend rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#LagunaPhuketTriathlon2019"/>
             <hasRaceType>
@@ -5795,25 +5806,19 @@
             </hasRaceType>
             <rdf:type>
               <owl:Restriction>
-                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
-                <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRaceType"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Organization"/>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isOrganizedBy"/>
               </owl:Restriction>
             </rdf:type>
             <StandardOfEvent>StandardEvent</StandardOfEvent>
-            <rdf:type>
-              <owl:Restriction>
-                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
-                <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
-              </owl:Restriction>
-            </rdf:type>
             <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
             <RunningEventName>Laguna Phuket Triatlon 2019</RunningEventName>
             <Year rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
             >2019</Year>
             <rdf:type>
               <owl:Restriction>
-                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Organization"/>
-                <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isOrganizedBy"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
               </owl:Restriction>
             </rdf:type>
             <Month>November</Month>
@@ -5845,12 +5850,6 @@
         </organize>
         <organize>
           <rdf:Description rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#LagunaPhuketTriCharityFunRun2017">
-            <rdf:type>
-              <owl:Restriction>
-                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
-                <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRaceType"/>
-              </owl:Restriction>
-            </rdf:type>
             <TypeOfEvent>CharityEvent</TypeOfEvent>
             <hasRaceType>
               <RaceType rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#LagunaPhuketTriCharity2017FunRun">
@@ -5864,6 +5863,12 @@
               </RaceType>
             </hasRaceType>
             <LevelOfEvent>InternationalEvent</LevelOfEvent>
+            <rdf:type>
+              <owl:Restriction>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Organization"/>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isOrganizedBy"/>
+              </owl:Restriction>
+            </rdf:type>
             <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
             <hasRaceType>
               <RaceType rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#LagunaPhuketTriCharity2017MiniMarathon">
@@ -5875,20 +5880,20 @@
                 <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
               </RaceType>
             </hasRaceType>
-            <isOrganizedBy rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#LagunaPhuket"/>
             <rdf:type>
               <owl:Restriction>
-                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Organization"/>
-                <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isOrganizedBy"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRaceType"/>
               </owl:Restriction>
             </rdf:type>
-            <StandardOfEvent>StandardEvent</StandardOfEvent>
             <rdf:type>
               <owl:Restriction>
                 <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
                 <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
               </owl:Restriction>
             </rdf:type>
+            <isOrganizedBy rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#LagunaPhuket"/>
+            <StandardOfEvent>StandardEvent</StandardOfEvent>
             <RunningEventName>Laguna Phuket Tri Charity Fun Run 2017</RunningEventName>
             <hasEventVenue rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#LagunaGrove"/>
             <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
@@ -5908,23 +5913,23 @@
     <RunningEventName>Laguna Phuket Marathon 2018</RunningEventName>
     <rdf:type>
       <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Organization"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isOrganizedBy"/>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
       </owl:Restriction>
     </rdf:type>
     <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
-    <hasRecommend rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#LagunaPhuketMarathon2018"/>
-    <Date rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-    >09</Date>
-    <Month>June</Month>
-    <StandardOfEvent>StandardEvent</StandardOfEvent>
-    <hasEventVenue rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#LagunaGrove"/>
     <rdf:type>
       <owl:Restriction>
         <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
         <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRaceType"/>
       </owl:Restriction>
     </rdf:type>
+    <hasRecommend rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#LagunaPhuketMarathon2018"/>
+    <Date rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
+    >09</Date>
+    <Month>June</Month>
+    <StandardOfEvent>StandardEvent</StandardOfEvent>
+    <hasEventVenue rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#LagunaGrove"/>
     <hasRaceType>
       <MiniMarathon rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#LagunaMarathon2018MiniMarathon">
         <RunningEventPrice rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
@@ -5982,15 +5987,9 @@
     <Year rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
     >2018</Year>
     <TypeOfEvent>CompetitiveEvent</TypeOfEvent>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
-      </owl:Restriction>
-    </rdf:type>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </rdf:Description>
-  <RunningEvent rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Run4Blood2018">
+  <rdf:Description rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Run4Blood2018">
     <StandardOfEvent>No</StandardOfEvent>
     <hasRaceType>
       <RaceType rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Run4Blood2018Funrun">
@@ -6040,7 +6039,20 @@
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
       </rdf:Description>
     </hasEventVenue>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
+      </owl:Restriction>
+    </rdf:type>
+    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRaceType"/>
+      </owl:Restriction>
+    </rdf:type>
     <isOrganizedBy>
       <rdf:Description rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#RedCrossPhuket">
         <OrganizationName>Red Cross Phuket</OrganizationName>
@@ -6054,28 +6066,16 @@
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
       </rdf:Description>
     </isOrganizedBy>
+    <TypeOfEvent>CharityEvent</TypeOfEvent>
     <rdf:type>
       <owl:Restriction>
         <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Organization"/>
         <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isOrganizedBy"/>
       </owl:Restriction>
     </rdf:type>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
-      </owl:Restriction>
-    </rdf:type>
-    <TypeOfEvent>CharityEvent</TypeOfEvent>
     <RunningEventName>Run 4 Blood 2018</RunningEventName>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRaceType"/>
-      </owl:Restriction>
-    </rdf:type>
     <LevelOfEvent>LocalEvent</LevelOfEvent>
-  </RunningEvent>
+  </rdf:Description>
   <rdf:Description rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#RuntoGive2017">
     <TypeOfEvent>CharityEvent</TypeOfEvent>
     <hasRaceType>
@@ -6095,12 +6095,6 @@
       <owl:Restriction>
         <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
         <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
-      </owl:Restriction>
-    </rdf:type>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRaceType"/>
       </owl:Restriction>
     </rdf:type>
     <hasEventVenue>
@@ -6141,6 +6135,12 @@
     </isOrganizedBy>
     <LevelOfEvent>LocalEvent</LevelOfEvent>
     <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRaceType"/>
+      </owl:Restriction>
+    </rdf:type>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
     <hasRecommend rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RuntoGive2017"/>
     <hasRaceType>
@@ -6167,13 +6167,13 @@
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
       </RaceType>
     </hasRaceType>
-    <StandardOfEvent>No</StandardOfEvent>
     <rdf:type>
       <owl:Restriction>
         <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Organization"/>
         <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isOrganizedBy"/>
       </owl:Restriction>
     </rdf:type>
+    <StandardOfEvent>No</StandardOfEvent>
   </rdf:Description>
   <RunningEvent rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#RotaryPhuketSouthCharityRun2019">
     <hasRecommend rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RotaryPhuketSouthCharityRun2019"/>
@@ -6195,17 +6195,23 @@
         >06:15:00</StartTime>
       </FunRun>
     </hasRaceType>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
+      </owl:Restriction>
+    </rdf:type>
     <Weekday>Sunday</Weekday>
-    <Year rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-    >2019</Year>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <Month>August</Month>
     <rdf:type>
       <owl:Restriction>
         <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
         <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRaceType"/>
       </owl:Restriction>
     </rdf:type>
+    <Year rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
+    >2019</Year>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <Month>August</Month>
     <hasRaceType>
       <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Rotary2019Minimarathon">
         <Reward>FinisherShirt</Reward>
@@ -6237,18 +6243,6 @@
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
       </rdf:Description>
     </isOrganizedBy>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
-      </owl:Restriction>
-    </rdf:type>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Organization"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isOrganizedBy"/>
-      </owl:Restriction>
-    </rdf:type>
     <hasRaceType>
       <HalfMarathon rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Rotary2019HalfMarathon">
         <RunningEventPrice rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
@@ -6267,6 +6261,12 @@
         <ActivityArea>Natural</ActivityArea>
       </HalfMarathon>
     </hasRaceType>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Organization"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isOrganizedBy"/>
+      </owl:Restriction>
+    </rdf:type>
     <StandardOfEvent>No</StandardOfEvent>
     <RunningEventName>Rotary Phuket South Charity Run 2019</RunningEventName>
     <LevelOfEvent>LocalEvent</LevelOfEvent>
@@ -6275,7 +6275,7 @@
     >25</Date>
     <TypeOfEvent>CharityEvent</TypeOfEvent>
   </RunningEvent>
-  <rdf:Description rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunForLife">
+  <RunningEvent rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunForLife">
     <isOrganizedBy>
       <rdf:Description rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunForLifePhuket">
         <OrganizationName>Run For Life</OrganizationName>
@@ -6289,21 +6289,8 @@
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
       </rdf:Description>
     </isOrganizedBy>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRaceType"/>
-      </owl:Restriction>
-    </rdf:type>
     <hasEventVenue rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#BangwadDam"/>
     <TypeOfEvent>CharityEvent</TypeOfEvent>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
-      </owl:Restriction>
-    </rdf:type>
-    <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
     <hasRaceType>
       <RaceType rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunForLifeFunrun">
@@ -6317,13 +6304,19 @@
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
       </RaceType>
     </hasRaceType>
+    <RunningEventName>Run For Life</RunningEventName>
     <rdf:type>
       <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Organization"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isOrganizedBy"/>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
       </owl:Restriction>
     </rdf:type>
-    <RunningEventName>Run For Life</RunningEventName>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRaceType"/>
+      </owl:Restriction>
+    </rdf:type>
     <LevelOfEvent>LocalEvent</LevelOfEvent>
     <hasRaceType>
       <RaceType rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunForLifeMiniMarathon">
@@ -6337,11 +6330,23 @@
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
       </RaceType>
     </hasRaceType>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Organization"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isOrganizedBy"/>
+      </owl:Restriction>
+    </rdf:type>
     <StandardOfEvent>No</StandardOfEvent>
     <hasRecommend rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunForLife"/>
-  </rdf:Description>
+  </RunningEvent>
   <owl:NamedIndividual rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#LagunaPhuketMarathon2021">
     <Month>June</Month>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Organization"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isOrganizedBy"/>
+      </owl:Restriction>
+    </rdf:type>
     <Date rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
     >12</Date>
     <StandardOfEvent>StandardEvent</StandardOfEvent>
@@ -6370,8 +6375,8 @@
     <Weekday>Saturday</Weekday>
     <rdf:type>
       <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRaceType"/>
       </owl:Restriction>
     </rdf:type>
     <rdf:type rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEvent"/>
@@ -6398,12 +6403,6 @@
     </hasRaceType>
     <isOrganizedBy rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#LagunaPhuket"/>
     <LevelOfEvent>InternationalEvent</LevelOfEvent>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRaceType"/>
-      </owl:Restriction>
-    </rdf:type>
     <hasRaceType>
       <RaceType rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#LagunaMarathon2021FunRun">
         <RaceTypeName>Fun Run</RaceTypeName>
@@ -6445,8 +6444,8 @@
     <hasEventVenue rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#LagunaGrove"/>
     <rdf:type>
       <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Organization"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isOrganizedBy"/>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
       </owl:Restriction>
     </rdf:type>
   </owl:NamedIndividual>
@@ -6473,6 +6472,12 @@
       </RaceType>
     </hasRaceType>
     <hasEventVenue rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Rawai_Park"/>
+    <rdf:type>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Organization"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isOrganizedBy"/>
+      </owl:Restriction>
+    </rdf:type>
     <isOrganizedBy>
       <rdf:Description rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#Rawai_Municipality">
         <OrganizationName>Rawai Municipality</OrganizationName>
@@ -6488,19 +6493,13 @@
     </isOrganizedBy>
     <TypeOfEvent>CharityEvent</TypeOfEvent>
     <Weekday>Sunday</Weekday>
-    <rdf:type>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#Organization"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#isOrganizedBy"/>
-      </owl:Restriction>
-    </rdf:type>
     <Date rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
     >01</Date>
     <Month>April</Month>
     <rdf:type>
       <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRaceType"/>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
       </owl:Restriction>
     </rdf:type>
     <Year rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
@@ -6530,8 +6529,8 @@
     </hasRaceType>
     <rdf:type>
       <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RunningEventVenue"/>
-        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasEventVenue"/>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#RaceType"/>
+        <owl:onProperty rdf:resource="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRaceType"/>
       </owl:Restriction>
     </rdf:type>
   </rdf:Description>
