@@ -2,11 +2,15 @@ package com.net.runningwebservice;
 
 import com.net.running_web_service.AuthRequest;
 import com.net.running_web_service.AuthResponse;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.riot.RDFDataMgr;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.Date;
 
 
 public class Auth {
@@ -48,10 +52,17 @@ public class Auth {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         boolean result = encoder.matches(plainPassword, hashedPassword);
         if(result){
-
+            long nowMillis = System.currentTimeMillis();
+            Date now = new Date(nowMillis);
+            String jwt = Jwts.builder()
+                    .setSubject(username)
+                    .setIssuedAt(now)
+                    .setExpiration(new Date(nowMillis + 3600000)) // 1 hour expiration
+                    .signWith(SignatureAlgorithm.HS256, SharedConstants.SECRET_KEY)
+                    .compact();
+            response.setToken(jwt);
             response.setStatus("Success");
         } else {
-
             response.setStatus("Fail");
         }
 
