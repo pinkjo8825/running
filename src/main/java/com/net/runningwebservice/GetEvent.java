@@ -1,10 +1,13 @@
 package com.net.runningwebservice;
 
+import com.net.running_web_service.GetAllEventsResponse;
 import com.net.running_web_service.GetEventRequest;
 import com.net.running_web_service.GetEventResponse;
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.riot.RDFDataMgr;
+
+import java.util.*;
 
 public class GetEvent {
 
@@ -24,61 +27,124 @@ public class GetEvent {
         String startPeriodReg = request.getStartPeriod();
         String rewardReg = request.getReward();
 
-//      price, activityArea, StartPeriod, Reward aren't work
-        StringBuilder queryStringBuilder = new StringBuilder();
-        queryStringBuilder.append("PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n")
-                .append("PREFIX ro: <http://www.semanticweb.org/guind/ontologies/runningeventontology#>\n\n")
-                .append("SELECT ?event ?eventName\nWHERE {\n")
-                .append("  ?event rdf:type ro:RunningEvent .\n")
-                .append("  ?event ro:RunningEventName ?eventName .\n");
+        StringBuilder queryStringBuilder = new StringBuilder("""
+            PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                PREFIX owl: <http://www.w3.org/2002/07/owl#>
+                PREFIX re: <http://www.semanticweb.org/guind/ontologies/runningeventontology#>
 
-        if (districtReg != null && !districtReg.isEmpty()) {
-            queryStringBuilder.append("  ?event ro:hasEventVenue ?venue . ?venue ro:District \"").append(districtReg).append("\" .\n");
+                SELECT ?eventName ?district ?raceTypeName ?typeOfEvent ?price ?organizationName ?activityArea ?standardOfEvent ?levelOfEvent ?startPeriod ?reward
+                WHERE {
+                  ?event rdf:type re:RunningEvent .
+                  ?event re:RunningEventName ?eventName .
+                  ?event re:hasEventVenue ?venue .
+                  ?venue re:District ?district .
+                  ?event re:TypeOfEvent ?typeOfEvent .
+                  ?event re:hasRaceType ?raceType .
+                  ?raceType re:RaceTypeName ?raceTypeName .
+                  ?raceType re:ActivityArea ?activityArea .
+                  ?raceType re:Price ?price .
+                  ?raceType re:StartPeriod ?startPeriod .
+                  ?raceType re:Reward ?reward .
+                  ?event re:isOrganizedBy ?organization .
+                  ?organization re:OrganizationName ?organizationName .
+                  ?event re:StandardOfEvent ?standardOfEvent .
+                  ?event re:LevelOfEvent ?levelOfEvent .
+        """);
+
+        if (districtReg != null) {
+            queryStringBuilder.append(String.format("FILTER(?district = \"%s\") .\n", districtReg));
+        }
+        if (typeofEventReg != null) {
+            queryStringBuilder.append(String.format("FILTER(?typeOfEvent = \"%s\") .\n", typeofEventReg));
+        }
+        if (raceTypeReg != null) {
+            queryStringBuilder.append(String.format("FILTER(?raceTypeName = \"%s\") .\n", raceTypeReg));
+        }
+        if (priceReg != null) {
+            queryStringBuilder.append(String.format("FILTER(?price = \"%s\") .\n", priceReg));
+        }
+        if (organizationReg != null) {
+            queryStringBuilder.append(String.format("FILTER(?organizationName = \"%s\") .\n", organizationReg));
+        }
+        if (activityAreaReg != null) {
+            queryStringBuilder.append(String.format("FILTER(?activityArea = \"%s\") .\n", activityAreaReg));
+        }
+        if (standardReg != null) {
+            queryStringBuilder.append(String.format("FILTER(?standardOfEvent = \"%s\") .\n", standardReg));
+        }
+        if (levelReg != null) {
+            queryStringBuilder.append(String.format("FILTER(?levelOfEvent = \"%s\") .\n", levelReg));
+        }
+        if (startPeriodReg != null) {
+            queryStringBuilder.append(String.format("FILTER(?startPeriod = \"%s\") .\n", startPeriodReg));
+        }
+        if (rewardReg != null) {
+            queryStringBuilder.append(String.format("FILTER(?reward = \"%s\") .\n", rewardReg));
         }
 
-        if (raceTypeReg != null && !raceTypeReg.isEmpty()) {
-            queryStringBuilder.append("  ?event ro:hasRaceType ?raceType . ?raceType ro:RaceTypeName \"").append(raceTypeReg).append("\" .\n");
-        }
-
-        if (typeofEventReg != null && !typeofEventReg.isEmpty()) {
-            queryStringBuilder.append("  ?event ro:TypeOfEvent \"").append(typeofEventReg).append("\" .\n");
-        }
-
-        if (organizationReg != null && !organizationReg.isEmpty()) {
-            queryStringBuilder.append("  ?event ro:isOrganizedBy ?org . ?org ro:OrganizationName \"").append(organizationReg).append("\" .\n");
-        }
-
-        if (standardReg != null && !standardReg.isEmpty()) {
-            queryStringBuilder.append("  ?event ro:StandardOfEvent \"").append(standardReg).append("\" .\n");
-        }
-
-        if (levelReg != null && !levelReg.isEmpty()) {
-            queryStringBuilder.append("  ?event ro:LevelOfEvent \"").append(levelReg).append("\" .\n");
-        }
 
         queryStringBuilder.append("}");
-
         String queryString = queryStringBuilder.toString();
-        System.out.println(queryString);
-
-
         Query query = QueryFactory.create(queryString);
         QueryExecution qexec = QueryExecutionFactory.create(query, dataOnto);
         ResultSet resultSet = qexec.execSelect();
-        System.out.println("resultSet " + resultSet);
 
-        while (resultSet.hasNext()) {
-            QuerySolution solution = resultSet.nextSolution();
-            System.out.println("solution " + solution);
-            String runningEventName = solution.contains("eventName") ? solution.getLiteral("eventName").getString() : "Unknown Event";
-            System.out.println("runningEventName " + runningEventName);
+        System.out.println(queryString);
 
-            GetEventResponse.RunningEvent event = new GetEventResponse.RunningEvent();
-            event.setRunningEventName(runningEventName);
+        try {
+            Map<String, GetEventResponse.RunningEvent> eventsMap = new HashMap<>();
+            int solutionCount = 0; // Initialize a counter for QuerySolution instances
 
-            response.getRunningEvent().add(event);
+            while (resultSet.hasNext()) {
+                QuerySolution solution = resultSet.nextSolution();
+                solutionCount++; // Increment the counter for each solution processed
+
+                String eventName = solution.getLiteral("eventName").getString().trim();
+                GetEventResponse.RunningEvent event = eventsMap.computeIfAbsent(eventName, k -> {
+                    GetEventResponse.RunningEvent newEvent = new GetEventResponse.RunningEvent();
+                    newEvent.setRunningEventName(eventName);
+                    newEvent.setDistrict(solution.getLiteral("district").getString().trim());
+                    newEvent.setTypeofEvent(solution.getLiteral("typeOfEvent").getString().trim());
+                    newEvent.setOrganization(solution.getLiteral("organizationName").getString().trim());
+                    newEvent.setActivityArea(solution.getLiteral("activityArea").getString().trim());
+                    newEvent.setStandard(solution.getLiteral("standardOfEvent").getString().trim());
+                    newEvent.setLevel(solution.getLiteral("levelOfEvent").getString().trim());
+                    newEvent.setStartPeriod(solution.getLiteral("startPeriod").getString().trim());
+                    // Initialize the lists to ensure they are ready to be used
+                    newEvent.setPrices(new GetEventResponse.RunningEvent.Prices());
+                    newEvent.getPrices().getPrice().clear(); // Initialize the list
+                    newEvent.setRaceTypes(new GetEventResponse.RunningEvent.RaceTypes());
+                    newEvent.getRaceTypes().getRaceType().clear(); // Initialize the list
+                    newEvent.setRewards(new GetEventResponse.RunningEvent.Rewards());
+                    newEvent.getRewards().getReward().clear(); // Initialize the list
+                    return newEvent;
+                });
+
+                // Add race type, price, and reward if not already present
+                String raceType = solution.getLiteral("raceTypeName").getString().trim();
+                if (!event.getRaceTypes().getRaceType().contains(raceType)) {
+                    event.getRaceTypes().getRaceType().add(raceType);
+                }
+
+                String price = solution.getLiteral("price").getString().trim();
+                if (!event.getPrices().getPrice().contains(price)) {
+                    event.getPrices().getPrice().add(price);
+                }
+
+                String rewardName = solution.getLiteral("reward").getString().trim();
+                if (!event.getRewards().getReward().contains(rewardName)) {
+                    event.getRewards().getReward().add(rewardName);
+                }
+            }
+
+            // Now, eventsMap contains all events with unique attributes
+            response.getRunningEvent().addAll(eventsMap.values());
+
+            System.out.println("Total solutions processed: " + solutionCount);
+        } finally {
+            qexec.close();
         }
-        qexec.close();
+
         return response;
     }
 }

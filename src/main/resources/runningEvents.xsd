@@ -128,17 +128,35 @@
                 <xs:element name="runningEvent" minOccurs="0" maxOccurs="unbounded">
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element type="xs:string" name="runningEventName" />
-                            <xs:element type="xs:string" name="district" minOccurs="0"/>
-                            <xs:element type="xs:string" name="raceType" minOccurs="0"/>
-                            <xs:element type="xs:string" name="typeofEvent" minOccurs="0"/>
-                            <xs:element type="xs:string" name="price" minOccurs="0"/>
-                            <xs:element type="xs:string" name="organization" minOccurs="0"/>
-                            <xs:element type="xs:string" name="activityArea" minOccurs="0"/>
-                            <xs:element type="xs:string" name="standard" minOccurs="0"/>
-                            <xs:element type="xs:string" name="level" minOccurs="0"/>
-                            <xs:element type="xs:string" name="startPeriod" minOccurs="0"/>
-                            <xs:element type="xs:string" name="reward" minOccurs="0"/>
+                            <xs:element name="runningEventName" type="xs:string"/>
+                            <xs:element name="district" type="xs:string"/>
+                            <xs:element name="raceTypes">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="raceType" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="typeofEvent" type="xs:string"/>
+                            <xs:element name="prices">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="price" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="organization" type="xs:string"/>
+                            <xs:element name="activityArea" type="xs:string"/>
+                            <xs:element name="standard" type="xs:string"/>
+                            <xs:element name="level" type="xs:string"/>
+                            <xs:element name="startPeriod" type="xs:string"/>
+                            <xs:element name="rewards">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="reward" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>

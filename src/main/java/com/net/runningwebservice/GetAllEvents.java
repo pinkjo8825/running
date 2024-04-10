@@ -26,17 +26,17 @@ public class GetAllEvents {
                   ?event re:RunningEventName ?eventName .
                   ?event re:hasEventVenue ?venue .
                   ?venue re:District ?district .
-                  ?event re:TypeOfEvent ?typeOfEvent . \s
+                  ?event re:TypeOfEvent ?typeOfEvent .
                   ?event re:hasRaceType ?raceType .
                   ?raceType re:RaceTypeName ?raceTypeName .
-                  ?raceType re:ActivityArea ?activityArea .\s
-                  ?raceType re:Price ?price .\s
-                  ?raceType re:StartPeriod ?startPeriod .\s
-                  ?raceType re:Reward ?reward .\s
-                  ?event re:isOrganizedBy ?organization .\s
-                  ?organization re:OrganizationName ?organizationName .\s
-                  ?event re:StandardOfEvent ?standardOfEvent .\s
-                  ?event re:LevelOfEvent ?levelOfEvent .\s
+                  ?raceType re:ActivityArea ?activityArea .
+                  ?raceType re:Price ?price .
+                  ?raceType re:StartPeriod ?startPeriod .
+                  ?raceType re:Reward ?reward .
+                  ?event re:isOrganizedBy ?organization .
+                  ?organization re:OrganizationName ?organizationName .
+                  ?event re:StandardOfEvent ?standardOfEvent .
+                  ?event re:LevelOfEvent ?levelOfEvent .
                 }     
                 """;
 
