@@ -93,11 +93,11 @@ public class GetEvent {
 
         try {
             Map<String, GetEventResponse.RunningEvent> eventsMap = new HashMap<>();
-            int solutionCount = 0; // Initialize a counter for QuerySolution instances
+            int solutionCount = 0;
 
             while (resultSet.hasNext()) {
                 QuerySolution solution = resultSet.nextSolution();
-                solutionCount++; // Increment the counter for each solution processed
+                solutionCount++;
 
                 String eventName = solution.getLiteral("eventName").getString().trim();
                 GetEventResponse.RunningEvent event = eventsMap.computeIfAbsent(eventName, k -> {
@@ -110,7 +110,6 @@ public class GetEvent {
                     newEvent.setStandard(solution.getLiteral("standardOfEvent").getString().trim());
                     newEvent.setLevel(solution.getLiteral("levelOfEvent").getString().trim());
                     newEvent.setStartPeriod(solution.getLiteral("startPeriod").getString().trim());
-                    // Initialize the lists to ensure they are ready to be used
                     newEvent.setPrices(new GetEventResponse.RunningEvent.Prices());
                     newEvent.getPrices().getPrice().clear(); // Initialize the list
                     newEvent.setRaceTypes(new GetEventResponse.RunningEvent.RaceTypes());
@@ -120,7 +119,6 @@ public class GetEvent {
                     return newEvent;
                 });
 
-                // Add race type, price, and reward if not already present
                 String raceType = solution.getLiteral("raceTypeName").getString().trim();
                 if (!event.getRaceTypes().getRaceType().contains(raceType)) {
                     event.getRaceTypes().getRaceType().add(raceType);
@@ -136,8 +134,6 @@ public class GetEvent {
                     event.getRewards().getReward().add(rewardName);
                 }
             }
-
-            // Now, eventsMap contains all events with unique attributes
             response.getRunningEvent().addAll(eventsMap.values());
 
             System.out.println("Total solutions processed: " + solutionCount);

@@ -46,6 +46,7 @@ public class GetUserProfile {
                 response.setStatus("Success");
             } else {
                 response.setStatus("Fail");
+
             }
         } catch (JwtException e) {
             response.setStatus("Fail");
@@ -145,8 +146,6 @@ public class GetUserProfile {
                 String extractedName = parts[1];
 
                 event.setRunningEventName(extractedName);
-                event.setConfidence(String.valueOf(conf));
-
 
                 response.getRunningEvent().add(event);
                 System.out.println(conf);

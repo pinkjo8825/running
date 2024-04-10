@@ -2,11 +2,14 @@ package com.net.runningwebservice;
 
 import com.net.running_web_service.GetAllEventsRequest;
 import com.net.running_web_service.GetAllEventsResponse;
+import com.net.running_web_service.GetEventResponse;
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.riot.RDFDataMgr;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GetAllEvents {
 
@@ -45,53 +48,51 @@ public class GetAllEvents {
         ResultSet resultSet = qexec.execSelect();
 
         try {
-            GetAllEventsResponse.RunningEvent currentEvent = null;
-            String currentEventName = "";
+            Map<String, GetAllEventsResponse.RunningEvent> eventsMap = new HashMap<>();
+            int solutionCount = 0;
 
             while (resultSet.hasNext()) {
                 QuerySolution solution = resultSet.nextSolution();
-                String eventName = solution.getLiteral("eventName").getString();
+                solutionCount++;
 
-                if (!eventName.equals(currentEventName)) {
+                String eventName = solution.getLiteral("eventName").getString().trim();
+                GetAllEventsResponse.RunningEvent event = eventsMap.computeIfAbsent(eventName, k -> {
+                    GetAllEventsResponse.RunningEvent newEvent = new GetAllEventsResponse.RunningEvent();
+                    newEvent.setRunningEventName(eventName);
+                    newEvent.setDistrict(solution.getLiteral("district").getString().trim());
+                    newEvent.setTypeofEvent(solution.getLiteral("typeOfEvent").getString().trim());
+                    newEvent.setOrganization(solution.getLiteral("organizationName").getString().trim());
+                    newEvent.setActivityArea(solution.getLiteral("activityArea").getString().trim());
+                    newEvent.setStandard(solution.getLiteral("standardOfEvent").getString().trim());
+                    newEvent.setLevel(solution.getLiteral("levelOfEvent").getString().trim());
+                    newEvent.setStartPeriod(solution.getLiteral("startPeriod").getString().trim());
+                    newEvent.setPrices(new GetAllEventsResponse.RunningEvent.Prices());
+                    newEvent.getPrices().getPrice().clear();
+                    newEvent.setRaceTypes(new GetAllEventsResponse.RunningEvent.RaceTypes());
+                    newEvent.getRaceTypes().getRaceType().clear();
+                    newEvent.setRewards(new GetAllEventsResponse.RunningEvent.Rewards());
+                    newEvent.getRewards().getReward().clear();
+                    return newEvent;
+                });
 
-                    if (currentEvent != null) {
-                        response.getRunningEvent().add(currentEvent);
-                    }
-
-                    currentEvent = new GetAllEventsResponse.RunningEvent();
-                    currentEventName = eventName;
-                    currentEvent.setRunningEventName(eventName);
-                    currentEvent.setDistrict(solution.getLiteral("district").getString());
-                    currentEvent.setTypeofEvent(solution.getLiteral("typeOfEvent").getString());
-                    currentEvent.setOrganization(solution.getLiteral("organizationName").getString());
-                    currentEvent.setActivityArea(solution.getLiteral("activityArea").getString());
-                    currentEvent.setStandard(solution.getLiteral("standardOfEvent").getString());
-                    currentEvent.setLevel(solution.getLiteral("levelOfEvent").getString());
-                    currentEvent.setStartPeriod(solution.getLiteral("startPeriod").getString());
-
-                    currentEvent.setPrices(new GetAllEventsResponse.RunningEvent.Prices());
-                    currentEvent.setRaceTypes(new GetAllEventsResponse.RunningEvent.RaceTypes());
-                    currentEvent.setRewards(new GetAllEventsResponse.RunningEvent.Rewards());
+                String raceType = solution.getLiteral("raceTypeName").getString().trim();
+                if (!event.getRaceTypes().getRaceType().contains(raceType)) {
+                    event.getRaceTypes().getRaceType().add(raceType);
                 }
 
-                String raceTypeName = solution.getLiteral("raceTypeName").getString();
-                if (!currentEvent.getRaceTypes().getRaceType().contains(raceTypeName)) {
-                    currentEvent.getRaceTypes().getRaceType().add(raceTypeName);
-                }
-                String price = solution.getLiteral("price").getString();
-                if (!currentEvent.getPrices().getPrice().contains(price)) {
-                    currentEvent.getPrices().getPrice().add(price);
-                }
-                String rewardName = solution.getLiteral("reward").getString();
-                if (!currentEvent.getRewards().getReward().contains(rewardName)) {
-                    currentEvent.getRewards().getReward().add(rewardName);
+                String price = solution.getLiteral("price").getString().trim();
+                if (!event.getPrices().getPrice().contains(price)) {
+                    event.getPrices().getPrice().add(price);
                 }
 
+                String rewardName = solution.getLiteral("reward").getString().trim();
+                if (!event.getRewards().getReward().contains(rewardName)) {
+                    event.getRewards().getReward().add(rewardName);
+                }
             }
+            response.getRunningEvent().addAll(eventsMap.values());
 
-            if (currentEvent != null) {
-                response.getRunningEvent().add(currentEvent);
-            }
+            System.out.println("Total solutions processed: " + solutionCount);
         } finally {
             qexec.close();
         }
