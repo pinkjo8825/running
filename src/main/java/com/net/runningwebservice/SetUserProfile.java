@@ -91,7 +91,7 @@ public class SetUserProfile {
             e.printStackTrace();
         }
         System.out.println("Number of statements in OntModel: " + m.size());
-        response.setStatus("success");
+        response.setStatus("Success");
 
         return response;
     }

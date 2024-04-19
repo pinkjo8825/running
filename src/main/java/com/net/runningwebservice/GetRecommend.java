@@ -65,34 +65,34 @@ public class GetRecommend {
         String startPeriodReg = request.getStartPeriod();
         String rewardReg = request.getReward();
 
-        if (!districtReg.isEmpty()) {
+        if (districtReg != null) {
             userInstance.addProperty(userLocation, districtReg);
         }
-        if (!raceTypeReg.isEmpty()) {
+        if (raceTypeReg != null) {
             userInstance.addProperty(hasRacetype, raceTypeReg);
         }
-        if (!typeofEventReg.isEmpty()) {
+        if (typeofEventReg != null) {
             userInstance.addProperty(userTypeOfEvent, typeofEventReg);
         }
-        if (!priceReg.isEmpty()) {
+        if (priceReg != null) {
             userInstance.addProperty(userEventPrice, priceReg);
         }
-        if (!organizationReg.isEmpty()) {
+        if (organizationReg != null) {
             userInstance.addProperty(hasOrganization, organizationReg);
         }
-        if (!activityAreaReg.isEmpty()) {
+        if (activityAreaReg != null) {
             userInstance.addProperty(userActivityArea, activityAreaReg);
         }
-        if (!standardReg.isEmpty()) {
+        if (standardReg != null) {
             userInstance.addProperty(userStandardEvent, standardReg);
         }
-        if (!levelReg.isEmpty()) {
+        if (levelReg != null) {
             userInstance.addProperty(userLevelEvent, levelReg);
         }
-        if (!startPeriodReg.isEmpty()) {
+        if (startPeriodReg != null) {
             userInstance.addProperty(userStartPeriod, startPeriodReg);
         }
-        if (!rewardReg.isEmpty()) {
+        if (rewardReg != null) {
             userInstance.addProperty(userReward, rewardReg);
         }
 
@@ -125,7 +125,7 @@ public class GetRecommend {
             Statement statement = i1.nextStatement();
 //            statements.add(statement);
             String statementString = statement.getObject().toString();
-//            System.out.println(statementString);
+//            .println(statementString);
             Resource re = data.getResource(statementString);
             StmtIterator i2 = inf.listStatements(re, c, (RDFNode) null);
             int conf = 0;

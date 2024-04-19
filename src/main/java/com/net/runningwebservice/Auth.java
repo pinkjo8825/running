@@ -58,7 +58,7 @@ public class Auth {
                     .setSubject(username)
                     .setIssuedAt(now)
                     .setExpiration(new Date(nowMillis + 3600000)) // 1 hour expiration
-                    .signWith(SignatureAlgorithm.HS256, SharedConstants.SECRET_KEY)
+                    .signWith(SharedConstants.key, SignatureAlgorithm.HS256)
                     .compact();
             response.setToken(jwt);
             response.setStatus("Success");
