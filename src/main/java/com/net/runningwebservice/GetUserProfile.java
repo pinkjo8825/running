@@ -65,11 +65,11 @@ public class GetUserProfile {
         }
 
         if (result) {
-            System.out.println("1");
+
             Model data = RDFDataMgr.loadModel("file:" + output_filename);
-            System.out.println("2");
+
             Model dataOnto = RDFDataMgr.loadModel("file:" + ontologyPath);
-            System.out.println("3");
+
             OntModel m = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
             OntDocumentManager dm = m.getDocumentManager();
             dm.addAltEntry("http://www.semanticweb.org/guind/ontologies/runningeventontology",
@@ -91,7 +91,7 @@ public class GetUserProfile {
                 // Iterate over the properties of the user
                 StmtIterator properties = user.listProperties();
                 while (properties.hasNext()) {
-                    System.out.println("4");
+
                     Statement stmt = properties.nextStatement();
                     Property property = stmt.getPredicate();
                     RDFNode value = stmt.getObject();
@@ -114,7 +114,7 @@ public class GetUserProfile {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            System.out.println("5");
+
             PrintUtil.registerPrefix("run", runURI);
             Model dataInf = RDFDataMgr.loadModel("file:" + output_filename);
 
@@ -133,9 +133,9 @@ public class GetUserProfile {
             StmtIterator i1 = inf.listStatements(a, p, (RDFNode) null);
 
 
-            System.out.println("6");
+
             while (i1.hasNext()) {
-                System.out.println("7");
+
                 Statement statement = i1.nextStatement();
 
                 String statementString = statement.getObject().toString();
