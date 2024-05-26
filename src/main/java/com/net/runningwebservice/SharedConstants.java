@@ -14,8 +14,11 @@ public class SharedConstants {
     static final String rulesPath = "/Users/net/Downloads/running-web-service/src/main/resources/testrules1.rules";
     static final String runURI = "http://www.semanticweb.org/guind/ontologies/runningeventontology#";
     static final String ontologyPath = "/Users/net/Downloads/running-web-service/src/main/resources/RunningEventOntologyFinal2.rdf";
-    static  final String SECRET_KEY = "OIgDYngM08yDE6z7NQi8RqwzIOqErSaZM1crYnAK0tI";
-    static  final SecretKey key = Keys.hmacShaKeyFor(SharedConstants.SECRET_KEY.getBytes(StandardCharsets.UTF_8));
+    static final String SECRET_KEY = "OIgDYngM08yDE6z7NQi8RqwzIOqErSaZM1crYnAK0tI";
+    static final SecretKey key = Keys.hmacShaKeyFor(SharedConstants.SECRET_KEY.getBytes(StandardCharsets.UTF_8));
+    static final String backup_filename =  "/Users/net/Downloads/running-web-service/src/main/resources/WriteInstance3-backup.rdf";
+    static final Object lock = new Object();
+
 
 
     public static ArrayList<String> formatEventNames(List<String> eventNames) {
