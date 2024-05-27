@@ -10,6 +10,7 @@ import org.apache.jena.reasoner.Reasoner;
 import org.apache.jena.reasoner.rulesys.GenericRuleReasonerFactory;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.util.PrintUtil;
+import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.ReasonerVocabulary;
 
 import java.io.FileInputStream;
@@ -71,6 +72,9 @@ public class GetRecommend {
             String userProfileName = "tempUserInf";
             Resource userInstance = m.createResource(NS + userProfileName);
 
+            userInstance.addProperty(RDF.type, userClass);
+            userInstance.addProperty(userName, userProfileName);
+
             String districtReg = request.getDistrict();
             String raceTypeReg = request.getRaceType();
             String typeofEventReg = request.getTypeofEvent();
@@ -112,10 +116,9 @@ public class GetRecommend {
             if (rewardReg != null) {
                 userInstance.addProperty(userReward, rewardReg);
             }
+            System.out.println(userInstance);
 
-            try (FileOutputStream out = new FileOutputStream(output_filename);
-                 FileChannel fileChannel = out.getChannel();
-                 FileLock fileLock = fileChannel.lock()) {
+            try (FileOutputStream out = new FileOutputStream(output_filename)) {
 
                 m.write(out, "RDF/XML");
 
@@ -136,15 +139,19 @@ public class GetRecommend {
 
             Property p = dataInf.getProperty(runURI, "hasRecommend");
             Property c = dataInf.getProperty(runURI, "confidence");
-            Resource a = dataInf.getResource(runURI + userProfileName);
-            Property rn = dataInf.getProperty(runURI, "RunningEventName");
+            Resource user = dataInf.getResource(runURI + userProfileName);
+            Property rn = data.getProperty(runURI, "RunningEventName");
 
-            StmtIterator i1 = inf.listStatements(a, p, (RDFNode) null);
 
-            ArrayList<String> recEvents = new ArrayList<String>();
+            StmtIterator i1 = inf.listStatements(user, p, (RDFNode) null);
+
+            ArrayList<String> formattedEventNames = new ArrayList<String>();
 
             while (i1.hasNext()) {
                 Statement statement = i1.nextStatement();
+                String result = PrintUtil.print(statement.getProperty(rn).getString());
+                System.out.println(result);
+
                 String statementString = statement.getObject().toString();
                 Resource re = data.getResource(statementString);
                 StmtIterator i2 = inf.listStatements(re, c, (RDFNode) null);
@@ -163,14 +170,16 @@ public class GetRecommend {
                         conf = roundedConfValue;
                     }
                 }
-                String[] parts = statementString.split("#");
-                String extractedName = parts[1];
-                recEvents.add(extractedName);
+                formattedEventNames.add(result);
             }
-
-
-            ArrayList<String> formattedEventNames = SharedConstants.formatEventNames(recEvents);
             System.out.println(formattedEventNames);
+
+            if (formattedEventNames.isEmpty()) {
+                response.setStatus("empty");
+                System.out.println("empty");
+                return response;
+
+            }
 
             String filterClause = formattedEventNames.stream()
                     .map(eventName -> "?eventName = \"" + eventName + "\"")
@@ -202,12 +211,10 @@ public class GetRecommend {
                       ?event re:LevelOfEvent ?levelOfEvent .
                          
                     """ + filterClause + "}";
-//        System.out.println(queryString);
-
+            System.out.println(queryString);
             Query query = QueryFactory.create(queryString);
             QueryExecution qexec = QueryExecutionFactory.create(query, dataOnto);
             ResultSet resultSet = qexec.execSelect();
-
             try {
                 Map<String, GetRecommendEventResponse.RunningEvent> eventsMap = new HashMap<>();
 
@@ -215,7 +222,9 @@ public class GetRecommend {
                     QuerySolution solution = resultSet.nextSolution();
 
                     String eventName = solution.getLiteral("eventName").getString().trim();
+                    System.out.println("eventName:" + eventName);
                     GetRecommendEventResponse.RunningEvent event = eventsMap.computeIfAbsent(eventName, k -> {
+
                         GetRecommendEventResponse.RunningEvent newEvent = new GetRecommendEventResponse.RunningEvent();
                         newEvent.setRunningEventName(eventName);
                         newEvent.setDistrict(solution.getLiteral("district").getString().trim());
@@ -254,7 +263,6 @@ public class GetRecommend {
             } finally {
                 qexec.close();
             }
-
             return response;
         }
     }

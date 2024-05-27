@@ -1,6 +1,7 @@
 @prefix run: <http://www.semanticweb.org/guind/ontologies/runningeventontology#> .
 
 [Jena1: (?re run:hasRaceType ?racetype) (?racetype run:RaceTypeName "Half Marathon") (?racetype run:Price "Average") (?User run:hasRaceTypeInterest ?RaceTypeIn) (?RaceTypeIn run:RaceTypeName "Half Marathon") (?User run:EventPriceInterest "Average") -> (?User run:hasRecommend ?re) (?re run:confidence "100") ]
+
 [Jena2: (?re run:hasRaceType ?racetype) (?racetype run:RaceTypeName "Half Marathon") (?racetype run:Price "Average") (?re run:StandardOfEvent "StandardEvent") (?User run:hasRaceTypeInterest ?RaceTypeIn) (?RaceTypeIn run:RaceTypeName "Half Marathon") (?User run:EventPriceInterest "Average") (?User run:StandardEventInterest "StandardEvent") -> (?User run:hasRecommend ?re) (?re run:confidence "100") ]
 [Jena3: (?re run:hasRaceType ?racetype) (?racetype run:RaceTypeName "Half Marathon") (?User run:hasRaceTypeInterest ?RaceTypeIn) (?RaceTypeIn run:RaceTypeName "Half Marathon") (?re run:StandardOfEvent "StandardEvent") (?User run:StandardEventInterest "StandardEvent") (?racetype run:StartPeriod "Morning") (?User run:StartPeriodInterest "Morning") -> (?User run:hasRecommend ?re) (?re run:confidence "100") ]
 [Jena4: (?re run:hasRaceType ?racetype) (?racetype run:RaceTypeName "Half Marathon") (?User run:hasRaceTypeInterest ?RaceTypeIn) (?RaceTypeIn run:RaceTypeName "Half Marathon") (?racetype run:StartPeriod "Morning") (?User run:StartPeriodInterest "Morning") (?re run:hasRaceType ?racetype) (?racetype run:Price "Average") (?User run:EventPriceInterest "Average") -> (?User run:hasRecommend ?re) (?re run:confidence "100") ]
@@ -71,4 +72,5 @@
 [Jena80: (?re run:TypeOfEvent "CompetitiveEvent") (?User run:TypeOfEventInterest "CompetitiveEvent") (?re run:hasRaceType ?racetype) (?racetype run:Price "Average") (?User run:EventPriceInterest "Average") -> (?User run:hasRecommend ?re) (?re run:confidence "84") ]
 [Jena81:  (?re run:hasRaceType ?racetype) (?racetype run:Reward "Medal") (?User run:RewardInterest "Medal")  (?re run:hasRaceType ?racetype) (?racetype run:Price "Average") (?User run:EventPriceInterest "Average") -> (?User run:hasRecommend ?re) (?re run:confidence "82") ]
 [Jena83:  (?re run:hasRaceType ?racetype) (?racetype run:Price "Economy") (?User run:EventPriceInterest "Economy") (?re run:hasRaceType ?racetype) (?racetype run:ActivityArea "Natural") (?User run:ActivityAreaInterest "Natural")  -> (?User run:hasRecommend ?re) (?re run:confidence "80") ]
+
 
