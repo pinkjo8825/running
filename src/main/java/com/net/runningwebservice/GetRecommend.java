@@ -10,6 +10,7 @@ import org.apache.jena.reasoner.Reasoner;
 import org.apache.jena.reasoner.rulesys.GenericRuleReasonerFactory;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.util.PrintUtil;
+import org.apache.jena.util.iterator.ExtendedIterator;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.ReasonerVocabulary;
 
@@ -68,6 +69,15 @@ public class GetRecommend {
             OntProperty userStandardEvent = m.getDatatypeProperty(NS + "StandardEventInterest");
             OntProperty userName = m.getDatatypeProperty(NS + "Username");
 
+            OntClass minimarathonClass = m.getOntClass(NS + "MiniMarathon");
+            OntClass marathonClass = (OntClass) m.getOntClass(NS + "Marathon");
+            OntClass halfmarathonClass = (OntClass) m.getOntClass(NS + "HalfMarathon");
+            OntClass funrunClass = (OntClass) m.getOntClass(NS + "FunRun");
+
+            OntClass organizationClass = (OntClass) m.getOntClass(NS + "Organization");
+            OntProperty organizationName = m.getDatatypeProperty(NS + "OrganizationName");
+
+
 
             String userProfileName = "tempUserInf";
             Resource userInstance = m.createResource(NS + userProfileName);
@@ -90,7 +100,22 @@ public class GetRecommend {
                 userInstance.addProperty(userLocation, districtReg);
             }
             if (raceTypeReg != null) {
-                userInstance.addProperty(hasRacetype, raceTypeReg);
+                switch (raceTypeReg) {
+                    case "Mini Marathon":
+                        userInstance.addProperty(hasRacetype, minimarathonClass);
+                        break;
+                    case "Marathon":
+                        userInstance.addProperty(hasRacetype, marathonClass);
+                        break;
+                    case "Half Marathon":
+                        userInstance.addProperty(hasRacetype, halfmarathonClass);
+                        break;
+                    case "Fun run":
+                        userInstance.addProperty(hasRacetype, funrunClass);
+                        break;
+                    default:
+                        break;
+                }
             }
             if (typeofEventReg != null) {
                 userInstance.addProperty(userTypeOfEvent, typeofEventReg);
@@ -99,7 +124,17 @@ public class GetRecommend {
                 userInstance.addProperty(userEventPrice, priceReg);
             }
             if (organizationReg != null) {
-                userInstance.addProperty(hasOrganization, organizationReg);
+                ExtendedIterator instances = organizationClass.listInstances();
+                while (instances.hasNext()) {
+                    Individual thisInstance = (Individual) instances.next();
+
+                    if (organizationReg.equals(thisInstance.getProperty(organizationName).getString())) {
+                        
+                        userInstance.addProperty(hasOrganization, thisInstance);
+                        System.out.println(userInstance.getProperty(hasOrganization).toString());
+
+                    }
+                }
             }
             if (activityAreaReg != null) {
                 userInstance.addProperty(userActivityArea, activityAreaReg);
@@ -150,7 +185,6 @@ public class GetRecommend {
             while (i1.hasNext()) {
                 Statement statement = i1.nextStatement();
                 String result = PrintUtil.print(statement.getProperty(rn).getString());
-                System.out.println(result);
 
                 String statementString = statement.getObject().toString();
                 Resource re = data.getResource(statementString);
@@ -172,7 +206,6 @@ public class GetRecommend {
                 }
                 formattedEventNames.add(result);
             }
-            System.out.println(formattedEventNames);
 
             if (formattedEventNames.isEmpty()) {
                 response.setStatus("empty");
@@ -222,7 +255,6 @@ public class GetRecommend {
                     QuerySolution solution = resultSet.nextSolution();
 
                     String eventName = solution.getLiteral("eventName").getString().trim();
-                    System.out.println("eventName:" + eventName);
                     GetRecommendEventResponse.RunningEvent event = eventsMap.computeIfAbsent(eventName, k -> {
 
                         GetRecommendEventResponse.RunningEvent newEvent = new GetRecommendEventResponse.RunningEvent();
