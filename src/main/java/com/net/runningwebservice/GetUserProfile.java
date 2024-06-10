@@ -39,7 +39,7 @@ public class GetUserProfile {
         synchronized (SharedConstants.lock) {
             GetUserProfileResponse response = new GetUserProfileResponse();
 
-            ArrayList<String> recEvents = new ArrayList<String>();
+            ArrayList<String> formattedEventNames = new ArrayList<String>();
 
             String NS = SharedConstants.NS;
             String output_filename = SharedConstants.output_filename;
@@ -97,7 +97,6 @@ public class GetUserProfile {
                 Resource userInstance = m.createResource(NS + userProfileName);
                 userInstance.addProperty(RDF.type, userClass);
 
-                // Find the user resource by username
                 Property usernameProperty = dataOnto.createProperty(NS + "Username");
                 ResIterator users = dataOnto.listResourcesWithProperty(usernameProperty, username);
 
@@ -153,18 +152,18 @@ public class GetUserProfile {
                 StmtIterator i1 = inf.listStatements(a, p, (RDFNode) null);
 
 
-                while (i1.hasNext()) {
 
+
+                while (i1.hasNext()) {
                     Statement statement = i1.nextStatement();
+                    String resultName = PrintUtil.print(statement.getProperty(rn).getString());
 
                     String statementString = statement.getObject().toString();
-//                System.out.println(statementString);
                     Resource re = data.getResource(statementString);
                     StmtIterator i2 = inf.listStatements(re, c, (RDFNode) null);
                     int conf = 0;
                     while (i2.hasNext()) {
                         Statement statement2 = i2.nextStatement();
-
                         String confStr = statement2.getString();
                         double confValue;
                         try {
@@ -173,19 +172,16 @@ public class GetUserProfile {
                             continue;
                         }
                         int roundedConfValue = (int) Math.round(confValue);
-//                    System.out.println("=> " + roundedConfValue);
                         if (roundedConfValue > conf) {
                             conf = roundedConfValue;
                         }
                     }
-                    String[] parts = statementString.split("#");
-                    String extractedName = parts[1];
-                    recEvents.add(extractedName);
-
+                    formattedEventNames.add(resultName);
 
                 }
+
             }
-            ArrayList<String> formattedEventNames = SharedConstants.formatEventNames(recEvents);
+
 
             String filterClause = formattedEventNames.stream()
                     .map(eventName -> "?eventName = \"" + eventName + "\"")
@@ -217,7 +213,7 @@ public class GetUserProfile {
                       ?event re:LevelOfEvent ?levelOfEvent .
                          
                     """ + filterClause + "}";
-//        System.out.println(queryString);
+        System.out.println(queryString);
 
             Query query = QueryFactory.create(queryString);
             QueryExecution qexec = QueryExecutionFactory.create(query, dataOnto);

@@ -9,6 +9,7 @@ import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.query.QueryFactory;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.util.iterator.ExtendedIterator;
 import org.apache.jena.vocabulary.RDF;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -44,6 +45,12 @@ public class SetUserProfile {
         }
 
         if(!exist) {
+
+            OntProperty userAge = m.getDatatypeProperty(NS + "UserAge");
+            OntProperty userNationality = m.getDatatypeProperty(NS + "UserNationality");
+            OntProperty userSex = m.getDatatypeProperty(NS + "UserSex");
+            OntProperty password = m.getDatatypeProperty(NS + "Password");
+
             OntClass userClass = m.getOntClass(NS + "User");
             OntProperty userActivityArea = m.getDatatypeProperty(NS + "ActivityAreaInterest");
             OntProperty userStartPeriod = m.getDatatypeProperty(NS + "StartPeriodInterest");
@@ -55,11 +62,15 @@ public class SetUserProfile {
             OntProperty userEventPrice = m.getDatatypeProperty(NS + "EventPriceInterest");
             OntProperty userLevelEvent = m.getDatatypeProperty(NS + "LevelEventInterest");
             OntProperty userStandardEvent = m.getDatatypeProperty(NS + "StandardEventInterest");
-            OntProperty userAge = m.getDatatypeProperty(NS + "UserAge");
             OntProperty userName = m.getDatatypeProperty(NS + "Username");
-            OntProperty userNationality = m.getDatatypeProperty(NS + "UserNationality");
-            OntProperty userSex = m.getDatatypeProperty(NS + "UserSex");
-            OntProperty password = m.getDatatypeProperty(NS + "Password");
+
+            OntClass minimarathonClass = m.getOntClass(NS + "MiniMarathon");
+            OntClass marathonClass = (OntClass) m.getOntClass(NS + "Marathon");
+            OntClass halfmarathonClass = (OntClass) m.getOntClass(NS + "HalfMarathon");
+            OntClass funrunClass = (OntClass) m.getOntClass(NS + "FunRun");
+
+            OntClass organizationClass = (OntClass) m.getOntClass(NS + "Organization");
+            OntProperty organizationName = m.getDatatypeProperty(NS + "OrganizationName");
 
 
             String userProfileName = request.getUsername();
@@ -82,14 +93,48 @@ public class SetUserProfile {
 
             userInstance.addProperty(RDF.type, userClass);
             userInstance.addProperty(userName, userProfileName);
+
+            if (raceTypeReg != null) {
+                switch (raceTypeReg) {
+                    case "Mini Marathon":
+                        userInstance.addProperty(hasRacetype, minimarathonClass);
+                        break;
+                    case "Marathon":
+                        userInstance.addProperty(hasRacetype, marathonClass);
+                        break;
+                    case "Half Marathon":
+                        userInstance.addProperty(hasRacetype, halfmarathonClass);
+                        break;
+                    case "Fun run":
+                        userInstance.addProperty(hasRacetype, funrunClass);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            if (organizationReg != null) {
+                ExtendedIterator instances = organizationClass.listInstances();
+                while (instances.hasNext()) {
+                    Individual thisInstance = (Individual) instances.next();
+
+                    if (organizationReg.equals(thisInstance.getProperty(organizationName).getString())) {
+
+                        userInstance.addProperty(hasOrganization, thisInstance);
+                        System.out.println(userInstance.getProperty(hasOrganization).toString());
+
+                    }
+                }
+            }
+
             userInstance.addProperty(userAge, String.valueOf(ageReg));
             userInstance.addProperty(userNationality, nationalityReg);
             userInstance.addProperty(userSex, genderReg);
             userInstance.addProperty(userLocation, districtReg);
-            userInstance.addProperty(hasRacetype, raceTypeReg);
+
             userInstance.addProperty(userTypeOfEvent, typeofEventReg);
             userInstance.addProperty(userEventPrice, priceReg);
-            userInstance.addProperty(hasOrganization, organizationReg);
+
             userInstance.addProperty(userActivityArea, activityAreaReg);
             userInstance.addProperty(userStandardEvent, standardReg);
             userInstance.addProperty(userLevelEvent, levelReg);

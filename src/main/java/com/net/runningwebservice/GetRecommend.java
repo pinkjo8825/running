@@ -184,7 +184,7 @@ public class GetRecommend {
 
             while (i1.hasNext()) {
                 Statement statement = i1.nextStatement();
-                String result = PrintUtil.print(statement.getProperty(rn).getString());
+                String resultName = PrintUtil.print(statement.getProperty(rn).getString());
 
                 String statementString = statement.getObject().toString();
                 Resource re = data.getResource(statementString);
@@ -204,7 +204,7 @@ public class GetRecommend {
                         conf = roundedConfValue;
                     }
                 }
-                formattedEventNames.add(result);
+                formattedEventNames.add(resultName);
             }
 
             if (formattedEventNames.isEmpty()) {
