@@ -90,7 +90,7 @@ public class GetEvent {
         QueryExecution qexec = QueryExecutionFactory.create(query, dataOnto);
         ResultSet resultSet = qexec.execSelect();
 
-        System.out.println(queryString);
+//        System.out.println(queryString);
 
         try {
             Map<String, GetEventResponse.RunningEvent> eventsMap = new HashMap<>();
