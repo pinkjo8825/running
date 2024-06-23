@@ -12,6 +12,7 @@ import java.util.*;
 public class GetEvent {
 
     public static GetEventResponse run(GetEventRequest request) {
+        System.out.println("GETEVENT");
         GetEventResponse response = new GetEventResponse();
 
         Model dataOnto = RDFDataMgr.loadModel("file:" + SharedConstants.ontologyPath);
@@ -136,7 +137,7 @@ public class GetEvent {
             }
             response.getRunningEvent().addAll(eventsMap.values());
 
-            System.out.println("Total solutions processed: " + solutionCount);
+//            System.out.println("Total solutions processed: " + solutionCount);
         } finally {
             qexec.close();
         }

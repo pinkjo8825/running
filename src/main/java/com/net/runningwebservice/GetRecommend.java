@@ -31,6 +31,7 @@ public class GetRecommend {
 
     public synchronized static GetRecommendEventResponse run(GetRecommendEventRequest request) {
         synchronized (SharedConstants.lock) {
+            System.out.println("GETRECOMMENDEVENT");
 
             GetRecommendEventResponse response = new GetRecommendEventResponse();
 
@@ -41,15 +42,14 @@ public class GetRecommend {
             String ontologyPath = SharedConstants.ontologyPath;
             String backup_filename = SharedConstants.backup_filename;
 
-            try {
-                Files.copy(Paths.get(backup_filename), Paths.get(output_filename), StandardCopyOption.REPLACE_EXISTING);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                Files.copy(Paths.get(backup_filename), Paths.get(output_filename), StandardCopyOption.REPLACE_EXISTING);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
 
 
             Model data = RDFDataMgr.loadModel("file:" + output_filename);
-
 
             OntModel m = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
             OntDocumentManager dm = m.getDocumentManager();
@@ -76,8 +76,6 @@ public class GetRecommend {
 
             OntClass organizationClass = (OntClass) m.getOntClass(NS + "Organization");
             OntProperty organizationName = m.getDatatypeProperty(NS + "OrganizationName");
-
-
 
             String userProfileName = "tempUserInf";
             Resource userInstance = m.createResource(NS + userProfileName);
@@ -131,7 +129,7 @@ public class GetRecommend {
                     if (organizationReg.equals(thisInstance.getProperty(organizationName).getString())) {
                         
                         userInstance.addProperty(hasOrganization, thisInstance);
-                        System.out.println(userInstance.getProperty(hasOrganization).toString());
+//                        System.out.println(userInstance.getProperty(hasOrganization).toString());
 
                     }
                 }
@@ -151,12 +149,10 @@ public class GetRecommend {
             if (rewardReg != null) {
                 userInstance.addProperty(userReward, rewardReg);
             }
-            System.out.println(userInstance);
+//            System.out.println(userInstance);
 
             try (FileOutputStream out = new FileOutputStream(output_filename)) {
-
                 m.write(out, "RDF/XML");
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -209,7 +205,7 @@ public class GetRecommend {
 
             if (formattedEventNames.isEmpty()) {
                 response.setStatus("empty");
-                System.out.println("empty");
+//                System.out.println("empty");
                 return response;
 
             }
@@ -244,7 +240,7 @@ public class GetRecommend {
                       ?event re:LevelOfEvent ?levelOfEvent .
                          
                     """ + filterClause + "}";
-            System.out.println(queryString);
+//            System.out.println(queryString);
             Query query = QueryFactory.create(queryString);
             QueryExecution qexec = QueryExecutionFactory.create(query, dataOnto);
             ResultSet resultSet = qexec.execSelect();
@@ -294,6 +290,14 @@ public class GetRecommend {
 
             } finally {
                 qexec.close();
+            }
+            m.removeAll(userInstance, null, (RDFNode) null);
+            m.removeAll(null, null, userInstance);
+
+            try (FileOutputStream out = new FileOutputStream(output_filename)) {
+                m.write(out, "RDF/XML");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
             return response;
         }

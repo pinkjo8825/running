@@ -18,6 +18,7 @@ import java.io.IOException;
 
 public class SetUserProfile {
     public static SetUserProfileResponse run(SetUserProfileRequest request) {
+        System.out.println("SETUSERPROFILE");
         SetUserProfileResponse response = new SetUserProfileResponse();
 
         String ontologyPath = SharedConstants.ontologyPath;
@@ -34,7 +35,7 @@ public class SetUserProfile {
                 "ASK { ?user <%sUsername> \"%s\" . }",
                 NS,  request.getUsername()
         );
-        System.out.println(queryStr);
+//        System.out.println(queryStr);
 
         Query query = QueryFactory.create(queryStr);
         QueryExecution qexec = QueryExecutionFactory.create(query, m);
@@ -121,7 +122,7 @@ public class SetUserProfile {
                     if (organizationReg.equals(thisInstance.getProperty(organizationName).getString())) {
 
                         userInstance.addProperty(hasOrganization, thisInstance);
-                        System.out.println(userInstance.getProperty(hasOrganization).toString());
+//                        System.out.println(userInstance.getProperty(hasOrganization).toString());
 
                     }
                 }
@@ -149,11 +150,11 @@ public class SetUserProfile {
 
             try (FileOutputStream out = new FileOutputStream(ontologyPath)) {
                 m.write(out, "RDF/XML");
-                System.out.println(userInstance);
+//                System.out.println(userInstance);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            System.out.println("Number of statements in OntModel: " + m.size());
+//            System.out.println("Number of statements in OntModel: " + m.size());
             response.setStatus("Success");
 
             return response;

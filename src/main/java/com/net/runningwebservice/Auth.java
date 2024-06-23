@@ -16,6 +16,7 @@ import java.util.Date;
 public class Auth {
 
     public static AuthResponse run(AuthRequest request) {
+        System.out.println("AUTH");
         AuthResponse response = new AuthResponse();
 
         String username = request.getUsername();
@@ -41,10 +42,10 @@ public class Auth {
                 if (passwordNode != null && passwordNode.isLiteral()) {
                     String password = passwordNode.asLiteral().getString();
                     hashedPassword = password;
-                    System.out.println("Username: " + username);
-                    System.out.println("Password: " + password);
+//                    System.out.println("Username: " + username);
+//                    System.out.println("Password: " + password);
                 } else {
-                    System.out.println("Password not found or not a literal.");
+//                    System.out.println("Password not found or not a literal.");
                 }
             }
         }

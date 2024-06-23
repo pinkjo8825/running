@@ -37,6 +37,7 @@ public class GetUserProfile {
 
     public synchronized static GetUserProfileResponse run(GetUserProfileRequest request) {
         synchronized (SharedConstants.lock) {
+            System.out.println("GETUSERPROFILE");
             GetUserProfileResponse response = new GetUserProfileResponse();
 
             ArrayList<String> formattedEventNames = new ArrayList<String>();
@@ -57,8 +58,8 @@ public class GetUserProfile {
 
             String username = request.getUsername();
             String token = request.getToken();
-            System.out.println(username);
-            System.out.println(token);
+//            System.out.println(username);
+//            System.out.println(token);
 
             boolean result = false;
             try {
@@ -77,7 +78,7 @@ public class GetUserProfile {
                 }
             } catch (JwtException e) {
                 response.setStatus("Fail");
-                System.out.println("JWT validation failed: " + e.getMessage());
+//                System.out.println("JWT validation failed: " + e.getMessage());
             }
 
             if (result) {
@@ -121,7 +122,7 @@ public class GetUserProfile {
                     }
 
                 } else {
-                    System.out.println("User not found");
+//                    System.out.println("User not found");
                 }
 
                 try (FileOutputStream out = new FileOutputStream(output_filename);
@@ -213,7 +214,7 @@ public class GetUserProfile {
                       ?event re:LevelOfEvent ?levelOfEvent .
                          
                     """ + filterClause + "}";
-        System.out.println(queryString);
+//        System.out.println(queryString);
 
             Query query = QueryFactory.create(queryString);
             QueryExecution qexec = QueryExecutionFactory.create(query, dataOnto);
