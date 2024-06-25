@@ -16,9 +16,8 @@ import java.util.Date;
 public class Auth {
 
     public static AuthResponse run(AuthRequest request) {
-        System.out.println("AUTH");
         AuthResponse response = new AuthResponse();
-
+        System.out.println("AuthResponse");
         String username = request.getUsername();
         String plainPassword = request.getPassword();
 

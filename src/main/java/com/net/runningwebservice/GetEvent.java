@@ -12,9 +12,8 @@ import java.util.*;
 public class GetEvent {
 
     public static GetEventResponse run(GetEventRequest request) {
-        System.out.println("GETEVENT");
         GetEventResponse response = new GetEventResponse();
-
+        System.out.println("GetEventResponse");
         Model dataOnto = RDFDataMgr.loadModel("file:" + SharedConstants.ontologyPath);
 
         String districtReg = request.getDistrict();

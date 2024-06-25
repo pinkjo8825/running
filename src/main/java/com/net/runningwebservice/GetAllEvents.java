@@ -14,9 +14,8 @@ import java.util.Map;
 public class GetAllEvents {
 
     public static GetAllEventsResponse run(GetAllEventsRequest request) {
-        System.out.println("GETALLEVENTS");
         GetAllEventsResponse response = new GetAllEventsResponse();
-
+        System.out.println("GetAllEventsResponse");
         Model dataOnto = RDFDataMgr.loadModel("file:" + SharedConstants.ontologyPath);
 
         String queryString  = """

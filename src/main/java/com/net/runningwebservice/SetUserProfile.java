@@ -18,8 +18,8 @@ import java.io.IOException;
 
 public class SetUserProfile {
     public static SetUserProfileResponse run(SetUserProfileRequest request) {
-        System.out.println("SETUSERPROFILE");
         SetUserProfileResponse response = new SetUserProfileResponse();
+        System.out.println("SetUserProfileResponse");
 
         String ontologyPath = SharedConstants.ontologyPath;
         String NS = SharedConstants.NS;
