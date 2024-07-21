@@ -42,11 +42,11 @@ public class GetRecommend {
                 String ontologyPath = SharedConstants.ontologyPath;
                 String backup_filename = SharedConstants.backup_filename;
 
-//            try {
-//                Files.copy(Paths.get(backup_filename), Paths.get(output_filename), StandardCopyOption.REPLACE_EXISTING);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
+            try {
+                Files.copy(Paths.get(backup_filename), Paths.get(output_filename), StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
 
                 Model data = RDFDataMgr.loadModel("file:" + output_filename);
