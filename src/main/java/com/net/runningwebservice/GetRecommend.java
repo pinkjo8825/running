@@ -15,8 +15,6 @@ import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.ReasonerVocabulary;
 
 import java.io.*;
-import java.nio.channels.FileChannel;
-import java.nio.channels.FileLock;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
@@ -31,6 +29,8 @@ public class GetRecommend {
 //        public static GetRecommendEventResponse run(GetRecommendEventRequest request) {
 
 //            synchronized (SharedConstants.lock) {
+                //1 replace 2//remove //3reload
+                int method = 1;
 
                 GetRecommendEventResponse response = new GetRecommendEventResponse();
                 System.out.println("GetRecommendEventResponse");
@@ -42,11 +42,13 @@ public class GetRecommend {
                 String ontologyPath = SharedConstants.ontologyPath;
                 String backup_filename = SharedConstants.backup_filename;
 
-            try {
-                Files.copy(Paths.get(backup_filename), Paths.get(output_filename), StandardCopyOption.REPLACE_EXISTING);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+                if(method == 3) {
+                    try {
+                        Files.copy(Paths.get(backup_filename), Paths.get(output_filename), StandardCopyOption.REPLACE_EXISTING);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
 
 
                 Model data = RDFDataMgr.loadModel("file:" + output_filename);
@@ -293,13 +295,19 @@ public class GetRecommend {
                 } finally {
                     qexec.close();
                 }
-//                Resource userResource = data.getResource(userURI);
-//                data.removeAll(userResource, null, (RDFNode) null);
-//                try {
-//                    data.write(new PrintWriter(new FileOutputStream(output_filename)), "RDF/XML");
-//                } catch (FileNotFoundException ex) {
-//                    ex.printStackTrace();
-//                }
+
+                //replace
+                if(method == 1) {
+                Resource userResource = data.getResource(userURI);
+                data.removeAll(userResource, null, (RDFNode) null);
+                try {
+                    data.write(new PrintWriter(new FileOutputStream(output_filename)), "RDF/XML");
+                } catch (FileNotFoundException ex) {
+                    ex.printStackTrace();
+                }
+                }
+
+
                 return response;
             }
 //        }

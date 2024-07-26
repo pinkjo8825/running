@@ -21,8 +21,6 @@ import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.ReasonerVocabulary;
 
 import java.io.*;
-import java.nio.channels.FileChannel;
-import java.nio.channels.FileLock;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
@@ -36,6 +34,10 @@ public class GetUserProfile {
     public synchronized static GetUserProfileResponse run(GetUserProfileRequest request) {
 //public static GetUserProfileResponse run(GetUserProfileRequest request) {
 //        synchronized (SharedConstants.lock) {
+
+            //1 replace 2//remove //3reload
+            int method = 1;
+
             GetUserProfileResponse response = new GetUserProfileResponse();
             System.out.println("GetUserProfileResponse");
 
@@ -43,23 +45,22 @@ public class GetUserProfile {
 
             String NS = SharedConstants.NS;
 //            String output_filename = SharedConstants.output_filename;
-            String output_filename = "/Users/net/Downloads/running-web-service/src/main/resources/WriteInstance3-test.rdf";
+            String output_filename = "src/main/resources/WriteInstance3-2.rdf";
             String rulesPath = SharedConstants.rulesPath;
             String runURI = SharedConstants.runURI;
             String ontologyPath = SharedConstants.ontologyPath;
             String backup_filename = SharedConstants.backup_filename;
 
-
-            try {
-                Files.copy(Paths.get(backup_filename), Paths.get(output_filename), StandardCopyOption.REPLACE_EXISTING);
-            } catch (IOException e) {
-                e.printStackTrace();
+            if(method == 3) {
+                try {
+                    Files.copy(Paths.get(backup_filename), Paths.get(output_filename), StandardCopyOption.REPLACE_EXISTING);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
             String username = request.getUsername();
             String token = request.getToken();
-            System.out.println(username);
-            System.out.println(token);
 
             boolean result = false;
             try {
@@ -180,15 +181,17 @@ public class GetUserProfile {
 
                 }
 
-//                Resource userResource = data.getResource(userURI);
-//                data.removeAll(userResource, null, (RDFNode) null);
-//                try {
-//                    data.write(new PrintWriter(new FileOutputStream(output_filename)), "RDF/XML");
-//                } catch (FileNotFoundException ex) {
-//                    ex.printStackTrace();
-//                }
-                //old if
-//            }
+                //replace
+                if(method ==1 ) {
+                    Resource userResource = data.getResource(userURI);
+                    data.removeAll(userResource, null, (RDFNode) null);
+                    try {
+                        data.write(new PrintWriter(new FileOutputStream(output_filename)), "RDF/XML");
+                    } catch (FileNotFoundException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+
 
 
                 String filterClause = formattedEventNames.stream()
