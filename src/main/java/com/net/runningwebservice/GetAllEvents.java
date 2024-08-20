@@ -2,13 +2,10 @@ package com.net.runningwebservice;
 
 import com.net.running_web_service.GetAllEventsRequest;
 import com.net.running_web_service.GetAllEventsResponse;
-import com.net.running_web_service.GetEventResponse;
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.riot.RDFDataMgr;
-
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class GetAllEvents {

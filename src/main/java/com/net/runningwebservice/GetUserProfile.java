@@ -19,7 +19,6 @@ import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.util.PrintUtil;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.ReasonerVocabulary;
-
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -31,12 +30,12 @@ import java.util.stream.Collectors;
 
 public class GetUserProfile {
 
-    public synchronized static GetUserProfileResponse run(GetUserProfileRequest request) {
-//public static GetUserProfileResponse run(GetUserProfileRequest request) {
+    public static synchronized GetUserProfileResponse run(GetUserProfileRequest request) {
+//        public static GetUserProfileResponse run(GetUserProfileRequest request) {
 //        synchronized (SharedConstants.lock) {
 
-            //1 replace 2//remove //3reload
-            int method = 1;
+
+            int method = SharedConstants.methods;
 
             GetUserProfileResponse response = new GetUserProfileResponse();
             System.out.println("GetUserProfileResponse");
@@ -44,8 +43,10 @@ public class GetUserProfile {
             ArrayList<String> formattedEventNames = new ArrayList<String>();
 
             String NS = SharedConstants.NS;
+
 //            String output_filename = SharedConstants.output_filename;
             String output_filename = "src/main/resources/WriteInstance3-2.rdf";
+
             String rulesPath = SharedConstants.rulesPath;
             String runURI = SharedConstants.runURI;
             String ontologyPath = SharedConstants.ontologyPath;
@@ -122,15 +123,6 @@ public class GetUserProfile {
 //                    System.out.println("User not found");
                 }
 
-//                try (FileOutputStream out = new FileOutputStream(output_filename);
-//                     FileChannel fileChannel = out.getChannel();
-//                     FileLock fileLock = fileChannel.lock()) {
-//
-//                    m.write(out, "RDF/XML");
-//
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
                 try {
                     m.write(new PrintWriter(new FileOutputStream(output_filename)), "RDF/XML");
                 } catch (FileNotFoundException ex) {
@@ -279,6 +271,10 @@ public class GetUserProfile {
             }
 
             return response;
-        }
-//    }
+//        }
+
+
+
+
+    }
 }

@@ -57,7 +57,7 @@ public class Auth {
             String jwt = Jwts.builder()
                     .setSubject(username)
                     .setIssuedAt(now)
-                    .setExpiration(new Date(nowMillis + 3600000)) // 1 hour expiration
+                    .setExpiration(new Date(nowMillis + 7200000)) // 2 hour expiration
                     .signWith(SharedConstants.key, SignatureAlgorithm.HS256)
                     .compact();
             response.setToken(jwt);

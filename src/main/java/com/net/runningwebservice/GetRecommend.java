@@ -1,6 +1,5 @@
 package com.net.runningwebservice;
 
-import com.net.running_web_service.GetAllEventsResponse;
 import com.net.running_web_service.GetRecommendEventRequest;
 import com.net.running_web_service.GetRecommendEventResponse;
 import org.apache.jena.ontology.*;
@@ -25,12 +24,11 @@ import java.util.stream.Collectors;
 
 public class GetRecommend {
 
-    public synchronized static GetRecommendEventResponse run(GetRecommendEventRequest request) {
-//        public static GetRecommendEventResponse run(GetRecommendEventRequest request) {
-
+    public static synchronized GetRecommendEventResponse run(GetRecommendEventRequest request) {
+//        public static  GetRecommendEventResponse run(GetRecommendEventRequest request) {
 //            synchronized (SharedConstants.lock) {
-                //1 replace 2//remove //3reload
-                int method = 1;
+
+                int method = SharedConstants.methods;
 
                 GetRecommendEventResponse response = new GetRecommendEventResponse();
                 System.out.println("GetRecommendEventResponse");
@@ -49,7 +47,6 @@ public class GetRecommend {
                         e.printStackTrace();
                     }
                 }
-
 
                 Model data = RDFDataMgr.loadModel("file:" + output_filename);
 
@@ -180,36 +177,83 @@ public class GetRecommend {
 
                 StmtIterator i1 = inf.listStatements(user, p, (RDFNode) null);
 
-                ArrayList<String> formattedEventNames = new ArrayList<String>();
 
-                while (i1.hasNext()) {
-                    Statement statement = i1.nextStatement();
-                    String resultName = PrintUtil.print(statement.getProperty(rn).getString());
 
-                    String statementString = statement.getObject().toString();
-                    Resource re = data.getResource(statementString);
-                    StmtIterator i2 = inf.listStatements(re, c, (RDFNode) null);
-                    int conf = 0;
-                    while (i2.hasNext()) {
-                        Statement statement2 = i2.nextStatement();
-                        String confStr = statement2.getString();
-                        double confValue;
-                        try {
-                            confValue = Double.parseDouble(confStr);
-                        } catch (NumberFormatException e) {
-                            continue;
-                        }
-                        int roundedConfValue = (int) Math.round(confValue);
-                        if (roundedConfValue > conf) {
-                            conf = roundedConfValue;
-                        }
+        ArrayList<String> formattedEventNames = new ArrayList<String>();
+        ArrayList<String> confList = new ArrayList<>();
+
+//        while (i1.hasNext()) {
+//            Statement statement = i1.nextStatement();
+//            String resultName = PrintUtil.print(statement.getProperty(rn).getString());
+////            System.out.println("411: statement : " + statement.toString());
+//            String statementString = statement.getObject().toString();
+//            System.out.println("418: statementURI" + statementString);
+//            int maxConf = Integer.MAX_VALUE;
+////            System.out.println("maxConf " + maxConf);
+//            Resource re = data.getResource(statementString);
+//            StmtIterator i2 = inf.listStatements(re, c, (RDFNode) null);
+//            while (i2.hasNext()) {
+//                Statement statement2 = i2.nextStatement();
+////                System.out.println("Number of confidence statements found: " + i2.toList().size());
+//                String conf = statement2.getString();
+//                confList.add(conf);
+//                System.out.println("428: conf  = " + conf);
+//            }
+//            for (int i = 0; i < confList.size(); i++) {
+//                String confValueStr = confList.get(i);
+//                System.out.println("confList: " + confValueStr);
+//                double confValue;
+//                try {
+//                    confValue = Double.parseDouble(confValueStr);
+//                } catch (NumberFormatException e) {
+//                    continue;
+//                }
+//
+//                int roundedConfValue = (int) Math.round(confValue);
+//                if (roundedConfValue < maxConf) {
+//                    maxConf = roundedConfValue;
+//                }
+//
+//            }
+//
+//                System.out.println(maxConf);
+//                formattedEventNames.add(resultName);
+//                confList.clear();
+//        }
+
+
+
+        while (i1.hasNext()) {
+                Statement statement = i1.nextStatement();
+                String resultName = PrintUtil.print(statement.getProperty(rn).getString());
+
+                String statementString = statement.getObject().toString();
+                Resource re = data.getResource(statementString);
+                StmtIterator i2 = inf.listStatements(re, c, (RDFNode) null);
+                int conf = 0;
+                while (i2.hasNext()) {
+                    Statement statement2 = i2.nextStatement();
+                    String confStr = statement2.getString();
+                    double confValue;
+                    try {
+                        confValue = Double.parseDouble(confStr);
+                    } catch (NumberFormatException e) {
+                        continue;
                     }
-                    formattedEventNames.add(resultName);
-                }
+                    int roundedConfValue = (int) Math.round(confValue);
+                    if (roundedConfValue > conf) {
+                        conf = roundedConfValue;
+                    }
 
-                if (formattedEventNames.isEmpty()) {
+                }
+                System.out.println(conf);
+                formattedEventNames.add(resultName);
+        }
+
+
+
+        if (formattedEventNames.isEmpty()) {
                     response.setStatus("empty");
-//                System.out.println("empty");
                     return response;
 
                 }
@@ -309,6 +353,9 @@ public class GetRecommend {
 
 
                 return response;
-            }
-//        }
+//            }
+
+
+
+        }
 }

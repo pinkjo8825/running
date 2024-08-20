@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 public class SetUserProfile {
     public static SetUserProfileResponse run(SetUserProfileRequest request) {
@@ -73,6 +74,12 @@ public class SetUserProfile {
             OntClass organizationClass = (OntClass) m.getOntClass(NS + "Organization");
             OntProperty organizationName = m.getDatatypeProperty(NS + "OrganizationName");
 
+            OntProperty hasREhistory = m.getObjectProperty(NS + "hasRunningEventHistory");
+            OntProperty hasLatestRaceType = m.getObjectProperty(NS + "hasLatestRaceType");
+
+            OntClass RunningEventClass = (OntClass) m.getOntClass(NS + "RunningEvent");
+            OntProperty RunningEventName = m.getDatatypeProperty(NS + "RunningEventName");
+
 
             String userProfileName = request.getUsername();
             Resource userInstance = m.createResource(NS + userProfileName);
@@ -91,9 +98,54 @@ public class SetUserProfile {
             String startPeriodReg = request.getStartPeriod();
             String rewardReg = request.getReward();
             String plainPassword = request.getPassword();
+            String latestRT = request.getLatestRT();
+            List<String> rehis = request.getRehis();
 
             userInstance.addProperty(RDF.type, userClass);
             userInstance.addProperty(userName, userProfileName);
+
+            if (latestRT != null) {
+                switch (latestRT) {
+                    case "Mini Marathon":
+                        userInstance.addProperty(hasLatestRaceType, minimarathonClass);
+                        break;
+                    case "Marathon":
+                        userInstance.addProperty(hasLatestRaceType, marathonClass);
+                        break;
+                    case "Half Marathon":
+                        userInstance.addProperty(hasLatestRaceType, halfmarathonClass);
+                        break;
+                    case "Fun run":
+                        userInstance.addProperty(hasLatestRaceType, funrunClass);
+                        break;
+                }
+            }
+
+//            String rehis1 = "null";
+//            ExtendedIterator rehis1instances = RunningEventClass.listInstances();
+//            while (rehis1instances.hasNext()) {
+//                Individual thisInstance = (Individual) rehis1instances.next();
+//
+//                if (rehis1.equals(thisInstance.getProperty(RunningEventName).getString())) {
+//
+//                    userInstance.addProperty(hasREhistory, thisInstance);
+////                    eventHis = thisInstance;
+//                }
+//
+//            }
+
+            ExtendedIterator rehisInstances = RunningEventClass.listInstances();
+            while (rehisInstances.hasNext()) {
+                Individual thisInstance = (Individual) rehisInstances.next();
+//                String instanceRunningEventName = thisInstance.getProperty(RunningEventName).getString();
+
+                // Check if the instance matches any of the rehis values
+                for (String rehisValue : rehis) {
+                    if (rehisValue.equals(thisInstance.getProperty(RunningEventName).getString())) {
+                        userInstance.addProperty(hasREhistory, thisInstance);
+                    }
+                }
+            }
 
             if (raceTypeReg != null) {
                 switch (raceTypeReg) {
