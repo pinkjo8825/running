@@ -44,10 +44,11 @@
     <xs:element name="getUserProfileResponse" >
         <xs:complexType>
             <xs:sequence>
-                <xs:element type="xs:string" name="status" />
+                <xs:element type="xs:string" name="status" minOccurs="0"/>
                 <xs:element name="runningEvent" minOccurs="0" maxOccurs="unbounded">
                     <xs:complexType>
                         <xs:sequence>
+                            <xs:element name="confidence" type="xs:string" minOccurs="0"/>
                             <xs:element name="runningEventName" type="xs:string"/>
                             <xs:element name="district" type="xs:string"/>
                             <xs:element name="raceTypes">
@@ -108,6 +109,7 @@
                     <xs:complexType>
                         <xs:sequence>
                             <xs:element name="runningEventName" type="xs:string"/>
+                            <xs:element name="confidence" type="xs:string" minOccurs="0"/>
                             <xs:element name="district" type="xs:string"/>
                             <xs:element name="raceTypes">
                                 <xs:complexType>

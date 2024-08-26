@@ -2,6 +2,7 @@ package com.net.runningwebservice;
 
 import com.net.running_web_service.SetUserProfileRequest;
 import com.net.running_web_service.SetUserProfileResponse;
+import org.apache.jena.base.Sys;
 import org.apache.jena.ontology.*;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryExecution;
@@ -17,6 +18,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+
+//<owl:DatatypeProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#hasRehisOrder">
+//<rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+//</owl:DatatypeProperty>
+
+//<owl:DatatypeProperty rdf:about="http://www.semanticweb.org/guind/ontologies/runningeventontology#reHisOne">
+//<rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+//</owl:DatatypeProperty>
+
 public class SetUserProfile {
     public static SetUserProfileResponse run(SetUserProfileRequest request) {
         SetUserProfileResponse response = new SetUserProfileResponse();
@@ -24,6 +34,7 @@ public class SetUserProfile {
 
         String ontologyPath = SharedConstants.ontologyPath;
         String NS = SharedConstants.NS;
+        Individual eventHis;
 
         OntModel m = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
         OntDocumentManager dm = m.getDocumentManager();
@@ -52,6 +63,7 @@ public class SetUserProfile {
             OntProperty userNationality = m.getDatatypeProperty(NS + "UserNationality");
             OntProperty userSex = m.getDatatypeProperty(NS + "UserSex");
             OntProperty password = m.getDatatypeProperty(NS + "Password");
+            OntProperty reHisOne = m.getDatatypeProperty(NS + "reHisOne");
 
             OntClass userClass = m.getOntClass(NS + "User");
             OntProperty userActivityArea = m.getDatatypeProperty(NS + "ActivityAreaInterest");
@@ -79,7 +91,6 @@ public class SetUserProfile {
 
             OntClass RunningEventClass = (OntClass) m.getOntClass(NS + "RunningEvent");
             OntProperty RunningEventName = m.getDatatypeProperty(NS + "RunningEventName");
-
 
             String userProfileName = request.getUsername();
             Resource userInstance = m.createResource(NS + userProfileName);
@@ -121,31 +132,25 @@ public class SetUserProfile {
                 }
             }
 
-//            String rehis1 = "null";
-//            ExtendedIterator rehis1instances = RunningEventClass.listInstances();
-//            while (rehis1instances.hasNext()) {
-//                Individual thisInstance = (Individual) rehis1instances.next();
-//
-//                if (rehis1.equals(thisInstance.getProperty(RunningEventName).getString())) {
-//
-//                    userInstance.addProperty(hasREhistory, thisInstance);
-////                    eventHis = thisInstance;
-//                }
-//
-//            }
+            if (rehis != null) {
+                for (int i = 0; i < rehis.size(); i++) {
+                    String rehisValue = rehis.get(i);
 
-            ExtendedIterator rehisInstances = RunningEventClass.listInstances();
-            while (rehisInstances.hasNext()) {
-                Individual thisInstance = (Individual) rehisInstances.next();
-//                String instanceRunningEventName = thisInstance.getProperty(RunningEventName).getString();
-
-                // Check if the instance matches any of the rehis values
-                for (String rehisValue : rehis) {
-                    if (rehisValue.equals(thisInstance.getProperty(RunningEventName).getString())) {
-                        userInstance.addProperty(hasREhistory, thisInstance);
+                    ExtendedIterator rehisInstances = RunningEventClass.listInstances();
+                    while (rehisInstances.hasNext()) {
+                        Individual thisInstance = (Individual) rehisInstances.next();
+                        String instanceRunningEventName = thisInstance.getProperty(RunningEventName).getString();
+                        if (rehisValue.equals(instanceRunningEventName)) {
+                            if(i == 0) {
+                                userInstance.addProperty(reHisOne, instanceRunningEventName);
+                            }
+                            userInstance.addProperty(hasREhistory, thisInstance);
+                            break;
+                        }
                     }
                 }
             }
+
 
             if (raceTypeReg != null) {
                 switch (raceTypeReg) {
@@ -196,7 +201,6 @@ public class SetUserProfile {
 
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             String hashedPassword = encoder.encode(plainPassword);
-
             userInstance.addProperty(password, hashedPassword);
 
 

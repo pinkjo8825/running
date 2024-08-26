@@ -7,16 +7,14 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
-import org.apache.jena.ontology.OntClass;
-import org.apache.jena.ontology.OntDocumentManager;
-import org.apache.jena.ontology.OntModel;
-import org.apache.jena.ontology.OntModelSpec;
+import org.apache.jena.ontology.*;
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.*;
 import org.apache.jena.reasoner.Reasoner;
 import org.apache.jena.reasoner.rulesys.GenericRuleReasonerFactory;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.util.PrintUtil;
+import org.apache.jena.util.iterator.ExtendedIterator;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.ReasonerVocabulary;
 import java.io.*;
@@ -29,6 +27,155 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class GetUserProfile {
+
+
+    public static void hisRecommend(Individual eventIndividual, String latestRaceType) {
+        ArrayList<String> hisFactor = new ArrayList<>();
+        ArrayList<String> REList = new ArrayList<>();
+        ArrayList<String> REFactor = new ArrayList<>();
+        ArrayList<String> matchRE = new ArrayList<>();
+        int hiscount = 0;
+
+        OntModel m = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
+        OntDocumentManager dm = m.getDocumentManager();
+        String NS = SharedConstants.NS;
+        String output_filename = SharedConstants.output_filename;
+
+
+        dm.addAltEntry("http://www.semanticweb.org/guind/ontologies/runningeventontology", "file:" + output_filename);
+        m.read("http://www.semanticweb.org/guind/ontologies/runningeventontology", "RDF/XML");
+
+        OntClass racetypeClass = m.getOntClass(NS + "RaceType");
+        OntProperty reTypeofEvent = m.getDatatypeProperty(NS + "TypeOfEvent");
+        OntProperty reLevelofEvent = m.getDatatypeProperty(NS + "LevelOfEvent");
+        OntProperty reStandardofEvent = m.getDatatypeProperty(NS + "StandardOfEvent");
+        OntProperty rehasRacetype = m.getObjectProperty(NS + "hasRaceType");
+        OntProperty reisOrganizaed = m.getObjectProperty(NS + "isOrganizedBy");
+        OntProperty rehasEventvenue = m.getObjectProperty(NS + "hasEventVenue");
+        OntProperty reRaceTypeName = m.getDatatypeProperty(NS + "RaceTypeName");
+        OntProperty rePrice = m.getDatatypeProperty(NS + "Price");
+        OntProperty reReward = m.getDatatypeProperty(NS + "Reward");
+        OntProperty reStartPeriod = m.getDatatypeProperty(NS + "StartPeriod");
+        OntProperty reActivityArea = m.getDatatypeProperty(NS + "ActivityArea");
+        OntProperty reVenueName = m.getDatatypeProperty(NS + "VenueName");
+        OntProperty reDistrict = m.getDatatypeProperty(NS + "District");
+        OntClass RunningEventClass = m.getOntClass(NS + "RunningEvent");
+        OntProperty RunningEventName = m.getDatatypeProperty(NS + "RunningEventName");
+
+        ExtendedIterator REInstances = RunningEventClass.listInstances();
+        while (REInstances.hasNext()) {
+            Individual thisInstance = (Individual) REInstances.next();
+            REList.add(thisInstance.getURI());
+        }
+
+        Individual reInstance = m.getIndividual(eventIndividual.getURI());
+        StmtIterator iter = reInstance.listProperties();
+
+//        { "Fun run", "Mini Marathon", "Half Marathon", "Marathon" }
+        String latest =  latestRaceType;
+//        String latest = (LatestRaceTypeBox.getSelectedItem() == null) ? "null" : LatestRaceTypeBox.getSelectedItem().toString();
+
+        while (iter.hasNext()) {
+            Statement stmt = iter.nextStatement();
+            Property predicate = stmt.getPredicate();
+            RDFNode object = stmt.getObject();
+            if (object instanceof Resource) {
+                if (predicate.getURI().equals(rehasRacetype.getURI())) {
+                    Individual rtName = m.getIndividual(object.toString());
+                    if (rtName.getProperty(reRaceTypeName).getString().equals(latest)) {
+                        StmtIterator iter2 = rtName.listProperties();
+                        while (iter2.hasNext()) {
+                            Statement stmt2 = iter2.nextStatement();
+                            RDFNode object2 = stmt2.getObject();
+                            Property predicate2 = stmt2.getPredicate();
+                            if (object2 instanceof Resource) {
+                                if (!object2.toString().equals("http://www.w3.org/2002/07/owl#NamedIndividual")) {
+                                    hisFactor.add(object2.toString());
+                                    hiscount++;
+                                }
+                            } else if (!object2.toString().equals("http://www.w3.org/2002/07/owl#NamedIndividual")) {
+                                if (predicate2.getURI().equals(reStartPeriod.getURI())) {
+                                    hisFactor.add(object2.toString());
+                                    hiscount = hiscount + 1;
+                                }
+                                if (predicate2.getURI().equals(reActivityArea.getURI())) {
+                                    hisFactor.add(object2.toString());
+                                    hiscount = hiscount + 1;
+                                }
+                            }
+                        }
+                    }
+                }
+            } else if (!object.toString().equals("http://www.w3.org/2002/07/owl#NamedIndividual")) {
+                if (predicate.getURI().equals(reLevelofEvent.getURI())) {
+                    hisFactor.add(object.toString());
+                    hiscount = hiscount + 1;
+                }
+                if (predicate.getURI().equals(reTypeofEvent.getURI())) {
+                    hisFactor.add(object.toString());
+                    hiscount = hiscount + 1;
+                }
+                if (predicate.getURI().equals(reStandardofEvent.getURI())) {
+                    hisFactor.add(object.toString());
+                    hiscount = hiscount + 1;
+                }
+            }
+        }
+
+        System.out.println("hiscount = " + hiscount);
+
+        for (int j = 0; j < REList.size(); j++) {
+            Individual rel = m.getIndividual(REList.get(j));
+            StmtIterator REiter = rel.listProperties();
+
+            while (REiter.hasNext()) {
+                Statement stmt = REiter.nextStatement();
+                Property predicate = stmt.getPredicate();
+                RDFNode object = stmt.getObject();
+                if (object instanceof Resource) {
+                    if (predicate.getURI().equals(rehasRacetype.getURI())) {
+                        Individual rtName = m.getIndividual(object.toString());
+                        if (rtName.getProperty(reRaceTypeName).getString().equals(latest)) {
+                            StmtIterator iter2 = rtName.listProperties();
+                            while (iter2.hasNext()) {
+                                Statement stmt2 = iter2.nextStatement();
+                                RDFNode object2 = stmt2.getObject();
+                                if (object2 instanceof Resource) {
+                                    REFactor.add(object2.toString());
+                                } else {
+                                    REFactor.add(object2.toString());
+                                }
+                            }
+                        }
+                    }
+                    REFactor.add(object.toString());
+                } else {
+                    REFactor.add(object.toString());
+                }
+            }
+
+            int count = 0;
+            for (int k = 0; k < hisFactor.size(); k++) {
+                for (int l = 0; l < REFactor.size(); l++) {
+                    if (hisFactor.get(k).equals(REFactor.get(l))) {
+                        count = count + 1;
+                        System.out.println("Match found: " + hisFactor.get(k));
+                        System.out.println("count = " + count);
+                        if (count == hiscount) {
+                            Individual re = m.getIndividual(REList.get(j));
+                            matchRE.add(re.getProperty(RunningEventName).getString());
+                        }
+
+                    }
+                }
+            }
+            REFactor.clear();
+        }
+        for (int j = 0; j < matchRE.size(); j++) {
+            System.out.println("hisRecommend Running event: " + matchRE.get(j));
+        }
+    }
+
 
     public static synchronized GetUserProfileResponse run(GetUserProfileRequest request) {
 //        public static GetUserProfileResponse run(GetUserProfileRequest request) {
@@ -269,7 +416,7 @@ public class GetUserProfile {
                     qexec.close();
                 }
             }
-
+//            hisRecommend(eventHis);
             return response;
 //        }
 
@@ -277,4 +424,5 @@ public class GetUserProfile {
 
 
     }
+
 }
