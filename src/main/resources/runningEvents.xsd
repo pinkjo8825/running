@@ -68,6 +68,18 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element type="xs:string" name="status" minOccurs="0"/>
+                <xs:element name="latestRT" type="xs:string" minOccurs="0"/>
+                <xs:element name="rehis" type="xs:string" minOccurs="0" maxOccurs="3"/>
+                <xs:element name="district" type="xs:string" minOccurs="0"/>
+                <xs:element name="raceType" type="xs:string" minOccurs="0"/>
+                <xs:element name="typeofEvent" type="xs:string" minOccurs="0"/>
+                <xs:element name="price" type="xs:string" minOccurs="0"/>
+                <xs:element name="organization" type="xs:string" minOccurs="0"/>
+                <xs:element name="activityArea" type="xs:string" minOccurs="0"/>
+                <xs:element name="standard" type="xs:string" minOccurs="0"/>
+                <xs:element name="level" type="xs:string" minOccurs="0"/>
+                <xs:element name="startPeriod" type="xs:string" minOccurs="0"/>
+                <xs:element name="reward" type="xs:string" minOccurs="0"/>
                 <xs:element name="runningEvent" minOccurs="0" maxOccurs="unbounded">
                     <xs:complexType>
                         <xs:sequence>

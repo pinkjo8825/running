@@ -23,6 +23,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -258,6 +259,7 @@ public class GetUserProfile {
                 OntProperty RunningEventName = m.getDatatypeProperty(NS + "RunningEventName");
                 boolean hasHisRe = false;
 
+                List<String> rehis = response.getRehis();
                 if (users.hasNext()) {
 
                     Resource user = users.nextResource();
@@ -267,6 +269,48 @@ public class GetUserProfile {
                         Statement stmt = properties.nextStatement();
                         Property property = stmt.getPredicate();
                         RDFNode value = stmt.getObject();
+                        System.out.println(property);
+
+                        if (property.getURI().equals(NS + "TypeOfEventInterest")) {
+                            response.setTypeofEvent(value.asLiteral().getString());
+                        }if (property.getURI().equals(NS + "ActivityAreaInterest")) {
+                            response.setActivityArea(value.asLiteral().getString());
+                        } if (property.getURI().equals(NS + "StandardEventInterest")) {
+                            response.setStandard(value.asLiteral().getString());
+                        } if (property.getURI().equals(NS + "LevelEventInterest")) {
+                            response.setLevel(value.asLiteral().getString());
+                        } if (property.getURI().equals(NS + "StartPeriodInterest")) {
+                            response.setStartPeriod(value.asLiteral().getString());
+                        } if (property.getURI().equals(NS + "RewardInterest")) {
+                            response.setReward(value.asLiteral().getString());
+                        }if (property.getURI().equals(NS + "EventPriceInterest")) {
+                            response.setPrice(value.asLiteral().getString());
+                        }
+//                        if (property.getURI().equals(NS + "reHisOne")) {
+//                            rehis.add(value.asLiteral().getString());
+//                        }
+                        if (property.getURI().equals(NS + "hasRunningEventHistory")) {
+                            String eventHistory = value.asResource().getURI().substring(value.asResource().getURI().lastIndexOf("#") + 1);
+                            rehis.add(eventHistory);
+                        }
+                        if (property.getURI().equals(NS + "hasLatestRaceType")) {
+                            response.setLatestRT(value.asResource().getURI().substring(value.asResource().getURI().lastIndexOf("#") + 1));
+                        }
+                        if (property.getURI().equals(NS + "hasOrganizationInterest")) {
+                            response.setOrganization(value.asResource().getURI().substring(value.asResource().getURI().lastIndexOf("#") + 1));
+                        }
+                        if (property.getURI().equals(NS + "hasRaceTypeInterest")) {
+                            response.setRaceType(value.asResource().getURI().substring(value.asResource().getURI().lastIndexOf("#") + 1));
+                        }
+
+//                        if (property.getURI().equals(NS + "reHisOne")) {
+//                            rehis.add(value.asLiteral().getString());
+//                        }
+//                        else if (property.getURI().equals(NS + "hasRunningEventHistory")) {
+//                            rehis.add(value.asResource().getURI());
+//                        }
+
+
                         if (value.isLiteral()) {
                             userInstance.addLiteral(property, value.asLiteral());
                         }
@@ -303,6 +347,7 @@ public class GetUserProfile {
                         }
                     }
 
+
                     //
                     // old hisRec below
                     //
@@ -338,7 +383,6 @@ public class GetUserProfile {
                 while (i1.hasNext()) {
                     Statement statement = i1.nextStatement();
                     String resultName = PrintUtil.print(statement.getProperty(rn).getString());
-
                     String statementString = statement.getObject().toString();
                     System.out.println(statementString);
                     Resource re = data.getResource(statementString);
