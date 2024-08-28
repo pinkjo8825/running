@@ -2,26 +2,49 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://net.com/running-web-service"
            targetNamespace="http://net.com/running-web-service" elementFormDefault="qualified">
 
+<!--    <xs:element name="setUserProfileRequest">-->
+<!--        <xs:complexType>-->
+<!--            <xs:sequence>-->
+<!--                <xs:element type="xs:string" name="latestRT" minOccurs="0"/>-->
+<!--                <xs:element type="xs:string" name="rehis" minOccurs="0" maxOccurs="3"/>-->
+<!--                <xs:element type="xs:string" name="username" />-->
+<!--                <xs:element type="xs:string" name="password" />-->
+<!--                <xs:element type="xs:byte" name="age" />-->
+<!--                <xs:element type="xs:string" name="nationality" />-->
+<!--                <xs:element type="xs:string" name="gender" />-->
+<!--                <xs:element type="xs:string" name="district" />-->
+<!--                <xs:element type="xs:string" name="raceType" />-->
+<!--                <xs:element type="xs:string" name="typeofEvent" />-->
+<!--                <xs:element type="xs:string" name="price" />-->
+<!--                <xs:element type="xs:string" name="organization" />-->
+<!--                <xs:element type="xs:string" name="activityArea" />-->
+<!--                <xs:element type="xs:string" name="standard" />-->
+<!--                <xs:element type="xs:string" name="level" />-->
+<!--                <xs:element type="xs:string" name="startPeriod" />-->
+<!--                <xs:element type="xs:string" name="reward" />-->
+<!--            </xs:sequence>-->
+<!--        </xs:complexType>-->
+<!--    </xs:element>-->
     <xs:element name="setUserProfileRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element type="xs:string" name="latestRT" minOccurs="0"/>
+                <xs:element type="xs:string" name="latestRT" minOccurs="0" maxOccurs="1"/>
                 <xs:element type="xs:string" name="rehis" minOccurs="0" maxOccurs="3"/>
-                <xs:element type="xs:string" name="username" />
-                <xs:element type="xs:string" name="password" />
-                <xs:element type="xs:byte" name="age" />
-                <xs:element type="xs:string" name="nationality" />
-                <xs:element type="xs:string" name="gender" />
-                <xs:element type="xs:string" name="district" />
-                <xs:element type="xs:string" name="raceType" />
-                <xs:element type="xs:string" name="typeofEvent" />
-                <xs:element type="xs:string" name="price" />
-                <xs:element type="xs:string" name="organization" />
-                <xs:element type="xs:string" name="activityArea" />
-                <xs:element type="xs:string" name="standard" />
-                <xs:element type="xs:string" name="level" />
-                <xs:element type="xs:string" name="startPeriod" />
-                <xs:element type="xs:string" name="reward" />
+                <xs:element type="xs:string" name="username" minOccurs="1"/>
+                <xs:element type="xs:string" name="password" minOccurs="1"/>
+                <xs:element type="xs:byte" name="age" minOccurs="0" maxOccurs="1"/>
+                <xs:element type="xs:string" name="nationality" minOccurs="0" maxOccurs="1"/>
+                <xs:element type="xs:string" name="gender" minOccurs="0" maxOccurs="1"/>
+                <xs:element type="xs:string" name="district" minOccurs="0" maxOccurs="1"/>
+                <xs:element type="xs:string" name="raceType" minOccurs="0" maxOccurs="1"/>
+                <xs:element type="xs:string" name="typeofEvent" minOccurs="0" maxOccurs="1"/>
+                <xs:element type="xs:string" name="price" minOccurs="0" maxOccurs="1"/>
+                <xs:element type="xs:string" name="organization" minOccurs="0" maxOccurs="1"/>
+                <xs:element type="xs:string" name="activityArea" minOccurs="0" maxOccurs="1"/>
+                <xs:element type="xs:string" name="standard" minOccurs="0" maxOccurs="1"/>
+                <xs:element type="xs:string" name="level" minOccurs="0" maxOccurs="1"/>
+                <xs:element type="xs:string" name="startPeriod" minOccurs="0" maxOccurs="1"/>
+                <xs:element type="xs:string" name="reward" minOccurs="0" maxOccurs="1"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
