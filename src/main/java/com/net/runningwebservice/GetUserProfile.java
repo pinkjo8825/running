@@ -1,5 +1,6 @@
 package com.net.runningwebservice;
 
+import com.net.running_web_service.GetRecommendEventResponse;
 import com.net.running_web_service.GetUserProfileRequest;
 import com.net.running_web_service.GetUserProfileResponse;
 import io.jsonwebtoken.Claims;
@@ -189,6 +190,8 @@ public class GetUserProfile {
 
             ArrayList<String> formattedEventNames = new ArrayList<String>();
             ArrayList<String> hisRecEventNames = new ArrayList<String>();
+            ArrayList<String> confList = new ArrayList<String>();
+
 
             String NS = SharedConstants.NS;
 
@@ -233,7 +236,7 @@ public class GetUserProfile {
 
             if (result) {
 
-                    Model data = RDFDataMgr.loadModel("file:" + output_filename);
+                Model data = RDFDataMgr.loadModel("file:" + output_filename);
 
                 Model dataOnto = RDFDataMgr.loadModel("file:" + ontologyPath);
 
@@ -337,27 +340,19 @@ public class GetUserProfile {
                     String resultName = PrintUtil.print(statement.getProperty(rn).getString());
 
                     String statementString = statement.getObject().toString();
+                    System.out.println(statementString);
                     Resource re = data.getResource(statementString);
                     StmtIterator i2 = inf.listStatements(re, c, (RDFNode) null);
-                    int conf = 0;
                     while (i2.hasNext()) {
                         Statement statement2 = i2.nextStatement();
-                        String confStr = statement2.getString();
-                        double confValue;
-                        try {
-                            confValue = Double.parseDouble(confStr);
-                        } catch (NumberFormatException e) {
-                            continue;
-                        }
-                        int roundedConfValue = (int) Math.round(confValue);
-                        if (roundedConfValue > conf) {
-                            conf = roundedConfValue;
-                        }
+                        System.out.println("Number of confidence statements found: " + i2.toList().size());
+                        String conf = statement2.getString();
+                        System.out.println(conf);
+                        confList.add(conf);
                     }
                     formattedEventNames.add(resultName);
-
                 }
-
+                ArrayList<String> events = new ArrayList<>(formattedEventNames);
                 if(hasHisRe) {
                     hisRecEventNames.forEach(eventName -> {
                         if (!formattedEventNames.contains(eventName)) {
@@ -418,29 +413,45 @@ public class GetUserProfile {
 
                 try {
                     Map<String, GetUserProfileResponse.RunningEvent> eventsMap = new HashMap<>();
-
+                    System.out.println("size");
+                    System.out.println(events.size());
+                    System.out.println(confList.size());
+                    System.out.println(formattedEventNames.size());
                     while (resultSet.hasNext()) {
                         QuerySolution solution = resultSet.nextSolution();
 
                         String eventName = solution.getLiteral("eventName").getString().trim();
-                        GetUserProfileResponse.RunningEvent event = eventsMap.computeIfAbsent(eventName, k -> {
-                            GetUserProfileResponse.RunningEvent newEvent = new GetUserProfileResponse.RunningEvent();
-                            newEvent.setRunningEventName(eventName);
-                            newEvent.setDistrict(solution.getLiteral("district").getString().trim());
-                            newEvent.setTypeofEvent(solution.getLiteral("typeOfEvent").getString().trim());
-                            newEvent.setOrganization(solution.getLiteral("organizationName").getString().trim());
-                            newEvent.setActivityArea(solution.getLiteral("activityArea").getString().trim());
-                            newEvent.setStandard(solution.getLiteral("standardOfEvent").getString().trim());
-                            newEvent.setLevel(solution.getLiteral("levelOfEvent").getString().trim());
-                            newEvent.setStartPeriod(solution.getLiteral("startPeriod").getString().trim());
-                            newEvent.setPrices(new GetUserProfileResponse.RunningEvent.Prices());
-                            newEvent.getPrices().getPrice().clear();
-                            newEvent.setRaceTypes(new GetUserProfileResponse.RunningEvent.RaceTypes());
-                            newEvent.getRaceTypes().getRaceType().clear();
-                            newEvent.setRewards(new GetUserProfileResponse.RunningEvent.Rewards());
-                            newEvent.getRewards().getReward().clear();
-                            return newEvent;
-                        });
+
+                        GetUserProfileResponse.RunningEvent event = eventsMap.get(eventName);
+
+
+
+                        if (event == null) {
+                            event = new GetUserProfileResponse.RunningEvent();
+                            event.setRunningEventName(eventName);
+
+                            if(events.contains(eventName)){
+                                int index =  events.indexOf(eventName);
+                                event.setConfidence(confList.get(index));
+                            }
+
+                            event.setDistrict(solution.getLiteral("district").getString().trim());
+                            event.setTypeofEvent(solution.getLiteral("typeOfEvent").getString().trim());
+                            event.setOrganization(solution.getLiteral("organizationName").getString().trim());
+                            event.setActivityArea(solution.getLiteral("activityArea").getString().trim());
+                            event.setStandard(solution.getLiteral("standardOfEvent").getString().trim());
+                            event.setLevel(solution.getLiteral("levelOfEvent").getString().trim());
+                            event.setStartPeriod(solution.getLiteral("startPeriod").getString().trim());
+
+                            event.setPrices(new GetUserProfileResponse.RunningEvent.Prices());
+                            event.getPrices().getPrice().clear();
+                            event.setRaceTypes(new GetUserProfileResponse.RunningEvent.RaceTypes());
+                            event.getRaceTypes().getRaceType().clear();
+                            event.setRewards(new GetUserProfileResponse.RunningEvent.Rewards());
+                            event.getRewards().getReward().clear();
+
+                            eventsMap.put(eventName, event);
+                        }
 
                         String raceType = solution.getLiteral("raceTypeName").getString().trim();
                         if (!event.getRaceTypes().getRaceType().contains(raceType)) {
@@ -456,6 +467,7 @@ public class GetUserProfile {
                         if (!event.getRewards().getReward().contains(rewardName)) {
                             event.getRewards().getReward().add(rewardName);
                         }
+
                     }
                     response.getRunningEvent().addAll(eventsMap.values());
 

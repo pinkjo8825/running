@@ -12,7 +12,7 @@ import org.apache.jena.util.PrintUtil;
 import org.apache.jena.util.iterator.ExtendedIterator;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.ReasonerVocabulary;
-
+import java.util.concurrent.atomic.AtomicInteger;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -180,7 +180,7 @@ public class GetRecommend {
 
 
         ArrayList<String> formattedEventNames = new ArrayList<String>();
-        ArrayList<String> confList = new ArrayList<>();
+        ArrayList<String> confList = new ArrayList<String>();
 
 //        while (i1.hasNext()) {
 //            Statement statement = i1.nextStatement();
@@ -228,29 +228,18 @@ public class GetRecommend {
                 String resultName = PrintUtil.print(statement.getProperty(rn).getString());
 
                 String statementString = statement.getObject().toString();
+                System.out.println(statementString);
                 Resource re = data.getResource(statementString);
                 StmtIterator i2 = inf.listStatements(re, c, (RDFNode) null);
-                int conf = 0;
                 while (i2.hasNext()) {
                     Statement statement2 = i2.nextStatement();
-                    String confStr = statement2.getString();
-                    double confValue;
-                    try {
-                        confValue = Double.parseDouble(confStr);
-                    } catch (NumberFormatException e) {
-                        continue;
-                    }
-                    int roundedConfValue = (int) Math.round(confValue);
-                    if (roundedConfValue > conf) {
-                        conf = roundedConfValue;
-                    }
-
+                    System.out.println("Number of confidence statements found: " + i2.toList().size());
+                    String conf = statement2.getString();
+                    System.out.println(conf);
+                    confList.add(conf);
                 }
-                System.out.println(conf);
                 formattedEventNames.add(resultName);
         }
-
-
 
         if (formattedEventNames.isEmpty()) {
                     response.setStatus("empty");
@@ -299,25 +288,31 @@ public class GetRecommend {
                         QuerySolution solution = resultSet.nextSolution();
 
                         String eventName = solution.getLiteral("eventName").getString().trim();
-                        GetRecommendEventResponse.RunningEvent event = eventsMap.computeIfAbsent(eventName, k -> {
 
-                            GetRecommendEventResponse.RunningEvent newEvent = new GetRecommendEventResponse.RunningEvent();
-                            newEvent.setRunningEventName(eventName);
-                            newEvent.setDistrict(solution.getLiteral("district").getString().trim());
-                            newEvent.setTypeofEvent(solution.getLiteral("typeOfEvent").getString().trim());
-                            newEvent.setOrganization(solution.getLiteral("organizationName").getString().trim());
-                            newEvent.setActivityArea(solution.getLiteral("activityArea").getString().trim());
-                            newEvent.setStandard(solution.getLiteral("standardOfEvent").getString().trim());
-                            newEvent.setLevel(solution.getLiteral("levelOfEvent").getString().trim());
-                            newEvent.setStartPeriod(solution.getLiteral("startPeriod").getString().trim());
-                            newEvent.setPrices(new GetRecommendEventResponse.RunningEvent.Prices());
-                            newEvent.getPrices().getPrice().clear();
-                            newEvent.setRaceTypes(new GetRecommendEventResponse.RunningEvent.RaceTypes());
-                            newEvent.getRaceTypes().getRaceType().clear();
-                            newEvent.setRewards(new GetRecommendEventResponse.RunningEvent.Rewards());
-                            newEvent.getRewards().getReward().clear();
-                            return newEvent;
-                        });
+                        GetRecommendEventResponse.RunningEvent event = eventsMap.get(eventName);
+                        int index =  formattedEventNames.indexOf(eventName);
+
+                        if (event == null) {
+                            event = new GetRecommendEventResponse.RunningEvent();
+                            event.setRunningEventName(eventName);
+                            event.setConfidence(confList.get(index));
+                            event.setDistrict(solution.getLiteral("district").getString().trim());
+                            event.setTypeofEvent(solution.getLiteral("typeOfEvent").getString().trim());
+                            event.setOrganization(solution.getLiteral("organizationName").getString().trim());
+                            event.setActivityArea(solution.getLiteral("activityArea").getString().trim());
+                            event.setStandard(solution.getLiteral("standardOfEvent").getString().trim());
+                            event.setLevel(solution.getLiteral("levelOfEvent").getString().trim());
+                            event.setStartPeriod(solution.getLiteral("startPeriod").getString().trim());
+
+                            event.setPrices(new GetRecommendEventResponse.RunningEvent.Prices());
+                            event.getPrices().getPrice().clear();
+                            event.setRaceTypes(new GetRecommendEventResponse.RunningEvent.RaceTypes());
+                            event.getRaceTypes().getRaceType().clear();
+                            event.setRewards(new GetRecommendEventResponse.RunningEvent.Rewards());
+                            event.getRewards().getReward().clear();
+
+                            eventsMap.put(eventName, event);
+                        }
 
                         String raceType = solution.getLiteral("raceTypeName").getString().trim();
                         if (!event.getRaceTypes().getRaceType().contains(raceType)) {
@@ -333,6 +328,7 @@ public class GetRecommend {
                         if (!event.getRewards().getReward().contains(rewardName)) {
                             event.getRewards().getReward().add(rewardName);
                         }
+
                     }
                     response.getRunningEvent().addAll(eventsMap.values());
 
@@ -359,3 +355,25 @@ public class GetRecommend {
 
         }
 }
+
+
+//                        GetRecommendEventResponse.RunningEvent event = eventsMap.computeIfAbsent(eventName, k -> {
+
+//                            GetRecommendEventResponse.RunningEvent newEvent = new GetRecommendEventResponse.RunningEvent();
+//                            newEvent.setRunningEventName(eventName);
+//                            newEvent.setConfidence(confList.get(counter.get()));
+//                            newEvent.setDistrict(solution.getLiteral("district").getString().trim());
+//                            newEvent.setTypeofEvent(solution.getLiteral("typeOfEvent").getString().trim());
+//                            newEvent.setOrganization(solution.getLiteral("organizationName").getString().trim());
+//                            newEvent.setActivityArea(solution.getLiteral("activityArea").getString().trim());
+//                            newEvent.setStandard(solution.getLiteral("standardOfEvent").getString().trim());
+//                            newEvent.setLevel(solution.getLiteral("levelOfEvent").getString().trim());
+//                            newEvent.setStartPeriod(solution.getLiteral("startPeriod").getString().trim());
+//                            newEvent.setPrices(new GetRecommendEventResponse.RunningEvent.Prices());
+//                            newEvent.getPrices().getPrice().clear();
+//                            newEvent.setRaceTypes(new GetRecommendEventResponse.RunningEvent.RaceTypes());
+//                            newEvent.getRaceTypes().getRaceType().clear();
+//                            newEvent.setRewards(new GetRecommendEventResponse.RunningEvent.Rewards());
+//                            newEvent.getRewards().getReward().clear();
+//                            return newEvent;
+//                        });
