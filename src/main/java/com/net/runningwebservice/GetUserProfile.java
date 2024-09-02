@@ -29,6 +29,10 @@ import java.util.stream.Collectors;
 
 public class GetUserProfile {
 
+    public static String addSpaceBeforeCapital(String str) {
+        return str.replaceAll("([a-zA-Z])([A-Z0-9])", "$1 $2").replaceAll("(\\d)([A-Za-z])", "$1 $2");
+    }
+
     public static ArrayList<String> hisRecommend(Individual eventIndividual, String latestRaceType) {
         System.out.println("enter hisRecommend");
         ArrayList<String> hisFactor = new ArrayList<>();
@@ -271,7 +275,10 @@ public class GetUserProfile {
                         RDFNode value = stmt.getObject();
                         System.out.println(property);
 
-                        if (property.getURI().equals(NS + "TypeOfEventInterest")) {
+
+                        if (property.getURI().equals(NS + "LocationInterest")) {
+                            response.setDistrict(value.asLiteral().getString());
+                        }if (property.getURI().equals(NS + "TypeOfEventInterest")) {
                             response.setTypeofEvent(value.asLiteral().getString());
                         }if (property.getURI().equals(NS + "ActivityAreaInterest")) {
                             response.setActivityArea(value.asLiteral().getString());
@@ -286,21 +293,36 @@ public class GetUserProfile {
                         }if (property.getURI().equals(NS + "EventPriceInterest")) {
                             response.setPrice(value.asLiteral().getString());
                         }
-//                        if (property.getURI().equals(NS + "reHisOne")) {
-//                            rehis.add(value.asLiteral().getString());
-//                        }
+
                         if (property.getURI().equals(NS + "hasRunningEventHistory")) {
                             String eventHistory = value.asResource().getURI().substring(value.asResource().getURI().lastIndexOf("#") + 1);
-                            rehis.add(eventHistory);
+                            rehis.add(addSpaceBeforeCapital(eventHistory));
                         }
                         if (property.getURI().equals(NS + "hasLatestRaceType")) {
                             response.setLatestRT(value.asResource().getURI().substring(value.asResource().getURI().lastIndexOf("#") + 1));
                         }
+//                        if (property.getURI().equals(NS + "hasOrganizationInterest")) {
+//                            String organizationName = value.asResource().getURI().substring(value.asResource().getURI().lastIndexOf("#") + 1)
+//                            response.setOrganization(organizationName);
+//                        }
                         if (property.getURI().equals(NS + "hasOrganizationInterest")) {
-                            response.setOrganization(value.asResource().getURI().substring(value.asResource().getURI().lastIndexOf("#") + 1));
+                            Resource organizationResource = value.asResource();
+
+                            Statement stmtOrganization = organizationResource.getProperty(m.createProperty(NS + "OrganizationName"));
+
+                            if (stmtOrganization != null) {
+                                String organizationName = stmtOrganization.getString();
+                                response.setOrganization(organizationName);
+                            } else {
+                                // Fallback to using the URI as before, in case OrganizationName is not available
+                                String organizationName = organizationResource.getURI().substring(organizationResource.getURI().lastIndexOf("#") + 1);
+                                response.setOrganization(organizationName);
+                            }
                         }
+
                         if (property.getURI().equals(NS + "hasRaceTypeInterest")) {
-                            response.setRaceType(value.asResource().getURI().substring(value.asResource().getURI().lastIndexOf("#") + 1));
+                            String raceType = value.asResource().getURI().substring(value.asResource().getURI().lastIndexOf("#") + 1);
+                            response.setRaceType(addSpaceBeforeCapital(raceType));
                         }
 
 //                        if (property.getURI().equals(NS + "reHisOne")) {
@@ -497,6 +519,7 @@ public class GetUserProfile {
                             eventsMap.put(eventName, event);
                         }
 
+
                         String raceType = solution.getLiteral("raceTypeName").getString().trim();
                         if (!event.getRaceTypes().getRaceType().contains(raceType)) {
                             event.getRaceTypes().getRaceType().add(raceType);
@@ -530,68 +553,3 @@ public class GetUserProfile {
     }
 
 }
-
-//                    while (properties.hasNext()) {
-//
-//                        Statement stmt = properties.nextStatement();
-//                        Property property = stmt.getPredicate();
-//                        RDFNode value = stmt.getObject();
-////                        System.out.println(NS+"reHisone");
-//
-//                        System.out.println(value);
-//                        System.out.println(property);
-//                        if (value.isLiteral()) {
-//                            userInstance.addLiteral(property, value.asLiteral());
-//                        } else if (value.isResource()) {
-//                            userInstance.addProperty(property, value.asResource());
-//                        }
-//                        else if (property.getURI().trim().equals("http://www.semanticweb.org/guind/ontologies/runningeventontology#reHisOne")) {
-////                            System.out.println(value.asLiteral());
-//                            System.out.println("ssfd");
-//                        }
-//                    }
-
-//                    while (properties.hasNext()) {
-//                        Statement stmt = properties.nextStatement();
-//                        Property property = stmt.getPredicate();
-//                        RDFNode value = stmt.getObject();
-//
-//                        if (value.isLiteral()) {
-//                            userInstance.addLiteral(property, value.asLiteral());
-//                        }
-//                        if (value.isResource()) {
-//                            userInstance.addProperty(property, value.asResource());
-//                        }
-//
-//                        if (property.getURI().equals(NS + "reHisOne")) {
-//                            String rehisValue = value.asLiteral().getString();
-//                            ExtendedIterator rehisInstances = RunningEventClass.listInstances();
-//                            while (rehisInstances.hasNext()) {
-//                                Individual thisInstance = (Individual) rehisInstances.next();
-//                                String instanceRunningEventName = thisInstance.getProperty(RunningEventName).getString();
-//                                if (rehisValue.equals(instanceRunningEventName)) {
-//                                    boolean hasLatestRaceType = false;
-//                                    String latestRT = "";
-//
-//                                    while (properties.hasNext()) {
-//                                        Statement stmt2 = properties.nextStatement();
-//                                        Property property2 = stmt2.getPredicate();
-//                                        RDFNode value2 = stmt.getObject();
-//                                        if (property2.getURI().equals(NS + "hasLatestRaceType")) {
-//                                            hasLatestRaceType = true;
-//                                            latestRT = value2.asLiteral().getString();
-//                                        }
-//                                    }
-//                                    if (hasLatestRaceType && !latestRT.isEmpty()) {
-//                                        System.out.println("hisRecommend "+ latestRT);
-//                                        hisRecommend(thisInstance, latestRT);
-//                                    } else {
-//                                        System.out.println("hisRecommend null");
-//                                        hisRecommend(thisInstance, "null");
-//                                    }
-//                                }
-//                            }
-//                        }
-//
-//
-//                    }
