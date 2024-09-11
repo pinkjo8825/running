@@ -14,8 +14,10 @@ import org.apache.jena.util.iterator.ExtendedIterator;
 import org.apache.jena.vocabulary.RDF;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 
@@ -32,14 +34,14 @@ public class SetUserProfile {
         SetUserProfileResponse response = new SetUserProfileResponse();
         System.out.println("SetUserProfileResponse");
 
-        String ontologyPath = SharedConstants.ontologyPath;
         String NS = SharedConstants.NS;
         Individual eventHis;
 
         OntModel m = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
         OntDocumentManager dm = m.getDocumentManager();
-        dm.addAltEntry("http://www.semanticweb.org/guind/ontologies/runningeventontology",
-                "file:" + ontologyPath);
+
+        String ontologyPath = "file:RunningEventOntologyFinal2.rdf";
+        dm.addAltEntry("http://www.semanticweb.org/guind/ontologies/runningeventontology",ontologyPath);
         m.read("http://www.semanticweb.org/guind/ontologies/runningeventontology", "RDF/XML");
 
         Boolean exist = true;
@@ -204,7 +206,8 @@ public class SetUserProfile {
             userInstance.addProperty(password, hashedPassword);
 
 
-            try (FileOutputStream out = new FileOutputStream(ontologyPath)) {
+
+            try (FileOutputStream out = new FileOutputStream("RunningEventOntologyFinal2.rdf")) {
                 m.write(out, "RDF/XML");
 //                System.out.println(userInstance);
             } catch (IOException e) {

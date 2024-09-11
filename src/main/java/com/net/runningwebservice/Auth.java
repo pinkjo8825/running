@@ -31,7 +31,8 @@ public class Auth {
         """, username);
 
         String hashedPassword = null;
-        Model dataOnto = RDFDataMgr.loadModel("file:" + SharedConstants.ontologyPath);
+        String ontologyPath = "file:RunningEventOntologyFinal2.rdf";
+        Model dataOnto = RDFDataMgr.loadModel(ontologyPath);
         Query query = QueryFactory.create(queryString);
         try (QueryExecution qexec = QueryExecutionFactory.create(query, dataOnto)) {
             ResultSet resultSet = qexec.execSelect();

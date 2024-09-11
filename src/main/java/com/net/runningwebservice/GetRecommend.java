@@ -34,27 +34,29 @@ public class GetRecommend {
                 System.out.println("GetRecommendEventResponse");
 
                 String NS = SharedConstants.NS;
-                String output_filename = SharedConstants.output_filename;
-                String rulesPath = SharedConstants.rulesPath;
                 String runURI = SharedConstants.runURI;
-                String ontologyPath = SharedConstants.ontologyPath;
-                String backup_filename = SharedConstants.backup_filename;
+                String ontologyPath = "file:RunningEventOntologyFinal2.rdf";
+
+                String output_filename = "file:WriteInstance3.rdf";
+                String rulesPath = "file:testrules1.rules";
+                String backup_filename = "WriteInstance3-backup.rdf";
 
                 if(method == 3) {
                     try {
-                        Files.copy(Paths.get(backup_filename), Paths.get(output_filename), StandardCopyOption.REPLACE_EXISTING);
+//                        Files.copy(Paths.get(backup_filename), Paths.get(output_filename), StandardCopyOption.REPLACE_EXISTING);
+                        Files.copy(Paths.get(backup_filename), Paths.get("WriteInstance3.rdf"), StandardCopyOption.REPLACE_EXISTING);
                     } catch (IOException e) {
+                        System.out.println("1");
                         e.printStackTrace();
                     }
                 }
 
-                Model data = RDFDataMgr.loadModel("file:" + output_filename);
+                Model data = RDFDataMgr.loadModel(outputg_filename);
 
 
                 OntModel m = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
                 OntDocumentManager dm = m.getDocumentManager();
-                dm.addAltEntry("http://www.semanticweb.org/guind/ontologies/runningeventontology",
-                        "file:" + ontologyPath);
+                dm.addAltEntry("http://www.semanticweb.org/guind/ontologies/runningeventontology", ontologyPath);
                 m.read("http://www.semanticweb.org/guind/ontologies/runningeventontology", "RDF/XML");
                 OntClass userClass = m.getOntClass(NS + "User");
                 OntProperty userActivityArea = m.getDatatypeProperty(NS + "ActivityAreaInterest");
@@ -154,13 +156,14 @@ public class GetRecommend {
 //            System.out.println(userInstance);
 
                 try {
-                    m.write(new PrintWriter(new FileOutputStream(output_filename)), "RDF/XML");
+                    m.write(new PrintWriter(new FileOutputStream("WriteInstance3.rdf")), "RDF/XML");
                 } catch (FileNotFoundException ex) {
+                    System.out.println("2");
                     ex.printStackTrace();
                 }
 
                 PrintUtil.registerPrefix("run", runURI);
-                Model dataInf = RDFDataMgr.loadModel("file:" + output_filename);
+                Model dataInf = RDFDataMgr.loadModel(output_filename);
 
                 Model rm = ModelFactory.createDefaultModel();
                 Resource configuration = rm.createResource();
@@ -182,45 +185,6 @@ public class GetRecommend {
         ArrayList<String> formattedEventNames = new ArrayList<String>();
         ArrayList<String> confList = new ArrayList<String>();
 
-//        while (i1.hasNext()) {
-//            Statement statement = i1.nextStatement();
-//            String resultName = PrintUtil.print(statement.getProperty(rn).getString());
-////            System.out.println("411: statement : " + statement.toString());
-//            String statementString = statement.getObject().toString();
-//            System.out.println("418: statementURI" + statementString);
-//            int maxConf = Integer.MAX_VALUE;
-////            System.out.println("maxConf " + maxConf);
-//            Resource re = data.getResource(statementString);
-//            StmtIterator i2 = inf.listStatements(re, c, (RDFNode) null);
-//            while (i2.hasNext()) {
-//                Statement statement2 = i2.nextStatement();
-////                System.out.println("Number of confidence statements found: " + i2.toList().size());
-//                String conf = statement2.getString();
-//                confList.add(conf);
-//                System.out.println("428: conf  = " + conf);
-//            }
-//            for (int i = 0; i < confList.size(); i++) {
-//                String confValueStr = confList.get(i);
-//                System.out.println("confList: " + confValueStr);
-//                double confValue;
-//                try {
-//                    confValue = Double.parseDouble(confValueStr);
-//                } catch (NumberFormatException e) {
-//                    continue;
-//                }
-//
-//                int roundedConfValue = (int) Math.round(confValue);
-//                if (roundedConfValue < maxConf) {
-//                    maxConf = roundedConfValue;
-//                }
-//
-//            }
-//
-//                System.out.println(maxConf);
-//                formattedEventNames.add(resultName);
-//                confList.clear();
-//        }
-
 
 
         while (i1.hasNext()) {
@@ -228,14 +192,14 @@ public class GetRecommend {
                 String resultName = PrintUtil.print(statement.getProperty(rn).getString());
 
                 String statementString = statement.getObject().toString();
-                System.out.println(statementString);
+//                System.out.println(statementString);
                 Resource re = data.getResource(statementString);
                 StmtIterator i2 = inf.listStatements(re, c, (RDFNode) null);
                 while (i2.hasNext()) {
                     Statement statement2 = i2.nextStatement();
-                    System.out.println("Number of confidence statements found: " + i2.toList().size());
+//                    System.out.println("Number of confidence statements found: " + i2.toList().size());
                     String conf = statement2.getString();
-                    System.out.println(conf);
+//                    System.out.println(conf);
                     confList.add(conf);
                 }
                 formattedEventNames.add(resultName);
@@ -251,7 +215,8 @@ public class GetRecommend {
                         .map(eventName -> "?eventName = \"" + eventName + "\"")
                         .collect(Collectors.joining(" || ", "FILTER (", ") ."));
 
-                Model dataOnto = RDFDataMgr.loadModel("file:" + SharedConstants.ontologyPath);
+//                Model dataOnto = RDFDataMgr.loadModel("file:" + SharedConstants.ontologyPath);
+                    Model dataOnto = RDFDataMgr.loadModel("RunningEventOntologyFinal2.rdf");
 
                 String queryString = """
                         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -341,7 +306,7 @@ public class GetRecommend {
                 Resource userResource = data.getResource(userURI);
                 data.removeAll(userResource, null, (RDFNode) null);
                 try {
-                    data.write(new PrintWriter(new FileOutputStream(output_filename)), "RDF/XML");
+                    data.write(new PrintWriter(new FileOutputStream("WriteInstance3.rdf")), "RDF/XML");
                 } catch (FileNotFoundException ex) {
                     ex.printStackTrace();
                 }
@@ -356,24 +321,3 @@ public class GetRecommend {
         }
 }
 
-
-//                        GetRecommendEventResponse.RunningEvent event = eventsMap.computeIfAbsent(eventName, k -> {
-
-//                            GetRecommendEventResponse.RunningEvent newEvent = new GetRecommendEventResponse.RunningEvent();
-//                            newEvent.setRunningEventName(eventName);
-//                            newEvent.setConfidence(confList.get(counter.get()));
-//                            newEvent.setDistrict(solution.getLiteral("district").getString().trim());
-//                            newEvent.setTypeofEvent(solution.getLiteral("typeOfEvent").getString().trim());
-//                            newEvent.setOrganization(solution.getLiteral("organizationName").getString().trim());
-//                            newEvent.setActivityArea(solution.getLiteral("activityArea").getString().trim());
-//                            newEvent.setStandard(solution.getLiteral("standardOfEvent").getString().trim());
-//                            newEvent.setLevel(solution.getLiteral("levelOfEvent").getString().trim());
-//                            newEvent.setStartPeriod(solution.getLiteral("startPeriod").getString().trim());
-//                            newEvent.setPrices(new GetRecommendEventResponse.RunningEvent.Prices());
-//                            newEvent.getPrices().getPrice().clear();
-//                            newEvent.setRaceTypes(new GetRecommendEventResponse.RunningEvent.RaceTypes());
-//                            newEvent.getRaceTypes().getRaceType().clear();
-//                            newEvent.setRewards(new GetRecommendEventResponse.RunningEvent.Rewards());
-//                            newEvent.getRewards().getReward().clear();
-//                            return newEvent;
-//                        });

@@ -4,16 +4,24 @@ import com.net.running_web_service.GetAllEventsRequest;
 import com.net.running_web_service.GetAllEventsResponse;
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.riot.RDFDataMgr;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+
+
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
 public class GetAllEvents {
 
+
     public static GetAllEventsResponse run(GetAllEventsRequest request) {
         GetAllEventsResponse response = new GetAllEventsResponse();
         System.out.println("GetAllEventsResponse");
-        Model dataOnto = RDFDataMgr.loadModel("file:" + SharedConstants.ontologyPath);
+        String ontologyPath = "file:RunningEventOntologyFinal2.rdf";
+        Model dataOnto = RDFDataMgr.loadModel(ontologyPath);
 
         String queryString  = """
                 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>

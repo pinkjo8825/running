@@ -14,7 +14,8 @@ public class GetEvent {
     public static GetEventResponse run(GetEventRequest request) {
         GetEventResponse response = new GetEventResponse();
         System.out.println("GetEventResponse");
-        Model dataOnto = RDFDataMgr.loadModel("file:" + SharedConstants.ontologyPath);
+        String ontologyPath = "file:RunningEventOntologyFinal2.rdf";
+        Model dataOnto = RDFDataMgr.loadModel(ontologyPath);
 
         String districtReg = request.getDistrict();
         String raceTypeReg = request.getRaceType();

@@ -46,10 +46,10 @@ public class GetUserProfile {
         OntModel m = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
         OntDocumentManager dm = m.getDocumentManager();
         String NS = SharedConstants.NS;
-        String output_filename = SharedConstants.output_filename;
-
-
-        dm.addAltEntry("http://www.semanticweb.org/guind/ontologies/runningeventontology", "file:" + output_filename);
+        String ontologyPath = "file:RunningEventOntologyFinal2.rdf";
+        dm.addAltEntry("http://www.semanticweb.org/guind/ontologies/runningeventontology", ontologyPath);
+//        String output_filename = "file:WriteInstance3-2.rdf";
+//        dm.addAltEntry("http://www.semanticweb.org/guind/ontologies/runningeventontology", output_filename);
         m.read("http://www.semanticweb.org/guind/ontologies/runningeventontology", "RDF/XML");
 
         OntClass racetypeClass = m.getOntClass(NS + "RaceType");
@@ -178,7 +178,7 @@ public class GetUserProfile {
             REFactor.clear();
         }
         for (int j = 0; j < matchRE.size(); j++) {
-            System.out.println("hisRecommend Running event: " + matchRE.get(j));
+//            System.out.println("hisRecommend Running event: " + matchRE.get(j));
         }
         return matchRE;
     }
@@ -199,18 +199,16 @@ public class GetUserProfile {
 
 
             String NS = SharedConstants.NS;
-
-//            String output_filename = SharedConstants.output_filename;
-            String output_filename = "src/main/resources/WriteInstance3-2.rdf";
-
-            String rulesPath = SharedConstants.rulesPath;
             String runURI = SharedConstants.runURI;
-            String ontologyPath = SharedConstants.ontologyPath;
-            String backup_filename = SharedConstants.backup_filename;
+
+            String output_filename = "file:WriteInstance3-2.rdf";
+            String rulesPath = "file:testrules1.rules";
+            String ontologyPath = "file:RunningEventOntologyFinal2.rdf";
+            String backup_filename = "WriteInstance3-backup.rdf";
 
             if(method == 3) {
                 try {
-                    Files.copy(Paths.get(backup_filename), Paths.get(output_filename), StandardCopyOption.REPLACE_EXISTING);
+                    Files.copy(Paths.get(backup_filename), Paths.get("WriteInstance3-2.rdf"), StandardCopyOption.REPLACE_EXISTING);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -241,14 +239,13 @@ public class GetUserProfile {
 
             if (result) {
 
-                Model data = RDFDataMgr.loadModel("file:" + output_filename);
+                Model data = RDFDataMgr.loadModel(output_filename);
 
-                Model dataOnto = RDFDataMgr.loadModel("file:" + ontologyPath);
+                Model dataOnto = RDFDataMgr.loadModel(ontologyPath);
 
                 OntModel m = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
                 OntDocumentManager dm = m.getDocumentManager();
-                dm.addAltEntry("http://www.semanticweb.org/guind/ontologies/runningeventontology",
-                        "file:" + ontologyPath);
+                dm.addAltEntry("http://www.semanticweb.org/guind/ontologies/runningeventontology",ontologyPath);
                 m.read("http://www.semanticweb.org/guind/ontologies/runningeventontology", "RDF/XML");
                 OntClass userClass = m.getOntClass(NS + "User");
 
@@ -273,7 +270,7 @@ public class GetUserProfile {
                         Statement stmt = properties.nextStatement();
                         Property property = stmt.getPredicate();
                         RDFNode value = stmt.getObject();
-                        System.out.println(property);
+//                        System.out.println(property);
 
 
                         if (property.getURI().equals(NS + "LocationInterest")) {
@@ -358,10 +355,10 @@ public class GetUserProfile {
                                         }
                                     }
                                     if (hasHisRe && !latestRT.isEmpty()) {
-                                        System.out.println("hisRecommend "+ latestRT);
+//                                        System.out.println("hisRecommend "+ latestRT);
                                         hisRecEventNames = hisRecommend(thisInstance, latestRT);
                                     } else {
-                                        System.out.println("hisRecommend null");
+//                                        System.out.println("hisRecommend null");
                                         hisRecEventNames = hisRecommend(thisInstance, "null");
                                     }
                                 }
@@ -379,14 +376,14 @@ public class GetUserProfile {
                     System.out.println("User not found");
                 }
                 try {
-                    m.write(new PrintWriter(new FileOutputStream(output_filename)), "RDF/XML");
+                    m.write(new PrintWriter(new FileOutputStream("WriteInstance3-2.rdf")), "RDF/XML");
                 } catch (FileNotFoundException ex) {
                     ex.printStackTrace();
                 }
 
 
                 PrintUtil.registerPrefix("run", runURI);
-                Model dataInf = RDFDataMgr.loadModel("file:" + output_filename);
+                Model dataInf = RDFDataMgr.loadModel(output_filename);
 
                 Model rm = ModelFactory.createDefaultModel();
                 Resource configuration = rm.createResource();
@@ -406,14 +403,14 @@ public class GetUserProfile {
                     Statement statement = i1.nextStatement();
                     String resultName = PrintUtil.print(statement.getProperty(rn).getString());
                     String statementString = statement.getObject().toString();
-                    System.out.println(statementString);
+//                    System.out.println(statementString);
                     Resource re = data.getResource(statementString);
                     StmtIterator i2 = inf.listStatements(re, c, (RDFNode) null);
                     while (i2.hasNext()) {
                         Statement statement2 = i2.nextStatement();
-                        System.out.println("Number of confidence statements found: " + i2.toList().size());
+//                        System.out.println("Number of confidence statements found: " + i2.toList().size());
                         String conf = statement2.getString();
-                        System.out.println(conf);
+//                        System.out.println(conf);
                         confList.add(conf);
                     }
                     formattedEventNames.add(resultName);
@@ -432,7 +429,7 @@ public class GetUserProfile {
                     Resource userResource = data.getResource(userURI);
                     data.removeAll(userResource, null, (RDFNode) null);
                     try {
-                        data.write(new PrintWriter(new FileOutputStream(output_filename)), "RDF/XML");
+                        data.write(new PrintWriter(new FileOutputStream("WriteInstance3-2.rdf")), "RDF/XML");
                     } catch (FileNotFoundException ex) {
                         ex.printStackTrace();
                     }
@@ -442,7 +439,7 @@ public class GetUserProfile {
                         .map(eventName -> "?eventName = \"" + eventName + "\"")
                         .collect(Collectors.joining(" || ", "FILTER (", ") ."));
 
-                Model runOnto = RDFDataMgr.loadModel("file:" + SharedConstants.ontologyPath);
+                Model runOnto = RDFDataMgr.loadModel(ontologyPath);
 
                 String queryString = """
                         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -479,10 +476,10 @@ public class GetUserProfile {
 
                 try {
                     Map<String, GetUserProfileResponse.RunningEvent> eventsMap = new HashMap<>();
-                    System.out.println("size");
-                    System.out.println(events.size());
-                    System.out.println(confList.size());
-                    System.out.println(formattedEventNames.size());
+//                    System.out.println("size");
+//                    System.out.println(events.size());
+//                    System.out.println(confList.size());
+//                    System.out.println(formattedEventNames.size());
                     while (resultSet.hasNext()) {
                         QuerySolution solution = resultSet.nextSolution();
 
