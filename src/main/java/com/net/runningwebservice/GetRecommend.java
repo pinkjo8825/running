@@ -36,9 +36,15 @@ public class GetRecommend {
                 String NS = SharedConstants.NS;
                 String runURI = SharedConstants.runURI;
                 String ontologyPath = "file:RunningEventOntologyFinal2.rdf";
-
+//                String ontologyPath = "file:Running_modify_4.rdf";
                 String output_filename = "file:WriteInstance3.rdf";
                 String rulesPath = "file:testrules1.rules";
+
+//                String travelPlaceRule = "file:travelPlaceRule.rules";
+//                String ontologyPath = "RunningEventOntologyFinal2.rdf";
+//                String output_filename = "WriteInstance3.rdf";
+//                String rulesPath = "testrules1.rules";
+
                 String backup_filename = "WriteInstance3-backup.rdf";
 
                 if(method == 3) {
@@ -51,7 +57,7 @@ public class GetRecommend {
                     }
                 }
 
-                Model data = RDFDataMgr.loadModel(outputg_filename);
+                Model data = RDFDataMgr.loadModel(output_filename);
 
 
                 OntModel m = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
@@ -172,38 +178,50 @@ public class GetRecommend {
                 Reasoner reasoner = GenericRuleReasonerFactory.theInstance().create(configuration);
                 InfModel inf = ModelFactory.createInfModel(reasoner, dataInf);
 
+                Resource user = dataInf.getResource(runURI + userProfileName);
                 Property p = dataInf.getProperty(runURI, "hasRecommend");
                 Property c = dataInf.getProperty(runURI, "confidence");
-                Resource user = dataInf.getResource(runURI + userProfileName);
                 Property rn = data.getProperty(runURI, "RunningEventName");
-
+                Property venueProperty = dataInf.getProperty(runURI, "hasEventVenue");
+                Property districtProperty = dataInf.getProperty(runURI, "District");
 
                 StmtIterator i1 = inf.listStatements(user, p, (RDFNode) null);
 
-
+                try {
+                    inf.write(new PrintWriter(new FileOutputStream("WriteInstance3.rdf")), "RDF/XML");
+                } catch (FileNotFoundException ex) {
+                    ex.printStackTrace();
+                }
 
         ArrayList<String> formattedEventNames = new ArrayList<String>();
         ArrayList<String> confList = new ArrayList<String>();
-
-
+        ArrayList<String> districtList = new ArrayList<String>();
 
         while (i1.hasNext()) {
                 Statement statement = i1.nextStatement();
                 String resultName = PrintUtil.print(statement.getProperty(rn).getString());
-
                 String statementString = statement.getObject().toString();
-//                System.out.println(statementString);
                 Resource re = data.getResource(statementString);
                 StmtIterator i2 = inf.listStatements(re, c, (RDFNode) null);
+
+            Resource venue = re.getPropertyResourceValue(venueProperty);
+            if (venue != null) {
+                Statement districtStatement = venue.getProperty(districtProperty);
+                if (districtStatement != null) {
+                    String district = districtStatement.getString();
+                    districtList.add(district);
+                }
+            }
                 while (i2.hasNext()) {
                     Statement statement2 = i2.nextStatement();
-//                    System.out.println("Number of confidence statements found: " + i2.toList().size());
                     String conf = statement2.getString();
-//                    System.out.println(conf);
                     confList.add(conf);
                 }
+
+
                 formattedEventNames.add(resultName);
         }
+        System.out.println(districtList);
 
         if (formattedEventNames.isEmpty()) {
                     response.setStatus("empty");

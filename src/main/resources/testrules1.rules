@@ -46,7 +46,7 @@
 [Jena57:  (?re run:hasRaceType ?racetype) (?racetype run:Price "Average") (?User run:EventPriceInterest "Average") (?re run:hasRaceType ?racetype) (?racetype run:Reward "Medal") (?User run:RewardInterest "Medal")  (?racetype run:StartPeriod "Morning") (?User run:StartPeriodInterest "Morning") -> (?User run:hasRecommend ?re) (?re run:confidence "92") ]
 
 
-[Jena58: (?re run:hasRaceType ?racetype) (?re run:hasEventVenue ?EventVenue) (?EventVenue run:District "Mueang Phuket District") (?racetype run:StartPeriod "Morning") (?User run:LocationInterest "Mueang Phuket District") (?User run:StartPeriodInterest "Morning") -> (?User run:hasRecommend ?re) (?re run:confidence "91")]
+[Jena58: (?re run:hasRaceType ?racetype) (?re run:hasEventVenue ?EventVenue) (?EventVenue run:District "Mueang Phuket District") (?racetype run:StartPeriod "Morning") (?User run:LocationInterest "Mueang Phuket District") (?User run:StartPeriodInterest "Morning") -> (?User run:hasRecommend ?re)  (?re run:confidence "91")]
 
 [Jena59: (?re run:hasRaceType ?racetype) (?re run:LevelOfEvent "InternationalEvent") (?re run:StandardOfEvent "StandardEvent") (?User run:StandardEventInterest "StandardEvent") (?User run:LevelEventInterest "InternationalEvent") -> (?User run:hasRecommend ?re) (?re run:confidence "90") ]
 

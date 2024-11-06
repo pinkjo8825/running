@@ -1,0 +1,3 @@
+@prefix run: <http://www.semanticweb.org/guind/ontologies/runningeventontology#> .
+
+[Jena1: (?re run:hasRaceType ?racetype) (?racetype run:RaceTypeName "Half Marathon") (?racetype run:Price "Average") (?User run:hasRaceTypeInterest ?RaceTypeIn) (?RaceTypeIn run:RaceTypeName "Half Marathon") (?User run:EventPriceInterest "Average") -> (?User run:hasRecommend ?re) (?re run:confidence "100") ]
