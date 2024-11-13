@@ -6,6 +6,12 @@ import java.nio.charset.StandardCharsets;
 
 
 public class SharedConstants {
+
+        public static void debug() {
+            int lineNumber = Thread.currentThread().getStackTrace()[2].getLineNumber();
+            System.out.println("Line " + lineNumber);
+        }
+
     public static InputStream ontologyPathStream() {
         return SharedConstants.class.getClassLoader().getResourceAsStream("RunningEventOntologyFinal2.rdf");
     }

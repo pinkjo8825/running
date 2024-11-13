@@ -44,6 +44,14 @@ public class SetUserProfile {
         dm.addAltEntry("http://www.semanticweb.org/guind/ontologies/runningeventontology",ontologyPath);
         m.read("http://www.semanticweb.org/guind/ontologies/runningeventontology", "RDF/XML");
 
+
+
+        System.out.println("Number of statements in the ontology: " + m.size());
+//        m.listDatatypeProperties().forEachRemaining(prop -> {
+//            System.out.println("Datatype property: " + prop.getURI());
+//        });
+
+
         Boolean exist = true;
         String queryStr = String.format(
                 "ASK { ?user <%sUsername> \"%s\" . }",
@@ -67,6 +75,7 @@ public class SetUserProfile {
             OntProperty password = m.getDatatypeProperty(NS + "Password");
             OntProperty reHisOne = m.getDatatypeProperty(NS + "reHisOne");
 
+
             OntClass userClass = m.getOntClass(NS + "User");
             OntProperty userActivityArea = m.getDatatypeProperty(NS + "ActivityAreaInterest");
             OntProperty userStartPeriod = m.getDatatypeProperty(NS + "StartPeriodInterest");
@@ -79,6 +88,7 @@ public class SetUserProfile {
             OntProperty userLevelEvent = m.getDatatypeProperty(NS + "LevelEventInterest");
             OntProperty userStandardEvent = m.getDatatypeProperty(NS + "StandardEventInterest");
             OntProperty userName = m.getDatatypeProperty(NS + "Username");
+
 
             OntClass minimarathonClass = m.getOntClass(NS + "MiniMarathon");
             OntClass marathonClass = (OntClass) m.getOntClass(NS + "Marathon");
@@ -116,7 +126,6 @@ public class SetUserProfile {
 
             userInstance.addProperty(RDF.type, userClass);
             userInstance.addProperty(userName, userProfileName);
-
             if (latestRT != null) {
                 switch (latestRT) {
                     case "Mini Marathon":
@@ -133,11 +142,9 @@ public class SetUserProfile {
                         break;
                 }
             }
-
             if (rehis != null) {
                 for (int i = 0; i < rehis.size(); i++) {
                     String rehisValue = rehis.get(i);
-
                     ExtendedIterator rehisInstances = RunningEventClass.listInstances();
                     while (rehisInstances.hasNext()) {
                         Individual thisInstance = (Individual) rehisInstances.next();
@@ -152,7 +159,38 @@ public class SetUserProfile {
                     }
                 }
             }
-
+//            if (rehis != null) {
+//                for (int i = 0; i < rehis.size(); i++) {
+//                    String rehisValue = rehis.get(i);
+//
+//                    if (rehisValue != null) { // Check if rehisValue is not null
+//                        ExtendedIterator rehisInstances = RunningEventClass.listInstances();
+//
+//                        while (rehisInstances.hasNext()) {
+//                            Individual thisInstance = (Individual) rehisInstances.next();
+//
+//                            // Check if RunningEventName property exists and is not null
+//                            if (thisInstance != null && thisInstance.getProperty(RunningEventName) != null) {
+//                                String instanceRunningEventName = thisInstance.getProperty(RunningEventName).getString();
+//
+//                                // Compare and add properties only if not null
+//                                if (instanceRunningEventName != null && rehisValue.equals(instanceRunningEventName)) {
+//                                    if (i == 0) {
+//                                        if (reHisOne != null) { // Check if reHisOne property is not null
+//                                            userInstance.addProperty(reHisOne, instanceRunningEventName);
+//                                        }
+//                                    }
+//
+//                                    if (hasREhistory != null) { // Check if hasREhistory property is not null
+//                                        userInstance.addProperty(hasREhistory, thisInstance);
+//                                    }
+//                                    break;
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
 
             if (raceTypeReg != null) {
                 switch (raceTypeReg) {
@@ -172,7 +210,6 @@ public class SetUserProfile {
                         break;
                 }
             }
-
             if (organizationReg != null) {
                 ExtendedIterator instances = organizationClass.listInstances();
                 while (instances.hasNext()) {
@@ -206,7 +243,6 @@ public class SetUserProfile {
             userInstance.addProperty(password, hashedPassword);
 
 
-
             try (FileOutputStream out = new FileOutputStream("RunningEventOntologyFinal2.rdf")) {
                 m.write(out, "RDF/XML");
 //                System.out.println(userInstance);
@@ -215,7 +251,6 @@ public class SetUserProfile {
             }
 //            System.out.println("Number of statements in OntModel: " + m.size());
             response.setStatus("Success");
-
             return response;
         }
         else {

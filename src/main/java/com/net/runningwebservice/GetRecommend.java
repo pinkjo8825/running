@@ -76,6 +76,8 @@ public class GetRecommend {
                 OntProperty userLevelEvent = m.getDatatypeProperty(NS + "LevelEventInterest");
                 OntProperty userStandardEvent = m.getDatatypeProperty(NS + "StandardEventInterest");
                 OntProperty userName = m.getDatatypeProperty(NS + "Username");
+                OntProperty placeType = m.getDatatypeProperty(NS + "TravelPlaceTypeInterest");
+//        hasTravelPlaceTypeInterest
 
                 OntClass minimarathonClass = m.getOntClass(NS + "MiniMarathon");
                 OntClass marathonClass = (OntClass) m.getOntClass(NS + "Marathon");
@@ -103,6 +105,11 @@ public class GetRecommend {
                 String levelReg = request.getLevel();
                 String startPeriodReg = request.getStartPeriod();
                 String rewardReg = request.getReward();
+
+//                userInstance.addProperty(placeType, "outdoor");
+//                userInstance.addProperty(placeType, "indoor");
+                userInstance.addProperty(placeType, "hybrid");
+
 
                 if (districtReg != null) {
                     userInstance.addProperty(userLocation, districtReg);
@@ -185,13 +192,22 @@ public class GetRecommend {
                 Property venueProperty = dataInf.getProperty(runURI, "hasEventVenue");
                 Property districtProperty = dataInf.getProperty(runURI, "District");
 
-                StmtIterator i1 = inf.listStatements(user, p, (RDFNode) null);
+//                StmtIterator i1 = inf.listStatements(user, p, (RDFNode) null);
 
-                try {
-                    inf.write(new PrintWriter(new FileOutputStream("WriteInstance3.rdf")), "RDF/XML");
-                } catch (FileNotFoundException ex) {
-                    ex.printStackTrace();
-                }
+//                try {
+//                    inf.write(new PrintWriter(new FileOutputStream("WriteInstance3.rdf")), "RDF/XML");
+//                } catch (FileNotFoundException ex) {
+//                    ex.printStackTrace();
+//                }
+
+                Model rm2 = ModelFactory.createDefaultModel();
+                Resource config2 = rm2.createResource();
+                config2.addProperty(ReasonerVocabulary.PROPruleMode, "hybrid");
+                config2.addProperty(ReasonerVocabulary.PROPruleSet, "file:travelPlaceRule.rules");
+                Reasoner reasoner2 = GenericRuleReasonerFactory.theInstance().create(config2);
+                InfModel inf2 = ModelFactory.createInfModel(reasoner2, inf);
+
+                StmtIterator i1 = inf2.listStatements(user, p, (RDFNode) null);
 
         ArrayList<String> formattedEventNames = new ArrayList<String>();
         ArrayList<String> confList = new ArrayList<String>();
@@ -218,8 +234,13 @@ public class GetRecommend {
                     confList.add(conf);
                 }
 
-
                 formattedEventNames.add(resultName);
+        }
+
+        try {
+            inf2.write(new PrintWriter(new FileOutputStream("WriteInstance3.rdf")), "RDF/XML");
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
         }
         System.out.println(districtList);
 
