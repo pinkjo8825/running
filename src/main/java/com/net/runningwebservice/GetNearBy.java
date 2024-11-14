@@ -28,7 +28,7 @@ public class GetNearBy {
 
     public static GetNearByResponse run(GetNearByRequest request) {
         GetNearByResponse response = new GetNearByResponse();
-        System.out.println("Processing GetNearByRequest");
+        System.out.println("GetNearByRequest");
 
         String runningEventNameReg = request.getRunningEventName();
         double radius = Double.parseDouble(request.getRadius());
@@ -108,7 +108,7 @@ public class GetNearBy {
             if (response.getTravelPlace().isEmpty()) {
                 System.out.println("No attractions found within the specified radius.");
             } else {
-                System.out.println("Nearby attractions retrieved successfully.");
+//                System.out.println("Nearby attractions retrieved successfully.");
             }
         } catch (Exception e) {
             System.err.println("Error occurred while processing the request: " + e.getMessage());

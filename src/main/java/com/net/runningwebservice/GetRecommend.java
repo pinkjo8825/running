@@ -106,9 +106,14 @@ public class GetRecommend {
                 String startPeriodReg = request.getStartPeriod();
                 String rewardReg = request.getReward();
 
-//                userInstance.addProperty(placeType, "outdoor");
-//                userInstance.addProperty(placeType, "indoor");
-                userInstance.addProperty(placeType, "hybrid");
+//                beach
+//                natural
+//                townAndCity
+//                cultural
+//                shoppingAndDinning
+//                entertainmentAndNightLife
+//                healthAndWellness
+                userInstance.addProperty(placeType, "natural");
 
 
                 if (districtReg != null) {
@@ -256,6 +261,7 @@ public class GetRecommend {
 
 //                Model dataOnto = RDFDataMgr.loadModel("file:" + SharedConstants.ontologyPath);
                     Model dataOnto = RDFDataMgr.loadModel("RunningEventOntologyFinal2.rdf");
+                    Model infData = RDFDataMgr.loadModel("WriteInstance3.rdf");
 
                 String queryString = """
                         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
