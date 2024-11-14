@@ -25,7 +25,8 @@ import jakarta.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="status" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="runningEventName" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="radius" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -36,36 +37,63 @@ import jakarta.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "status"
+    "runningEventName",
+    "radius"
 })
-@XmlRootElement(name = "setUserProfileResponse")
-public class SetUserProfileResponse {
+@XmlRootElement(name = "getNearByRequest")
+public class GetNearByRequest {
 
     @XmlElement(required = true)
-    protected String status;
+    protected String runningEventName;
+    @XmlElement(required = true)
+    protected String radius;
 
     /**
-     * Gets the value of the status property.
+     * Gets the value of the runningEventName property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getStatus() {
-        return status;
+    public String getRunningEventName() {
+        return runningEventName;
     }
 
     /**
-     * Sets the value of the status property.
+     * Sets the value of the runningEventName property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setStatus(String value) {
-        this.status = value;
+    public void setRunningEventName(String value) {
+        this.runningEventName = value;
+    }
+
+    /**
+     * Gets the value of the radius property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getRadius() {
+        return radius;
+    }
+
+    /**
+     * Sets the value of the radius property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setRadius(String value) {
+        this.radius = value;
     }
 
 }

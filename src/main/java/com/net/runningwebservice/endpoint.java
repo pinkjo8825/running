@@ -41,6 +41,12 @@ public class endpoint {
         return GetAllEvents.run(request);
     }
 
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getNearByRequest")
+    @ResponsePayload
+    public GetNearByResponse getNearByRequest(@RequestPayload GetNearByRequest request) {
+        return GetNearBy.run(request);
+    }
+
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "authRequest")
     @ResponsePayload
     public AuthResponse authRequest(@RequestPayload AuthRequest request) {
