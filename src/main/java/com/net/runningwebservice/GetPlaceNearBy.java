@@ -1,14 +1,14 @@
 
 package com.net.runningwebservice;
 
-import com.net.running_web_service.GetNearByRequest;
-import com.net.running_web_service.GetNearByResponse;
-import com.net.running_web_service.GetNearByResponse.TravelPlace;
+import com.net.running_web_service.GetPlaceNearByRequest;
+import com.net.running_web_service.GetPlaceNearByResponse;
+import com.net.running_web_service.GetPlaceNearByResponse.TravelPlace;
 import org.apache.jena.rdf.model.*;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.vocabulary.RDF;
 
-public class GetNearBy {
+public class GetPlaceNearBy {
 
     public static double haversine(double lat1, double lon1, double lat2, double lon2) {
         final double R = 6378.1; // Radius of the Earth in kilometers
@@ -26,8 +26,8 @@ public class GetNearBy {
         return R * c * 1000; // Distance in meters
     }
 
-    public static GetNearByResponse run(GetNearByRequest request) {
-        GetNearByResponse response = new GetNearByResponse();
+    public static GetPlaceNearByResponse run(GetPlaceNearByRequest request) {
+        GetPlaceNearByResponse response = new GetPlaceNearByResponse();
         System.out.println("GetNearByRequest");
 
         String runningEventNameReg = request.getRunningEventName();

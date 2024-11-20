@@ -106,7 +106,7 @@
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
-                <xs:element name="travelPlace">
+                <xs:element name="travelPlace" minOccurs="0" maxOccurs="unbounded">
                     <xs:complexType>
                         <xs:sequence>
                             <xs:element name="travelPlaceName" type="xs:string"  minOccurs="0"/>
@@ -175,7 +175,7 @@
                                     </xs:sequence>
                                 </xs:complexType>
                             </xs:element>
-                            <xs:element name="travelPlace">
+                            <xs:element name="travelPlace" minOccurs="0" maxOccurs="unbounded">
                                 <xs:complexType>
                                     <xs:sequence>
                                         <xs:element name="travelPlaceName" type="xs:string"  minOccurs="0"/>
@@ -189,7 +189,7 @@
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
-                <xs:element name="travelPlace">
+                <xs:element name="travelPlace" minOccurs="0" maxOccurs="unbounded">
                     <xs:complexType>
                         <xs:sequence>
                             <xs:element name="travelPlaceName" type="xs:string"  minOccurs="0"/>
@@ -307,7 +307,7 @@
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="getNearByRequest">
+    <xs:element name="getPlaceNearByRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="runningEventName" type="xs:string"/>
@@ -315,7 +315,7 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="getNearByResponse">
+    <xs:element name="getPlaceNearByResponse">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="travelPlace" minOccurs="0" maxOccurs="unbounded">

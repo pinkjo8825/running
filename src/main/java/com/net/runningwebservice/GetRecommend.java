@@ -247,7 +247,48 @@ public class GetRecommend {
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
         }
-        System.out.println(districtList);
+//        System.out.println(districtList);
+
+        Model model = RDFDataMgr.loadModel(output_filename);
+//        Resource user = dataInf.getResource(runURI + userProfileName);
+        Property hasTravelPlaceRecommend = model.getProperty(runURI, "hasTravelPlaceRecommend");
+        StmtIterator iterator = model.listStatements(user, hasTravelPlaceRecommend, (RDFNode) null);
+
+        while (iterator.hasNext()) {
+            Statement stmt = iterator.nextStatement();
+            Resource travelPlaceResource = stmt.getObject().asResource();
+
+            String travelPlaceName = travelPlaceResource.hasProperty(model.createProperty(NS + "TravelPlaceName"))
+                    ? travelPlaceResource.getProperty(model.createProperty(NS + "TravelPlaceName")).getString()
+                    : null;
+            String latitude = travelPlaceResource.hasProperty(model.createProperty(NS + "Latitude"))
+                    ? travelPlaceResource.getProperty(model.createProperty(NS + "Latitude")).getString()
+                    : null;
+            String longitude = travelPlaceResource.hasProperty(model.createProperty(NS + "Longitude"))
+                    ? travelPlaceResource.getProperty(model.createProperty(NS + "Longitude")).getString()
+                    : null;
+            String travelPlaceType = travelPlaceResource.hasProperty(model.createProperty(NS + "TravelPlaceType"))
+                    ? travelPlaceResource.getProperty(model.createProperty(NS + "TravelPlaceType")).getString()
+                    : null;
+            String district = travelPlaceResource.hasProperty(model.createProperty(NS + "District"))
+                    ? travelPlaceResource.getProperty(model.createProperty(NS + "District")).getString()
+                    : null;
+
+            GetRecommendEventResponse.TravelPlace travelPlace = new GetRecommendEventResponse.TravelPlace();
+            travelPlace.setTravelPlaceName(travelPlaceName);
+            travelPlace.setLatitude(latitude);
+            travelPlace.setLongitude(longitude);
+            travelPlace.setDistrict(district);
+            if (travelPlaceType != null) {
+                travelPlace.setTravelPlaceType(travelPlaceType);
+            }
+
+//            response.setTravelPlace(travelPlace);
+            response.getTravelPlace().add(travelPlace);
+
+        }
+
+
 
         if (formattedEventNames.isEmpty()) {
                     response.setStatus("empty");
@@ -340,6 +381,7 @@ public class GetRecommend {
                         }
 
                     }
+
                     response.getRunningEvent().addAll(eventsMap.values());
 
                 } finally {
