@@ -36,7 +36,6 @@ import jakarta.xml.bind.annotation.XmlType;
  *                   &lt;element name="district" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *                   &lt;element name="longitude" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *                   &lt;element name="latitude" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *                   &lt;element name="distance" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *                 &lt;/sequence&gt;
  *               &lt;/restriction&gt;
  *             &lt;/complexContent&gt;
@@ -54,10 +53,10 @@ import jakarta.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "travelPlace"
 })
-@XmlRootElement(name = "getPlaceNearByResponse")
-public class GetPlaceNearByResponse {
+@XmlRootElement(name = "getPlaceInterestResponse")
+public class GetPlaceInterestResponse {
 
-    protected List<GetPlaceNearByResponse.TravelPlace> travelPlace;
+    protected List<GetPlaceInterestResponse.TravelPlace> travelPlace;
 
     /**
      * Gets the value of the travelPlace property.
@@ -77,13 +76,13 @@ public class GetPlaceNearByResponse {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link GetPlaceNearByResponse.TravelPlace }
+     * {@link GetPlaceInterestResponse.TravelPlace }
      * 
      * 
      */
-    public List<GetPlaceNearByResponse.TravelPlace> getTravelPlace() {
+    public List<GetPlaceInterestResponse.TravelPlace> getTravelPlace() {
         if (travelPlace == null) {
-            travelPlace = new ArrayList<GetPlaceNearByResponse.TravelPlace>();
+            travelPlace = new ArrayList<GetPlaceInterestResponse.TravelPlace>();
         }
         return this.travelPlace;
     }
@@ -104,7 +103,6 @@ public class GetPlaceNearByResponse {
      *         &lt;element name="district" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
      *         &lt;element name="longitude" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
      *         &lt;element name="latitude" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
-     *         &lt;element name="distance" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
      *       &lt;/sequence&gt;
      *     &lt;/restriction&gt;
      *   &lt;/complexContent&gt;
@@ -119,8 +117,7 @@ public class GetPlaceNearByResponse {
         "travelPlaceType",
         "district",
         "longitude",
-        "latitude",
-        "distance"
+        "latitude"
     })
     public static class TravelPlace {
 
@@ -129,7 +126,6 @@ public class GetPlaceNearByResponse {
         protected String district;
         protected String longitude;
         protected String latitude;
-        protected String distance;
 
         /**
          * Gets the value of the travelPlaceName property.
@@ -249,30 +245,6 @@ public class GetPlaceNearByResponse {
          */
         public void setLatitude(String value) {
             this.latitude = value;
-        }
-
-        /**
-         * Gets the value of the distance property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
-        public String getDistance() {
-            return distance;
-        }
-
-        /**
-         * Sets the value of the distance property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
-        public void setDistance(String value) {
-            this.distance = value;
         }
 
     }

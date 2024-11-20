@@ -25,8 +25,7 @@ import jakarta.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="status" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="token" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="district" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -37,62 +36,36 @@ import jakarta.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "status",
-    "token"
+    "district"
 })
-@XmlRootElement(name = "authResponse")
-public class AuthResponse {
+@XmlRootElement(name = "getPlaceRequest")
+public class GetPlaceRequest {
 
     @XmlElement(required = true)
-    protected String status;
-    protected String token;
+    protected String district;
 
     /**
-     * Gets the value of the status property.
+     * Gets the value of the district property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getStatus() {
-        return status;
+    public String getDistrict() {
+        return district;
     }
 
     /**
-     * Sets the value of the status property.
+     * Sets the value of the district property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setStatus(String value) {
-        this.status = value;
-    }
-
-    /**
-     * Gets the value of the token property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getToken() {
-        return token;
-    }
-
-    /**
-     * Sets the value of the token property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setToken(String value) {
-        this.token = value;
+    public void setDistrict(String value) {
+        this.district = value;
     }
 
 }

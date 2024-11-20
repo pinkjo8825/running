@@ -41,15 +41,27 @@ public class endpoint {
         return GetAllEvents.run(request);
     }
 
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "authRequest")
+    @ResponsePayload
+    public AuthResponse authRequest(@RequestPayload AuthRequest request) {
+        return Auth.run(request);
+    }
+
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getPlaceNearByRequest")
     @ResponsePayload
     public GetPlaceNearByResponse getPlaceNearByRequest(@RequestPayload GetPlaceNearByRequest request) {
         return GetPlaceNearBy.run(request);
     }
 
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "authRequest")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getPlaceRequest")
     @ResponsePayload
-    public AuthResponse authRequest(@RequestPayload AuthRequest request) {
-        return Auth.run(request);
+    public GetPlaceResponse getPlaceRequest(@RequestPayload GetPlaceRequest request) {
+        return GetPlace.run(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getPlaceInterestRequest")
+    @ResponsePayload
+    public GetPlaceInterestResponse getPlaceInterestRequest(@RequestPayload GetPlaceInterestRequest request) {
+        return GetPlaceInterest.run(request);
     }
 }

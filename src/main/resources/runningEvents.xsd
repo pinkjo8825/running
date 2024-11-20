@@ -307,6 +307,23 @@
         </xs:complexType>
     </xs:element>
 
+    <xs:element name="authRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element type="xs:string" name="username" />
+                <xs:element type="xs:string" name="password" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="authResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element type="xs:string" name="status" />
+                <xs:element type="xs:string" name="token" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
     <xs:element name="getPlaceNearByRequest">
         <xs:complexType>
             <xs:sequence>
@@ -334,19 +351,52 @@
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="authRequest">
+    <xs:element name="getPlaceRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element type="xs:string" name="username" />
-                <xs:element type="xs:string" name="password" />
+                <xs:element type="xs:string" name="district" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="authResponse">
+    <xs:element name="getPlaceResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element type="xs:string" name="status" />
-                <xs:element type="xs:string" name="token" minOccurs="0"/>
+                <xs:element name="travelPlace" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="travelPlaceName" type="xs:string" minOccurs="0" />
+                            <xs:element name="travelPlaceType" type="xs:string" minOccurs="0" />
+                            <xs:element name="district" type="xs:string" minOccurs="0" />
+                            <xs:element name="longitude" type="xs:string" minOccurs="0" />
+                            <xs:element name="latitude" type="xs:string" minOccurs="0" />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getPlaceInterestRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element type="xs:string" name="interest" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getPlaceInterestResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="travelPlace" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="travelPlaceName" type="xs:string" minOccurs="0" />
+                            <xs:element name="travelPlaceType" type="xs:string" minOccurs="0" />
+                            <xs:element name="district" type="xs:string" minOccurs="0" />
+                            <xs:element name="longitude" type="xs:string" minOccurs="0" />
+                            <xs:element name="latitude" type="xs:string" minOccurs="0" />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
