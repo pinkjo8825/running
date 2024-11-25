@@ -106,14 +106,14 @@ public class GetRecommend {
                 String startPeriodReg = request.getStartPeriod();
                 String rewardReg = request.getReward();
 
-//                beach
-//                natural
-//                townAndCity
-//                cultural
-//                shoppingAndDinning
-//                entertainmentAndNightLife
-//                healthAndWellness
-                userInstance.addProperty(placeType, "natural");
+//                Beach
+//                Natural
+//                TownAndCity
+//                Cultural
+//                ShoppingAndDinning
+//                EntertainmentAndNightLife
+//                HealthAndWellness
+                userInstance.addProperty(placeType, "Natural");
 
 
                 if (districtReg != null) {

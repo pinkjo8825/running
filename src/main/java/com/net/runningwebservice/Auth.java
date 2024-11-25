@@ -20,6 +20,7 @@ public class Auth {
         System.out.println("AuthResponse");
         String username = request.getUsername();
         String plainPassword = request.getPassword();
+        SharedConstants.debug();
 
         String queryString = String.format("""
         PREFIX : <http://www.semanticweb.org/guind/ontologies/runningeventontology#>
@@ -29,7 +30,7 @@ public class Auth {
            ?user :Password ?password .
         }
         """, username);
-
+        SharedConstants.debug();
         String hashedPassword = null;
         String ontologyPath = "file:RunningEventOntologyFinal2.rdf";
         Model dataOnto = RDFDataMgr.loadModel(ontologyPath);
@@ -42,6 +43,7 @@ public class Auth {
                 if (passwordNode != null && passwordNode.isLiteral()) {
                     String password = passwordNode.asLiteral().getString();
                     hashedPassword = password;
+                    SharedConstants.debug();
 //                    System.out.println("Username: " + username);
 //                    System.out.println("Password: " + password);
                 } else {
@@ -49,20 +51,25 @@ public class Auth {
                 }
             }
         }
-
+        SharedConstants.debug();
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         boolean result = encoder.matches(plainPassword, hashedPassword);
+        SharedConstants.debug();
         if(result){
+            SharedConstants.debug();
             long nowMillis = System.currentTimeMillis();
             Date now = new Date(nowMillis);
+            SharedConstants.debug();
             String jwt = Jwts.builder()
                     .setSubject(username)
                     .setIssuedAt(now)
                     .setExpiration(new Date(nowMillis + 7200000)) // 2 hour expiration
                     .signWith(SharedConstants.key, SignatureAlgorithm.HS256)
                     .compact();
+            SharedConstants.debug();
             response.setToken(jwt);
             response.setStatus("Success");
+            SharedConstants.debug();
         } else {
             response.setStatus("Fail");
         }

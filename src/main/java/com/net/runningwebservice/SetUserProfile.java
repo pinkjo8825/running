@@ -142,23 +142,33 @@ public class SetUserProfile {
                         break;
                 }
             }
+
             if (rehis != null) {
+
                 for (int i = 0; i < rehis.size(); i++) {
+
                     String rehisValue = rehis.get(i);
                     ExtendedIterator rehisInstances = RunningEventClass.listInstances();
+
                     while (rehisInstances.hasNext()) {
+
                         Individual thisInstance = (Individual) rehisInstances.next();
                         String instanceRunningEventName = thisInstance.getProperty(RunningEventName).getString();
                         if (rehisValue.equals(instanceRunningEventName)) {
                             if(i == 0) {
+
                                 userInstance.addProperty(reHisOne, instanceRunningEventName);
+
                             }
+
                             userInstance.addProperty(hasREhistory, thisInstance);
+
                             break;
                         }
                     }
                 }
             }
+
 //            if (rehis != null) {
 //                for (int i = 0; i < rehis.size(); i++) {
 //                    String rehisValue = rehis.get(i);
@@ -223,6 +233,7 @@ public class SetUserProfile {
                     }
                 }
             }
+
 
             userInstance.addProperty(userAge, String.valueOf(ageReg));
             userInstance.addProperty(userNationality, nationalityReg);
