@@ -92,7 +92,7 @@
                                     </xs:sequence>
                                 </xs:complexType>
                             </xs:element>
-                            <xs:element name="travelPlace">
+                            <xs:element name="travelPlaces">
                                 <xs:complexType>
                                     <xs:sequence>
                                         <xs:element name="travelPlaceName" type="xs:string"  minOccurs="0"/>

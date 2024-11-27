@@ -88,6 +88,7 @@ public class SetUserProfile {
             OntProperty userLevelEvent = m.getDatatypeProperty(NS + "LevelEventInterest");
             OntProperty userStandardEvent = m.getDatatypeProperty(NS + "StandardEventInterest");
             OntProperty userName = m.getDatatypeProperty(NS + "Username");
+            OntProperty placeType = m.getDatatypeProperty(NS + "TravelPlaceTypeInterest");
 
 
             OntClass minimarathonClass = m.getOntClass(NS + "MiniMarathon");
@@ -108,6 +109,7 @@ public class SetUserProfile {
             Resource userInstance = m.createResource(NS + userProfileName);
 
             Byte ageReg = request.getAge();
+            String travelPlaceReg = request.getTravelPlaceType();
             String nationalityReg = request.getNationality();
             String genderReg = request.getGender();
             String districtReg = request.getDistrict();
@@ -234,7 +236,7 @@ public class SetUserProfile {
                 }
             }
 
-
+            userInstance.addProperty(placeType, travelPlaceReg);
             userInstance.addProperty(userAge, String.valueOf(ageReg));
             userInstance.addProperty(userNationality, nationalityReg);
             userInstance.addProperty(userSex, genderReg);
