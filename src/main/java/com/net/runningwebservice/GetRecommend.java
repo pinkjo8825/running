@@ -1,5 +1,6 @@
 package com.net.runningwebservice;
 
+import com.net.running_web_service.GetPlaceResponse;
 import com.net.running_web_service.GetRecommendEventRequest;
 import com.net.running_web_service.GetRecommendEventResponse;
 import org.apache.jena.ontology.*;
@@ -12,14 +13,13 @@ import org.apache.jena.util.PrintUtil;
 import org.apache.jena.util.iterator.ExtendedIterator;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.ReasonerVocabulary;
+
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class GetRecommend {
@@ -85,7 +85,7 @@ public class GetRecommend {
                 OntClass funrunClass = (OntClass) m.getOntClass(NS + "FunRun");
 
                 OntClass organizationClass = (OntClass) m.getOntClass(NS + "Organization");
-                OntProperty organizationName = m.getDatatypeProperty(NS + "OrganizationName");
+                OntProperty organizationNameProp = m.getDatatypeProperty(NS + "OrganizationName");
 
 
                 String userProfileName = "tempUserInf";
@@ -105,6 +105,7 @@ public class GetRecommend {
                 String levelReg = request.getLevel();
                 String startPeriodReg = request.getStartPeriod();
                 String rewardReg = request.getReward();
+                String travelPlaceReg = request.getTravelPlaceType();
 
 //                Beach
 //                Natural
@@ -113,9 +114,10 @@ public class GetRecommend {
 //                ShoppingAndDinning
 //                EntertainmentAndNightLife
 //                HealthAndWellness
-                userInstance.addProperty(placeType, "Natural");
 
-
+                if (travelPlaceReg != null) {
+                    userInstance.addProperty(placeType, travelPlaceReg);
+                }
                 if (districtReg != null) {
                     userInstance.addProperty(userLocation, districtReg);
                 }
@@ -148,7 +150,7 @@ public class GetRecommend {
                     while (instances.hasNext()) {
                         Individual thisInstance = (Individual) instances.next();
 
-                        if (organizationReg.equals(thisInstance.getProperty(organizationName).getString())) {
+                        if (organizationReg.equals(thisInstance.getProperty(organizationNameProp).getString())) {
 
                             userInstance.addProperty(hasOrganization, thisInstance);
 //                        System.out.println(userInstance.getProperty(hasOrganization).toString());
@@ -258,6 +260,7 @@ public class GetRecommend {
             Statement stmt = iterator.nextStatement();
             Resource travelPlaceResource = stmt.getObject().asResource();
 
+
             String travelPlaceName = travelPlaceResource.hasProperty(model.createProperty(NS + "TravelPlaceName"))
                     ? travelPlaceResource.getProperty(model.createProperty(NS + "TravelPlaceName")).getString()
                     : null;
@@ -283,123 +286,151 @@ public class GetRecommend {
                 travelPlace.setTravelPlaceType(travelPlaceType);
             }
 
-//            response.setTravelPlace(travelPlace);
             response.getTravelPlace().add(travelPlace);
 
         }
 
+////////
+////////
+////////
+
+        Property hasRecommend = model.getProperty(runURI, "hasRecommend");
+        StmtIterator iteratorRunningEvent = model.listStatements(user, hasRecommend, (RDFNode) null);
+
+        while (iteratorRunningEvent.hasNext()) {
+            Statement stmt = iteratorRunningEvent.nextStatement();
+            Resource runningEventResource = stmt.getObject().asResource();
+
+            GetRecommendEventResponse.RunningEvent runningEvent = new GetRecommendEventResponse.RunningEvent();
 
 
-        if (formattedEventNames.isEmpty()) {
-                    response.setStatus("empty");
-                    return response;
+            String confidence = runningEventResource.hasProperty(model.createProperty(NS + "confidence"))
+                    ? runningEventResource.getProperty(model.createProperty(NS + "confidence")).getString()
+                    : null;
+            runningEvent.setConfidence(confidence);
 
+            // Set Running Event details
+            String eventName = runningEventResource.hasProperty(model.createProperty(NS + "RunningEventName"))
+                    ? runningEventResource.getProperty(model.createProperty(NS + "RunningEventName")).getString()
+                    : null;
+            runningEvent.setRunningEventName(eventName);
+
+            String typeOfEvent = runningEventResource.hasProperty(model.createProperty(NS + "TypeOfEvent"))
+                    ? runningEventResource.getProperty(model.createProperty(NS + "TypeOfEvent")).getString()
+                    : null;
+            runningEvent.setTypeofEvent(typeOfEvent);
+
+            String standard = runningEventResource.hasProperty(model.createProperty(NS + "StandardOfEvent"))
+                    ? runningEventResource.getProperty(model.createProperty(NS + "StandardOfEvent")).getString()
+                    : null;
+            runningEvent.setStandard(standard);
+
+            String level = runningEventResource.hasProperty(model.createProperty(NS + "LevelOfEvent"))
+                    ? runningEventResource.getProperty(model.createProperty(NS + "LevelOfEvent")).getString()
+                    : null;
+            runningEvent.setLevel(level);
+
+            // Access venue details
+            Resource venue = runningEventResource.getPropertyResourceValue(model.createProperty(NS + "hasEventVenue"));
+            String district = venue != null && venue.hasProperty(model.createProperty(NS + "District"))
+                    ? venue.getProperty(model.createProperty(NS + "District")).getString()
+                    : null;
+            runningEvent.setDistrict(district);
+
+            // Multi-value fields: RaceTypes, Prices, Rewards
+            List<String> raceTypes = new ArrayList<>();
+            Set<String> prices = new LinkedHashSet<>();
+            Set<String> rewards = new LinkedHashSet<>();
+            String activityArea = null;
+            String startPeriod = null;
+
+            StmtIterator raceTypeIterator = runningEventResource.listProperties(model.createProperty(NS + "hasRaceType"));
+            while (raceTypeIterator.hasNext()) {
+                Resource raceType = raceTypeIterator.nextStatement().getObject().asResource();
+
+                String raceTypeName = raceType.hasProperty(model.createProperty(NS + "RaceTypeName"))
+                        ? raceType.getProperty(model.createProperty(NS + "RaceTypeName")).getString()
+                        : null;
+                if (raceTypeName != null) raceTypes.add(raceTypeName);
+
+                String price = raceType.hasProperty(model.createProperty(NS + "Price"))
+                        ? raceType.getProperty(model.createProperty(NS + "Price")).getString()
+                        : null;
+                if (price != null) prices.add(price);
+
+                StmtIterator rewardIterator = raceType.listProperties(model.createProperty(NS + "Reward"));
+                while (rewardIterator.hasNext()) {
+                    String reward = rewardIterator.nextStatement().getString();
+                    if (reward != null) rewards.add(reward);
                 }
 
-                String filterClause = formattedEventNames.stream()
-                        .map(eventName -> "?eventName = \"" + eventName + "\"")
-                        .collect(Collectors.joining(" || ", "FILTER (", ") ."));
-
-//                Model dataOnto = RDFDataMgr.loadModel("file:" + SharedConstants.ontologyPath);
-                    Model dataOnto = RDFDataMgr.loadModel("RunningEventOntologyFinal2.rdf");
-                    Model infData = RDFDataMgr.loadModel("WriteInstance3.rdf");
-
-                String queryString = """
-                        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-                        PREFIX owl: <http://www.w3.org/2002/07/owl#>
-                        PREFIX re: <http://www.semanticweb.org/guind/ontologies/runningeventontology#>
-
-                        SELECT ?eventName ?district ?raceTypeName ?typeOfEvent ?price ?organizationName ?activityArea ?standardOfEvent ?levelOfEvent ?startPeriod ?reward
-                        WHERE {
-                          ?event rdf:type re:RunningEvent .
-                          ?event re:RunningEventName ?eventName .
-                          ?event re:hasEventVenue ?venue .
-                          ?venue re:District ?district .
-                          ?event re:TypeOfEvent ?typeOfEvent .
-                          ?event re:hasRaceType ?raceType .
-                          ?raceType re:RaceTypeName ?raceTypeName .
-                          ?raceType re:ActivityArea ?activityArea .
-                          ?raceType re:Price ?price .
-                          ?raceType re:StartPeriod ?startPeriod .
-                          ?raceType re:Reward ?reward .
-                          ?event re:isOrganizedBy ?organization .
-                          ?organization re:OrganizationName ?organizationName .
-                          ?event re:StandardOfEvent ?standardOfEvent .
-                          ?event re:LevelOfEvent ?levelOfEvent .
-
-                        """ + filterClause + "}";
-//            System.out.println(queryString);
-                Query query = QueryFactory.create(queryString);
-                QueryExecution qexec = QueryExecutionFactory.create(query, dataOnto);
-                ResultSet resultSet = qexec.execSelect();
-                try {
-                    Map<String, GetRecommendEventResponse.RunningEvent> eventsMap = new HashMap<>();
-
-                    while (resultSet.hasNext()) {
-                        QuerySolution solution = resultSet.nextSolution();
-
-                        String eventName = solution.getLiteral("eventName").getString().trim();
-
-                        GetRecommendEventResponse.RunningEvent event = eventsMap.get(eventName);
-                        int index =  formattedEventNames.indexOf(eventName);
-
-                        if (event == null) {
-                            event = new GetRecommendEventResponse.RunningEvent();
-                            event.setRunningEventName(eventName);
-                            event.setConfidence(confList.get(index));
-                            event.setDistrict(solution.getLiteral("district").getString().trim());
-                            event.setTypeofEvent(solution.getLiteral("typeOfEvent").getString().trim());
-                            event.setOrganization(solution.getLiteral("organizationName").getString().trim());
-                            event.setActivityArea(solution.getLiteral("activityArea").getString().trim());
-                            event.setStandard(solution.getLiteral("standardOfEvent").getString().trim());
-                            event.setLevel(solution.getLiteral("levelOfEvent").getString().trim());
-                            event.setStartPeriod(solution.getLiteral("startPeriod").getString().trim());
-
-                            event.setPrices(new GetRecommendEventResponse.RunningEvent.Prices());
-                            event.getPrices().getPrice().clear();
-                            event.setRaceTypes(new GetRecommendEventResponse.RunningEvent.RaceTypes());
-                            event.getRaceTypes().getRaceType().clear();
-                            event.setRewards(new GetRecommendEventResponse.RunningEvent.Rewards());
-                            event.getRewards().getReward().clear();
-
-                            eventsMap.put(eventName, event);
-                        }
-
-                        String raceType = solution.getLiteral("raceTypeName").getString().trim();
-                        if (!event.getRaceTypes().getRaceType().contains(raceType)) {
-                            event.getRaceTypes().getRaceType().add(raceType);
-                        }
-
-                        String price = solution.getLiteral("price").getString().trim();
-                        if (!event.getPrices().getPrice().contains(price)) {
-                            event.getPrices().getPrice().add(price);
-                        }
-
-                        String rewardName = solution.getLiteral("reward").getString().trim();
-                        if (!event.getRewards().getReward().contains(rewardName)) {
-                            event.getRewards().getReward().add(rewardName);
-                        }
-
-                    }
-
-                    response.getRunningEvent().addAll(eventsMap.values());
-
-                } finally {
-                    qexec.close();
+                if (activityArea == null) {
+                    activityArea = raceType.hasProperty(model.createProperty(NS + "ActivityArea"))
+                            ? raceType.getProperty(model.createProperty(NS + "ActivityArea")).getString()
+                            : null;
                 }
 
-                //replace
-                if(method == 1) {
-                Resource userResource = data.getResource(userURI);
-                data.removeAll(userResource, null, (RDFNode) null);
-                try {
-                    data.write(new PrintWriter(new FileOutputStream("WriteInstance3.rdf")), "RDF/XML");
-                } catch (FileNotFoundException ex) {
-                    ex.printStackTrace();
+                if (startPeriod == null) {
+                    startPeriod = raceType.hasProperty(model.createProperty(NS + "StartPeriod"))
+                            ? raceType.getProperty(model.createProperty(NS + "StartPeriod")).getString()
+                            : null;
                 }
-                }
+            }
+            runningEvent.setActivityArea(activityArea);
+            runningEvent.setStartPeriod(startPeriod);
 
+            // Add race types, prices, and rewards
+            runningEvent.setRaceTypes(new GetRecommendEventResponse.RunningEvent.RaceTypes());
+            raceTypes.forEach(runningEvent.getRaceTypes().getRaceType()::add);
 
+            runningEvent.setPrices(new GetRecommendEventResponse.RunningEvent.Prices());
+            prices.forEach(runningEvent.getPrices().getPrice()::add);
+
+            runningEvent.setRewards(new GetRecommendEventResponse.RunningEvent.Rewards());
+            rewards.forEach(runningEvent.getRewards().getReward()::add);
+
+            // Access organization details
+            Resource organization = runningEventResource.getPropertyResourceValue(model.createProperty(NS + "isOrganizedBy"));
+            String organizationName = organization != null && organization.hasProperty(model.createProperty(NS + "OrganizationName"))
+                    ? organization.getProperty(model.createProperty(NS + "OrganizationName")).getString()
+                    : null;
+            runningEvent.setOrganization(organizationName);
+
+            // Access travel places associated with this running event
+//            Property hasTravelPlaceRecommend = model.createProperty(NS + "hasTravelPlaceRecommend");
+            StmtIterator travelPlaceIterator = model.listStatements(runningEventResource, hasTravelPlaceRecommend, (RDFNode) null);
+
+            while (travelPlaceIterator.hasNext()) {
+                Resource travelPlaceResource = travelPlaceIterator.nextStatement().getObject().asResource();
+                GetRecommendEventResponse.RunningEvent.TravelPlaces travelPlace = new GetRecommendEventResponse.RunningEvent.TravelPlaces();
+                travelPlace.setTravelPlaceName(travelPlaceResource.hasProperty(model.createProperty(NS + "TravelPlaceName"))
+                        ? travelPlaceResource.getProperty(model.createProperty(NS + "TravelPlaceName")).getString()
+                        : null);
+                travelPlace.setTravelPlaceType(travelPlaceResource.hasProperty(model.createProperty(NS + "TravelPlaceType"))
+                        ? travelPlaceResource.getProperty(model.createProperty(NS + "TravelPlaceType")).getString()
+                        : null);
+                travelPlace.setDistrict(travelPlaceResource.hasProperty(model.createProperty(NS + "District"))
+                        ? travelPlaceResource.getProperty(model.createProperty(NS + "District")).getString()
+                        : null);
+                travelPlace.setLatitude(travelPlaceResource.hasProperty(model.createProperty(NS + "Latitude"))
+                        ? travelPlaceResource.getProperty(model.createProperty(NS + "Latitude")).getString()
+                        : null);
+                travelPlace.setLongitude(travelPlaceResource.hasProperty(model.createProperty(NS + "Longitude"))
+                        ? travelPlaceResource.getProperty(model.createProperty(NS + "Longitude")).getString()
+                        : null);
+                runningEvent.getTravelPlaces().add(travelPlace);
+
+            }
+
+            // Add the running event to the response
+            response.getRunningEvent().add(runningEvent);
+        }
+
+        iteratorRunningEvent.close();
+
+////////
+////////
+////////
                 return response;
 //            }
 
