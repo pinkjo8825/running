@@ -276,12 +276,16 @@ public class GetRecommend {
             String district = travelPlaceResource.hasProperty(model.createProperty(NS + "District"))
                     ? travelPlaceResource.getProperty(model.createProperty(NS + "District")).getString()
                     : null;
+            String hotScore = travelPlaceResource.hasProperty(model.createProperty(NS + "HotScore"))
+                    ? travelPlaceResource.getProperty(model.createProperty(NS + "HotScore")).getString()
+                    : null;
 
             GetRecommendEventResponse.TravelPlace travelPlace = new GetRecommendEventResponse.TravelPlace();
             travelPlace.setTravelPlaceName(travelPlaceName);
             travelPlace.setLatitude(latitude);
             travelPlace.setLongitude(longitude);
             travelPlace.setDistrict(district);
+            travelPlace.setHotScore(hotScore);
             if (travelPlaceType != null) {
                 travelPlace.setTravelPlaceType(travelPlaceType);
             }
@@ -418,6 +422,10 @@ public class GetRecommend {
                 travelPlace.setLongitude(travelPlaceResource.hasProperty(model.createProperty(NS + "Longitude"))
                         ? travelPlaceResource.getProperty(model.createProperty(NS + "Longitude")).getString()
                         : null);
+                travelPlace.setHotScore(travelPlaceResource.hasProperty(model.createProperty(NS + "HotScore"))
+                        ? travelPlaceResource.getProperty(model.createProperty(NS + "HotScore")).getString()
+                        : null);
+
                 runningEvent.getTravelPlaces().add(travelPlace);
 
             }

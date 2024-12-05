@@ -100,6 +100,7 @@
                                         <xs:element name="district" type="xs:string"  minOccurs="0"/>
                                         <xs:element name="longitude" type="xs:string"  minOccurs="0"/>
                                         <xs:element name="latitude" type="xs:string"  minOccurs="0"/>
+                                        <xs:element name="hotScore" type="xs:string"  minOccurs="0"/>
                                     </xs:sequence>
                                 </xs:complexType>
                             </xs:element>
@@ -114,6 +115,7 @@
                             <xs:element name="district" type="xs:string"  minOccurs="0"/>
                             <xs:element name="longitude" type="xs:string"  minOccurs="0"/>
                             <xs:element name="latitude" type="xs:string"  minOccurs="0"/>
+                            <xs:element name="hotScore" type="xs:string"  minOccurs="0"/>
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
@@ -183,6 +185,7 @@
                                         <xs:element name="district" type="xs:string"  minOccurs="0"/>
                                         <xs:element name="longitude" type="xs:string"  minOccurs="0"/>
                                         <xs:element name="latitude" type="xs:string"  minOccurs="0"/>
+                                        <xs:element name="hotScore" type="xs:string"  minOccurs="0"/>
                                     </xs:sequence>
                                 </xs:complexType>
                             </xs:element>
@@ -197,6 +200,7 @@
                             <xs:element name="district" type="xs:string"  minOccurs="0"/>
                             <xs:element name="longitude" type="xs:string"  minOccurs="0"/>
                             <xs:element name="latitude" type="xs:string"  minOccurs="0"/>
+                            <xs:element name="hotScore" type="xs:string"  minOccurs="0"/>
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
@@ -344,6 +348,7 @@
                             <xs:element name="longitude" type="xs:string"  minOccurs="0"/>
                             <xs:element name="latitude" type="xs:string"  minOccurs="0"/>
                             <xs:element name="distance" type="xs:string"  minOccurs="0"/>
+                            <xs:element name="hotScore" type="xs:string"  minOccurs="0"/>
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
@@ -369,6 +374,7 @@
                             <xs:element name="district" type="xs:string" minOccurs="0" />
                             <xs:element name="longitude" type="xs:string" minOccurs="0" />
                             <xs:element name="latitude" type="xs:string" minOccurs="0" />
+                            <xs:element name="hotScore" type="xs:string"  minOccurs="0"/>
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
@@ -394,6 +400,7 @@
                             <xs:element name="district" type="xs:string" minOccurs="0" />
                             <xs:element name="longitude" type="xs:string" minOccurs="0" />
                             <xs:element name="latitude" type="xs:string" minOccurs="0" />
+                            <xs:element name="hotScore" type="xs:string"  minOccurs="0"/>
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>

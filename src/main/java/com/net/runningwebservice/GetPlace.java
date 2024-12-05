@@ -45,6 +45,10 @@ public class GetPlace {
                     ? Double.parseDouble(travelPlaceResource.getProperty(model.createProperty(NS + "Longitude")).getString())
                     : 0.0;
 
+            String hotScore = travelPlaceResource.hasProperty(model.createProperty(NS + "HotScore"))
+                    ? travelPlaceResource.getProperty(model.createProperty(NS + "HotScore")).getString()
+                    : null;
+
             if (district.equalsIgnoreCase(districtReg)) {
                 TravelPlace travelPlace = new TravelPlace();
                 travelPlace.setTravelPlaceName(travelPlaceName);
@@ -53,6 +57,7 @@ public class GetPlace {
                     travelPlace.setTravelPlaceType(travelPlaceType);
                 }
                 travelPlace.setDistrict(district);
+                travelPlace.setHotScore(hotScore);
                 travelPlace.setLatitude(String.valueOf(travelPlaceLatitude));
                 travelPlace.setLongitude(String.valueOf(travelPlaceLongitude));
 

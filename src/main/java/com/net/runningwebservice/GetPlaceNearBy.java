@@ -87,6 +87,9 @@ public class GetPlaceNearBy {
                 double travelPlaceLongitude = travelPlaceResource.hasProperty(model.createProperty(NS + "Longitude"))
                         ? Double.parseDouble(travelPlaceResource.getProperty(model.createProperty(NS + "Longitude")).getString())
                         : 0.0;
+                String hotScore = travelPlaceResource.hasProperty(model.createProperty(NS + "HotScore"))
+                        ? travelPlaceResource.getProperty(model.createProperty(NS + "HotScore")).getString()
+                        : null;
 
 
                 double distance = haversine(eventLatitude, eventLongitude, travelPlaceLatitude, travelPlaceLongitude);
@@ -99,6 +102,7 @@ public class GetPlaceNearBy {
                     }
                     travelPlace.setDistance(String.valueOf(distance));
                     travelPlace.setDistrict(district);
+                    travelPlace.setHotScore(hotScore);
                     travelPlace.setLatitude(String.valueOf(travelPlaceLatitude));
                     travelPlace.setLongitude(String.valueOf(travelPlaceLongitude));
 

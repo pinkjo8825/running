@@ -51,12 +51,16 @@ public class GetPlaceInterest {
             double travelPlaceLongitude = travelPlaceResource.hasProperty(model.createProperty(NS + "Longitude"))
                     ? Double.parseDouble(travelPlaceResource.getProperty(model.createProperty(NS + "Longitude")).getString())
                     : 0.0;
+            String hotScore = travelPlaceResource.hasProperty(model.createProperty(NS + "HotScore"))
+                    ? travelPlaceResource.getProperty(model.createProperty(NS + "HotScore")).getString()
+                    : null;
 
             if (travelPlaceType != null) {
                 if (travelPlaceType.equalsIgnoreCase(interestReg)) {
                     TravelPlace travelPlace = new TravelPlace();
                     travelPlace.setTravelPlaceName(travelPlaceName);
                     travelPlace.setTravelPlaceType(travelPlaceType);
+                    travelPlace.setHotScore(hotScore);
                     if (district != null) {
                         travelPlace.setDistrict(district);
                     }
