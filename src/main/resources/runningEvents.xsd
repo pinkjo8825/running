@@ -92,8 +92,8 @@
                                     </xs:sequence>
                                 </xs:complexType>
                             </xs:element>
-                            <xs:element name="travelPlaces">
-                                <xs:complexType>
+                            <xs:element name="travelPlaces" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
                                     <xs:sequence>
                                         <xs:element name="travelPlaceName" type="xs:string"  minOccurs="0"/>
                                         <xs:element name="travelPlaceType" type="xs:string" minOccurs="0"/>
@@ -104,18 +104,6 @@
                                     </xs:sequence>
                                 </xs:complexType>
                             </xs:element>
-                        </xs:sequence>
-                    </xs:complexType>
-                </xs:element>
-                <xs:element name="travelPlace" minOccurs="0" maxOccurs="unbounded">
-                    <xs:complexType>
-                        <xs:sequence>
-                            <xs:element name="travelPlaceName" type="xs:string"  minOccurs="0"/>
-                            <xs:element name="travelPlaceType" type="xs:string" minOccurs="0"/>
-                            <xs:element name="district" type="xs:string"  minOccurs="0"/>
-                            <xs:element name="longitude" type="xs:string"  minOccurs="0"/>
-                            <xs:element name="latitude" type="xs:string"  minOccurs="0"/>
-                            <xs:element name="hotScore" type="xs:string"  minOccurs="0"/>
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
